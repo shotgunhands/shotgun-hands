@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=3 uid="uid://c32res81juhqg"]
+
+[ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2d_player.tscn" id="1_qs7i5"]
+[ext_resource type="Script" path="res://Actors/Player/camera_follow.gd" id="2_yljtj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
+size = Vector2(100, 100)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wxg5a"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tu80g"]
+size = Vector2(2000, 2)
+
+[node name="playground" type="Node2D"]
+
+[node name="Bg" type="Polygon2D" parent="."]
+color = Color(0.384314, 0.384314, 0.384314, 1)
+polygon = PackedVector2Array(-1000, -1000, -1000, 1, 1000, 1, 1000, -1000)
+
+[node name="Obstacle" type="RigidBody2D" parent="."]
+position = Vector2(128, -49)
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="Obstacle"]
+shape = SubResource("RectangleShape2D_np1uq")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle"]
+texture = SubResource("PlaceholderTexture2D_wxg5a")
+
+[node name="Obstacle2" type="RigidBody2D" parent="."]
+position = Vector2(-120, -126)
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="Obstacle2"]
+shape = SubResource("RectangleShape2D_np1uq")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle2"]
+texture = SubResource("PlaceholderTexture2D_wxg5a")
+
+[node name="Obstacle3" type="RigidBody2D" parent="."]
+position = Vector2(-220, -78)
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="Obstacle3"]
+shape = SubResource("RectangleShape2D_np1uq")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle3"]
+texture = SubResource("PlaceholderTexture2D_wxg5a")
+
+[node name="Wall" type="RigidBody2D" parent="."]
+position = Vector2(-1000, -455)
+rotation = 1.5708
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Wall"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("RectangleShape2D_tu80g")
+
+[node name="Wall2" type="RigidBody2D" parent="."]
+position = Vector2(1000, -455)
+rotation = 1.5708
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Wall2"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Wall2"]
+shape = SubResource("RectangleShape2D_tu80g")
+
+[node name="Floor" type="RigidBody2D" parent="."]
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Floor"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_tu80g")
+
+[node name="2DPlayer" parent="." instance=ExtResource("1_qs7i5")]
+position = Vector2(0, -7)
+safe_margin = 0.01
+speed = 30.0
+jump_power = 24.0
+gravity = 28.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -97)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+script = ExtResource("2_yljtj")

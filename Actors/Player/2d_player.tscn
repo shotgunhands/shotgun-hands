@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0m6asdiav5p7"]
+
+[ext_resource type="Script" path="res://Actors/Player/2d_player.gd" id="1_f6vrf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4vr"]
+size = Vector2(25, 50)
+
+[node name="2DPlayer" type="CharacterBody2D"]
+script = ExtResource("1_f6vrf")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -25)
+shape = SubResource("RectangleShape2D_vn4vr")
+
+[node name="Placeholder" type="Polygon2D" parent="."]
+color = Color(0, 0, 1, 1)
+polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
+
+[node name="RoofProbe" type="RayCast2D" parent="."]
+target_position = Vector2(0, -50)
