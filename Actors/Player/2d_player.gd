@@ -20,6 +20,11 @@ var default_hitbox_offset
 var default_placeholder_polygon = PackedVector2Array([Vector2(-12, -49),Vector2(12, -49),Vector2(12, 0),Vector2(-12, 0)])
 var crouched_placeholder_polygon = PackedVector2Array([Vector2(-12, -24),Vector2(12, -24),Vector2(12, 0),Vector2(-12, 0)])
 var crouching
+var use_crouch_speed
+
+@onready var _loss_of_control_timer: Timer = $LossOfControlTimer
+var _control_degree: float = 1
+var max_velocity_x: float
 
 func _ready():
 	default_hitbox_size = hitbox.shape.size.y
@@ -29,19 +34,23 @@ func _ready():
 	gravity *= SCALE
 	momentum_retention *= SCALE
 	momentum_retention_slide *= SCALE
+	
+	max_velocity_x = speed
+
 
 func _physics_process(delta):
+	_evaluate_control_degree()
+	
 	# Apply gravity.
 	if not is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += gravity * delta # no delta mb, we're in phys_process
 	
 	# Handle jump.
 	if Input.is_action_just_pressed("move_jump") and is_on_floor():
 		velocity.y -= jump_power
 	
 	# Handle crouching.
-	var use_crouch_speed
-	if Input.is_action_pressed("move_crouch"):
+	if Input.is_action_pressed("move_crouch") and is_on_floor():
 		crouching = true
 		use_crouch_speed = true
 	else:
@@ -57,18 +66,47 @@ func _physics_process(delta):
 			hitbox.position.y = default_hitbox_offset
 			placeholder_sprite.polygon = default_placeholder_polygon
 			use_crouch_speed = false
+
+	_evaluate_max_velocity()
+	_move_horizontal()
 	
-	# Move horizontally according to input.
+	move_and_slide()
+
+
+func _evaluate_control_degree():
+	if _control_degree != 1:
+		_control_degree = (_loss_of_control_timer.wait_time - _loss_of_control_timer.time_left) / (_loss_of_control_timer.wait_time)
+		_control_degree = pow(_control_degree, 3)
+		_control_degree = clampf(_control_degree, 0, 1)
+
+
+func _evaluate_max_velocity():
+	if max_velocity_x != speed or abs(velocity.x) < max_velocity_x:
+		max_velocity_x = abs(velocity.x)
+		max_velocity_x = max(speed, abs(velocity.x))
+	if max_velocity_x > speed:
+		max_velocity_x -= (max_velocity_x - speed) * _control_degree
+		max_velocity_x = max(speed, max_velocity_x)
+
+
+func _move_horizontal():
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
-		if not crouching:
-			velocity.x = direction * speed
-		else:
-			velocity.x = direction * (speed * crouch_speed_modifier)
+		velocity.x += direction * speed * _control_degree
+		velocity.x = clampf(velocity.x, -max_velocity_x, max_velocity_x)
+		if is_on_floor() and max_velocity_x == speed:
+			# other stuff potentially
+			if use_crouch_speed:
+				velocity.x *= crouch_speed_modifier
 	else:
 		if not crouching:
-			velocity.x = move_toward(velocity.x, 0, speed/momentum_retention)
+			velocity.x = move_toward(velocity.x, 0, (momentum_retention * _control_degree))
 		else:
-			velocity.x = move_toward(velocity.x, 0, speed/momentum_retention_slide)
+			velocity.x = move_toward(velocity.x, 0, (momentum_retention_slide * _control_degree))
 
-	move_and_slide()
+
+# public; accessed via master script when we do that
+func lose_control():
+	_control_degree = 0
+	_loss_of_control_timer.start()
+	max_velocity_x = abs(velocity.x)
