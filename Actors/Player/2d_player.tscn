@@ -15,6 +15,10 @@ one_shot = true
 [node name="FiringController" type="Node" parent="."]
 script = ExtResource("2_13451")
 
+[node name="ReloadTimer" type="Timer" parent="FiringController"]
+wait_time = 0.7
+one_shot = true
+
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_vn4vr")
@@ -35,3 +39,4 @@ color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-2.5, -2.5, 2.5, -2.5, 2.5, 2.5, -2.5, 2.5)
 
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
+[connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]

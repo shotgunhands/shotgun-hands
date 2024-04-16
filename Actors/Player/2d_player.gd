@@ -84,7 +84,7 @@ func _evaluate_max_velocity():
 	if max_velocity_x != speed or abs(velocity.x) < max_velocity_x:
 		max_velocity_x = abs(velocity.x)
 		max_velocity_x = max(speed, abs(velocity.x))
-	if max_velocity_x > speed:
+	if max_velocity_x > speed and (is_on_floor() and not crouching):
 		max_velocity_x -= (max_velocity_x - speed) * _control_degree
 		max_velocity_x = max(speed, max_velocity_x)
 
