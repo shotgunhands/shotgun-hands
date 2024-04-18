@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0m6asdiav5p7"]
+[gd_scene load_steps=14 format=3 uid="uid://d0m6asdiav5p7"]
 
 [ext_resource type="Script" path="res://Actors/Player/2d_player.gd" id="1_f6vrf"]
 [ext_resource type="Texture2D" uid="uid://cwjjpbk6tyunw" path="res://Actors/Player/spritesheet_sh_notext.png" id="2_amuni"]
@@ -92,9 +92,6 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_lo8wt"]
-colors = PackedColorArray(0.18359, 0.18359, 0.18359, 1, 1, 1, 1, 1)
-
 [node name="2DPlayer" type="CharacterBody2D"]
 script = ExtResource("1_f6vrf")
 
@@ -115,37 +112,3 @@ scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_mpi1c")
 animation = &"jump"
 frame_progress = 0.39995
-
-[node name="Aimline" type="Line2D" parent="."]
-position = Vector2(0, -25)
-points = PackedVector2Array(80, 0, 0, 0)
-width = 1.0
-default_color = Color(0, 1, 1, 1)
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Aimline"]
-position = Vector2(13, 0)
-emitting = false
-amount = 32
-lifetime = 0.5
-one_shot = true
-explosiveness = 1.0
-randomness = 0.33
-lifetime_randomness = 0.66
-spread = 10.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
-angular_velocity_min = 91.94
-angular_velocity_max = 385.45
-angle_min = -720.0
-angle_max = 720.0
-scale_amount_min = 0.5
-scale_amount_max = 1.5
-color = Color(1, 0.160784, 0, 1)
-color_ramp = SubResource("Gradient_lo8wt")
-
-[node name="Timers" type="Node2D" parent="."]
-
-[node name="Reload" type="Timer" parent="Timers"]
-
-[node name="Shot" type="Timer" parent="Timers"]
