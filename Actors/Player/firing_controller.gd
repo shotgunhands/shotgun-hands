@@ -1,7 +1,8 @@
 extends Node
 
-@onready var _player = $".."
-@onready var _pivot = _player.get_node("ShotgunPivot")
+@onready var _player: CharacterBody2D = $".."
+@onready var _pivot: Node2D = _player.get_node("ShotgunPivot")
+@onready var _reticle: Node2D = _pivot.get_node("Reticle")
 
 @onready var _reload_timer: Timer = $ReloadTimer
 
@@ -9,14 +10,16 @@ extends Node
 
 const SCALE = 100.0
 
-#var _ammo_type_left_hand: AmmoType
-#var _ammo_type_right_hand: AmmoType
+@export var _ammo_types: Array[AmmoType]
 
-var _max_ammo: Array[int] = [6, 6]
-var _ammo: Array[int] = [6, 6]
+@onready var _max_ammo: Array[int] = [_ammo_types[0].max_ammo, _ammo_types[1].max_ammo]
+@onready var _ammo: Array[int] = [_ammo_types[0].max_ammo, _ammo_types[1].max_ammo]
+
+@export var pellet: PackedScene
 
 var _touched_ground: Array[bool] = [true, true]
 
+signal hit_enemy
 signal midair_shot
 
 
@@ -45,9 +48,43 @@ func _fire(mouse: int):
 	
 	_ammo[mouse] -= 1
 	
+	_cast_pellets(mouse)
+	
 	if not _player.is_on_floor() and _touched_ground[mouse]:
 		_launch()
 		_touched_ground[mouse] = false
+
+
+# will return a list of hit enemies as well as distances to them (possibly make some struct for this)
+# void for now, though
+func _cast_pellets(mouse: int):
+	var angle_offsets = _ammo_types[mouse].get_angle_offsets()
+	var state = get_viewport().world_2d.direct_space_state
+	for offset in angle_offsets: # really gotta write this out on paper...
+		var angle = _pivot.global_rotation + offset
+		var target: Vector2 = _reticle.global_position + Vector2.RIGHT.rotated(angle) * 6000.0
+		var r_pars = PhysicsRayQueryParameters2D.create(_reticle.global_position, target, 0b1_0000_0001)
+		var r_info = state.intersect_ray(r_pars)
+		
+		var final_pos: Vector2 = Vector2.ZERO
+		var parent: Node = get_tree().root
+		if r_info:
+			if r_info["collider"].get_collision_layer_value(9):
+				print("Hit an enemy!")
+			else:
+				final_pos = r_info["position"]
+				print("Hit the environment.")
+		
+		_send_visual_pellet(angle, final_pos, parent)
+
+
+func _send_visual_pellet(angle: float, final_pos: Vector2, parent: Node):
+	var visual = pellet.instantiate()
+	get_tree().root.add_child(visual)
+	visual.global_position = _reticle.global_position
+	visual.global_rotation = angle
+	visual.final_pos = final_pos
+	visual._start()
 
 
 func _reload():

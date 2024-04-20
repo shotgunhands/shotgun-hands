@@ -105,7 +105,6 @@ func _move_horizontal():
 			velocity.x = move_toward(velocity.x, 0, (momentum_retention_slide * _control_degree))
 
 
-# public; accessed via master script when we do that
 func lose_control():
 	_control_degree = 0
 	_loss_of_control_timer.start()

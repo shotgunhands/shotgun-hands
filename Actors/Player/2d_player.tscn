@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0m6asdiav5p7"]
+[gd_scene load_steps=6 format=3 uid="uid://d0m6asdiav5p7"]
 
 [ext_resource type="Script" path="res://Actors/Player/2d_player.gd" id="1_f6vrf"]
 [ext_resource type="Script" path="res://Actors/Player/firing_controller.gd" id="2_13451"]
+[ext_resource type="Resource" uid="uid://ch504u2rkh0u5" path="res://Ammunition/Buckshot/buckshot.tres" id="3_uuwbr"]
+[ext_resource type="PackedScene" uid="uid://dnrx3ulhbkjr8" path="res://Ammunition/Shared/pellet.tscn" id="4_v5bgd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4vr"]
 size = Vector2(25, 50)
 
 [node name="2DPlayer" type="CharacterBody2D"]
+collision_layer = 16
 script = ExtResource("1_f6vrf")
 
 [node name="LossOfControlTimer" type="Timer" parent="."]
@@ -14,6 +17,8 @@ one_shot = true
 
 [node name="FiringController" type="Node" parent="."]
 script = ExtResource("2_13451")
+_ammo_types = Array[Resource("res://Ammunition/ammo_type.gd")]([ExtResource("3_uuwbr"), ExtResource("3_uuwbr")])
+pellet = ExtResource("4_v5bgd")
 
 [node name="ReloadTimer" type="Timer" parent="FiringController"]
 wait_time = 0.7
