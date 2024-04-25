@@ -1,4 +1,4 @@
-extends Resource
+extends Node
 class_name AmmoType
 
 # if distance < effective_range[x]:
@@ -8,14 +8,16 @@ class_name AmmoType
 # it is begging for a different implementation though ngl
 @export var effective_range: Array[float]
 @export var damage: Array[float]
-@export var max_ammo: float
+@export var max_ammo: int
+@onready var ammo: int = max_ammo
 
+var touched_ground = true
+
+@export var pellet: PackedScene
 @export var pellet_count: int
 @export var pellet_spread_angle: int # in degrees :pensive:
 
 @export var blast_force: float
-
-@export var behaviors: AmmoTypeBehaviors
 
 var _angle_offsets: Array[float] = []
 
@@ -45,3 +47,15 @@ func get_damage(distance: float) -> float:
 			return damage[effective_range.find(_range)]
 	
 	return damage.back()
+
+
+#region interface
+func fire(player: CharacterBody2D, pivot: Node2D):
+	ammo -= 1
+	pass
+
+
+func _send_visual_pellet(angle: float, start_pos: Vector2, final_pos: Vector2, parent: Node):
+	pass
+#endregion
+
