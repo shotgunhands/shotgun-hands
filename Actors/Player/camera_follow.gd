@@ -1,10 +1,8 @@
 extends Camera2D
 
+@export var velCChangeMul: float = 0.258
+
 @onready var player = $"../2DPlayer"
 
-func _ready():
-	pass # Replace with function body.
-
-
-func _process(delta):
-	global_position.x = player.global_position.x
+func _process(_delta) -> void:
+	global_position.x = player.global_position.x+(player.velocity.x*velCChangeMul)

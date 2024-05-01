@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4vr"]
 size = Vector2(25, 50)
 
-[node name="2DPlayer" type="CharacterBody2D"]
+[node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_f6vrf")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
