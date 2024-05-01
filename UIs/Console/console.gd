@@ -49,3 +49,6 @@ func clear() -> void:
 func get_history() -> void:
 	for i in _history:
 		cast_message(i)
+
+func load_level(name: String):
+	Scenemanager.change_scene(name, true)
