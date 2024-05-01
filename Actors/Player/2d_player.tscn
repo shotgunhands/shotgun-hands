@@ -95,7 +95,7 @@ animations = [{
 [sub_resource type="Gradient" id="Gradient_lo8wt"]
 colors = PackedColorArray(0.18359, 0.18359, 0.18359, 1, 1, 1, 1, 1)
 
-[node name="2DPlayer" type="CharacterBody2D"]
+[node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_f6vrf")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]

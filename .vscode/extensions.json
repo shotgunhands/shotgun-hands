@@ -1,0 +1,15 @@
+{
+    // these are pretty much required
+    "recommendations": [
+        "geequlim.godot-tools",
+        "editorconfig.editorconfig"
+    ]
+
+    /*
+        Other nice extensions
+        (name : id : purpose)
+
+        Error Lens      : usernamehw.errorlens       : Find errors and problems quicker
+        Better comments : aaron-bond.better-comments : Hightlights comments that start with !, *, TODO: and a few more, really helpful
+    */
+}
