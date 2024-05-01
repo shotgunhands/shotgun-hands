@@ -16,7 +16,13 @@ func _ready():
 	active_scene = $"/root/MainMenu" # set the main menu as the active scene
 
 # load scene by name
-func change_scene(scenename :String):
+func change_scene(scenename :String, from_console := false):
+	if scenename not in scene_library.keys():
+		if not from_console:
+			Logger.log("Scene not found")
+		else:
+			Console.cast_message("Scene not found")
+		return
 	var loaded_new_scene = load(scene_library[scenename])
 	var new_scene = loaded_new_scene.instantiate()
 	$"/root".add_child(new_scene)
