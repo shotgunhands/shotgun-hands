@@ -12,7 +12,7 @@ size = Vector2(100, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu80g"]
 size = Vector2(2000, 2)
 
-[node name="playground" type="Node2D"]
+[node name="Playground" type="Node2D"]
 
 [node name="Bg" type="Polygon2D" parent="."]
 color = Color(0.384314, 0.384314, 0.384314, 1)

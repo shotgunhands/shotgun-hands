@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Shotgun Hands"
-run/main_scene="res://Stages/Playground/playground.tscn"
+run/main_scene="res://Menus/Main/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 
 [autoload]
@@ -68,7 +68,7 @@ toggle_pause={
 
 [physics]
 
-common/physics_ticks_per_second=144
+common/physics_ticks_per_second=120
 
 [rendering]
 

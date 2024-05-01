@@ -37,6 +37,11 @@ func _ready():
 	momentum_retention *= SCALE
 	momentum_retention_slide *= SCALE
 
+func _process(delta):
+	# ONLY FOR DEBUGGING; THIS WILL BE REPLACED
+	if Input.is_action_just_pressed("toggle_pause"):
+		Scenemanager.change_scene("main_menu")
+
 func _physics_process(delta):
 	# Handle crouching.
 	if Input.is_action_pressed("move_crouch"):
