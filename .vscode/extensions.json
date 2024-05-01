@@ -1,7 +1,8 @@
 {
     // these are pretty much required
     "recommendations": [
-        "geequlim.godot-tools"
+        "geequlim.godot-tools",
+        "editorconfig.editorconfig"
     ]
 
     /*
