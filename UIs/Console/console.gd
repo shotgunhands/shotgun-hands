@@ -9,8 +9,8 @@ var _history: Array[String] = [""]
 ### METHODS ###
 func _ready() -> void:
 	_input_line.gui_input.connect(_on_input)
-	clear()
 	visible = false
+	clear()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("_dev_console_toggle"):
