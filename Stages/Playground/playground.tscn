@@ -113,3 +113,9 @@ script = ExtResource("2_yljtj")
 
 [node name="Enemy" parent="." instance=ExtResource("3_sgwxf")]
 position = Vector2(-780, -20)
+MEL_ATTACK_RANGE = 100
+SPEED = 200
+GRAVITY = 20
+JUMP_SPEED = -500
+MAX_HEALTH = 100.0
+INIT_HEALTH = 100.0
