@@ -11,14 +11,16 @@ extends HitableCharacterBody
 var has_seen: bool = false;
 var direction = 1
 var player = null
-var is_attacking = false
 
 
 ### METHODS ###
 func _ready():
+	super()
 	player = get_node("../2DPlayer") # TODO: there is probably a better way to do this
 
 func _physics_process(delta) -> void:
+	if kill_check(): return
+
 	velocity.y += GRAVITY
 
 	move_logic(delta)
@@ -40,11 +42,7 @@ func move_logic(_delta:float) -> void:
 func attack_logic() -> void:
 	var distance_to_player = player.global_position.distance_to(global_position)
 	if distance_to_player <= MEL_ATTACK_RANGE:
-		if !is_attacking:
-			is_attacking = true
-			mel_attack()
-	else:
-		is_attacking = false
+		mel_attack()
 
 
 func check_can_see() -> bool:

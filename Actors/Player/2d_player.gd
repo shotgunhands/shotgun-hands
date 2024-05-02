@@ -31,10 +31,7 @@ var facing_right = true
 
 
 func _ready():
-	INIT_HEALTH = 100
-	MAX_HEALTH = 100
-
-	health = INIT_HEALTH
+	super()
 
 	default_hitbox_size = hitbox.shape.size.y
 	default_hitbox_offset = hitbox.position.y
