@@ -20,6 +20,7 @@ func _ready():
 
 func _physics_process(delta) -> void:
 	velocity.y += GRAVITY
+
 	move_logic(delta)
 	attack_logic()
 	move_and_slide()

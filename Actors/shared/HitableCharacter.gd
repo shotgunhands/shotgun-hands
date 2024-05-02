@@ -12,8 +12,7 @@ func _ready() -> void:
 func health_perc() -> int:
 	return round(100 * _health / MAX_HEALTH)
 
-func destroy() -> void:
-	queue_free()
+func destroy() -> void: queue_free()
 
 func kill_check() -> void:
 	if _health <= 0:

@@ -126,4 +126,4 @@ func _physics_process(delta):
 	move_and_slide()
 
 func destroy():
-	get_tree().reload_current_scene()
+	Scenemanager.change_scene("main_menu")
