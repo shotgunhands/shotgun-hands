@@ -113,8 +113,8 @@ target_position = Vector2(0, -50)
 position = Vector2(0, -26)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_mpi1c")
-animation = &"jump"
-frame_progress = 0.39995
+animation = &"run"
+frame_progress = 0.193913
 
 [node name="Aimline" type="Line2D" parent="."]
 position = Vector2(0, -25)
@@ -149,3 +149,11 @@ color_ramp = SubResource("Gradient_lo8wt")
 [node name="Reload" type="Timer" parent="Timers"]
 
 [node name="Shot" type="Timer" parent="Timers"]
+
+[node name="DebugHealthLabel" type="Label" parent="."]
+offset_left = -18.0
+offset_top = -66.0
+offset_right = 18.0
+offset_bottom = -50.0
+theme_override_font_sizes/font_size = 11
+text = "(100%)"

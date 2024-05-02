@@ -12,10 +12,6 @@ func _ready() -> void:
 	visible = false
 	clear()
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("_dev_console_toggle"):
-		visible = !visible
-
 func _on_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.keycode == KEY_UP and event.pressed:
