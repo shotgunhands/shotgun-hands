@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c32res81juhqg"]
+[gd_scene load_steps=9 format=3 uid="uid://c32res81juhqg"]
 
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2d_player.tscn" id="1_qs7i5"]
 [ext_resource type="Script" path="res://Actors/Player/camera_follow.gd" id="2_yljtj"]
 [ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="3_sgwxf"]
+[ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="4_24juc"]
+[ext_resource type="PackedScene" uid="uid://bahghhgjcusig" path="res://Actors/Enemies/Antimony/antimony_potion.tscn" id="5_r6f0a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)
@@ -98,7 +100,7 @@ polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 shape = SubResource("RectangleShape2D_tu80g")
 
 [node name="2DPlayer" parent="." instance=ExtResource("1_qs7i5")]
-position = Vector2(0, -7)
+position = Vector2(-1, -8)
 safe_margin = 0.01
 speed = 30.0
 jump_power = 24.0
@@ -113,9 +115,8 @@ script = ExtResource("2_yljtj")
 
 [node name="Enemy" parent="." instance=ExtResource("3_sgwxf")]
 position = Vector2(-780, -20)
-MEL_ATTACK_RANGE = 100
-SPEED = 200
-GRAVITY = 20
-JUMP_SPEED = -500
-MAX_HEALTH = 100.0
-INIT_HEALTH = 100.0
+
+[node name="Antimony" parent="." instance=ExtResource("4_24juc")]
+position = Vector2(215, -21)
+
+[node name="Antimony Potion" parent="." instance=ExtResource("5_r6f0a")]
