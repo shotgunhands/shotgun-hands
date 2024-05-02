@@ -1,21 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://buyv076dqph8u"]
+[gd_scene load_steps=3 format=3 uid="uid://buyv076dqph8u"]
 
 [ext_resource type="Script" path="res://Actors/Enemies/TestEnemy/testenemy.gd" id="1_kipyh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ic78v"]
 size = Vector2(25, 50)
-
-[sub_resource type="Animation" id="Animation_2580i"]
-resource_name = "IDLE"
-
-[sub_resource type="Animation" id="Animation_x01kb"]
-resource_name = "ATK"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qepbh"]
-_data = {
-"ATK": SubResource("Animation_x01kb"),
-"IDLE": SubResource("Animation_2580i")
-}
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_kipyh")
@@ -27,8 +15,3 @@ shape = SubResource("RectangleShape2D_ic78v")
 [node name="Placeholder" type="Polygon2D" parent="."]
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_qepbh")
-}
