@@ -1,40 +1,50 @@
 class_name BaseEnemy
-extends CharacterBody2D
+extends HitableCharacterBody
 
-# Constants
+### CONSTANTS ###
+@export var MEL_ATTACK_RANGE = 100
 @export var SPEED = 200
 @export var GRAVITY = 20
 @export var JUMP_SPEED = -500
 
-# Variables
+### VARIABLES ###
 var has_seen: bool = false;
 var direction = 1
 var player = null
+var is_attacking = false
 
 
-# Called when the node enters the scene tree for the first time.
+### METHODS ###
 func _ready():
 	player = get_node("../2DPlayer") # TODO: there is probably a better way to do this
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta) -> void:
 	velocity.y += GRAVITY
 	move_logic(delta)
+	attack_logic()
 	move_and_slide()
 
 func move_logic(_delta:float) -> void:
-	# AI logic to move left and right
 	if is_on_wall():
 		direction *= -1
 
 	if check_can_see(): has_seen = true
 
-	# If the player is visible, chase the player
 	if has_seen:
 		var dir_to_player = (player.global_position - global_position).normalized()
 		velocity.x = SPEED * dir_to_player.x
 	else:
 		velocity.x = SPEED * direction
+
+func attack_logic() -> void:
+	var distance_to_player = player.global_position.distance_to(global_position)
+	if distance_to_player <= MEL_ATTACK_RANGE:
+		if !is_attacking:
+			is_attacking = true
+			mel_attack()
+	else:
+		is_attacking = false
+
 
 func check_can_see() -> bool:
 	var space_state:PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
@@ -50,3 +60,7 @@ func check_can_see() -> bool:
 	var result = space_state.intersect_ray(query)
 
 	return result["collider"].is_in_group("Player") if !result.is_empty() && result["collider"] != null else false
+
+
+func mel_attack() -> void:
+	player.health -= 10
