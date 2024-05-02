@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://buyv076dqph8u"]
+[gd_scene load_steps=4 format=3 uid="uid://buyv076dqph8u"]
 
 [ext_resource type="Script" path="res://Actors/Enemies/TestEnemy/testenemy.gd" id="1_kipyh"]
+[ext_resource type="Texture2D" uid="uid://c6ilwe71su38a" path="res://Actors/Enemies/TestEnemy/scernshoot.png" id="2_a02r7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ic78v"]
 size = Vector2(25, 50)
@@ -13,5 +14,11 @@ position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_ic78v")
 
 [node name="Placeholder" type="Polygon2D" parent="."]
+visible = false
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.499985, -25.5)
+scale = Vector2(0.0489131, 0.356643)
+texture = ExtResource("2_a02r7")
