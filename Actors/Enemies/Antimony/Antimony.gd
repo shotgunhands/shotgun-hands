@@ -18,10 +18,6 @@ var last_grenade_attack_time:float = 0.0
 
 ### METHODS ###
 
-func _ready():
-	super()
-	player = get_tree().get_nodes_in_group("Player")[0]
-
 func state_logic() -> void:
 	var can_see_player = check_can_see()
 	var distance_to_player = player.global_position.distance_to(global_position)

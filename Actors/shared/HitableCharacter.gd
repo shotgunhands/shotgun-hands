@@ -9,7 +9,6 @@ extends CharacterBody2D
 var _health: float
 var health: float = 100: set = set_health, get = get_health # The health you **ACTUALLY** access
 
-
 ### METHODS ###
 func _ready() -> void:
 	_health = INIT_HEALTH
