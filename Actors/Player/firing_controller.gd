@@ -2,11 +2,8 @@ extends Node
 
 @onready var _player: CharacterBody2D = $".."
 @onready var _pivot: Node2D = _player.get_node("ShotgunPivot")
-@onready var _reticle: Node2D = _pivot.get_node("Reticle")
 
 @onready var _reload_timer: Timer = $ReloadTimer
-
-@export_range(1.0, 100.0) var blast_force = 5.0
 
 const SCALE = 100.0
 
@@ -32,10 +29,13 @@ func _process(_delta):
 	
 	_aim()
 	
-	if Input.is_action_just_pressed("fire_left"): _fire(0)
-	if Input.is_action_just_pressed("fire_right"): _fire(1)
+	if Input.is_action_just_pressed("fire_left"):
+		_fire(0)
+	if Input.is_action_just_pressed("fire_right"):
+		_fire(1)
 	
-	if Input.is_action_just_pressed("fire_reload"): _reload()
+	if Input.is_action_just_pressed("fire_reload"):
+		_reload()
 
 
 func _aim():
@@ -50,7 +50,7 @@ func _fire(mouse: int):
 	_ammo_types[mouse].fire(_player, _pivot)
 	
 	if not _player.is_on_floor() and _ammo_types[mouse].touched_ground:
-		_launch()
+		_launch(mouse)
 		_ammo_types[mouse].touched_ground = false
 
 
@@ -65,7 +65,7 @@ func _reloaded():
 	_ammo_types[1].ammo = _ammo_types[1].max_ammo
 
 
-func _launch():
+func _launch(mouse: int):
 	# particle effects go here
-	_player.velocity = Vector2.RIGHT.rotated(_pivot.rotation) * blast_force * SCALE * -1
+	_player.velocity = Vector2.RIGHT.rotated(_pivot.rotation) * _ammo_types[mouse].blast_force * SCALE * -1
 	emit_signal("midair_shot")

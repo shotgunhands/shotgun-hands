@@ -13,24 +13,24 @@ class_name AmmoType
 
 var touched_ground = true
 
-@export var pellet: PackedScene
-@export var pellet_count: int
-@export var pellet_spread_angle: int # in degrees :pensive:
+@export var _pellet: PackedScene
+@export var _pellet_count: int
+@export var _pellet_spread_angle: int # in degrees :pensive:
 
 @export var blast_force: float
 
 var _angle_offsets: Array[float] = []
 
 
-# returns a list of floats representing the offset for each pellet
+# returns a list of floats representing the offset for each _pellet
 func get_angle_offsets() -> Array[float]:
 	if not _angle_offsets.is_empty():
 		return _angle_offsets
 		
 	var output: Array[float] = []
-	for pellet in range(pellet_count): # this is so disgusting i'm sorry
-		output.append(((-deg_to_rad(pellet_spread_angle) / 2.0) + \
-				(pellet * (deg_to_rad(pellet_spread_angle) / (pellet_count - 1.0)))))
+	for pellet in range(_pellet_count): # this is so disgusting i'm sorry
+		output.append(((-deg_to_rad(_pellet_spread_angle) / 2.0) + \
+				(pellet * (deg_to_rad(_pellet_spread_angle) / (_pellet_count - 1.0)))))
 	_angle_offsets = output
 	return _angle_offsets
 
@@ -55,6 +55,14 @@ func fire(player: CharacterBody2D, pivot: Node2D):
 	pass
 
 
+# given an angle offset, sends a ray in the given direction
+func _cast_ray(start: Vector2, target: Vector2) -> Dictionary:
+	var state = get_viewport().world_2d.direct_space_state
+	var r_pars = PhysicsRayQueryParameters2D.create(start, target, 0b1_0000_0001)
+	return state.intersect_ray(r_pars)
+
+
+# empty for now. may be useful as an interface for different ammo types
 func _send_visual_pellet(angle: float, start_pos: Vector2, final_pos: Vector2, parent: Node):
 	pass
 #endregion

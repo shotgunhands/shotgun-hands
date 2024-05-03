@@ -80,6 +80,7 @@ func _evaluate_control_degree():
 		_control_degree = clampf(_control_degree, 0, 1)
 
 
+# checks state, returns what the value of max_velocity should be
 func _evaluate_max_velocity():
 	if max_velocity_x != speed or abs(velocity.x) < max_velocity_x:
 		max_velocity_x = abs(velocity.x)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0m6asdiav5p7"]
+[gd_scene load_steps=6 format=3 uid="uid://d0m6asdiav5p7"]
 
 [ext_resource type="Script" path="res://Actors/Player/2d_player.gd" id="1_f6vrf"]
 [ext_resource type="Script" path="res://Actors/Player/firing_controller.gd" id="2_13451"]
 [ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="3_u4wqh"]
+[ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/slug.tscn" id="4_ygk0a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4vr"]
 size = Vector2(25, 50)
@@ -16,7 +17,7 @@ one_shot = true
 
 [node name="FiringController" type="Node" parent="."]
 script = ExtResource("2_13451")
-_default_ammo = Array[PackedScene]([ExtResource("3_u4wqh"), ExtResource("3_u4wqh")])
+_default_ammo = Array[PackedScene]([ExtResource("3_u4wqh"), ExtResource("4_ygk0a")])
 
 [node name="ReloadTimer" type="Timer" parent="FiringController"]
 wait_time = 0.7
