@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtnmdk7yppyf2"]
+
+[ext_resource type="Script" path="res://Ammunition/Buckshot/buckshot.gd" id="1_s18h3"]
+[ext_resource type="PackedScene" uid="uid://dnrx3ulhbkjr8" path="res://Ammunition/Shared/pellet.tscn" id="2_7dp46"]
+
+[node name="Buckshot" type="Node"]
+script = ExtResource("1_s18h3")
+effective_range = Array[float]([10.0, 25.0])
+damage = Array[float]([50.0, 25.0, 1.0])
+max_ammo = 6
+pellet = ExtResource("2_7dp46")
+pellet_count = 12
+pellet_spread_angle = 20
+blast_force = 5.0
