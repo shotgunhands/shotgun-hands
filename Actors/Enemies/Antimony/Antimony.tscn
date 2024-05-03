@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0r21s0oafi4y"]
+[gd_scene load_steps=5 format=3 uid="uid://c0r21s0oafi4y"]
 
 [ext_resource type="Script" path="res://Actors/Enemies/Antimony/Antimony.gd" id="1_abkgn"]
 [ext_resource type="Texture2D" uid="uid://d2aquenjraaxa" path="res://Actors/Enemies/Antimony/Antimony.png" id="2_vlg85"]
+[ext_resource type="AudioStream" uid="uid://g7701skx2lxg" path="res://Actors/Enemies/Antimony/Acid_Slug_wip.mp3" id="3_s6d1i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ic78v"]
 size = Vector2(25, 50)
@@ -22,3 +23,7 @@ polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
 position = Vector2(3, -25)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_vlg85")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_s6d1i")
+autoplay = true

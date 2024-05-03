@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Actors/Player/camera_follow.gd" id="2_yljtj"]
 [ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="3_sgwxf"]
 [ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="4_24juc"]
-[ext_resource type="PackedScene" uid="uid://bahghhgjcusig" path="res://Actors/Enemies/Antimony/antimony_acid.tscn" id="5_r6f0a"]
+[ext_resource type="PackedScene" uid="uid://c31qwtlxdvjm1" path="res://Actors/Enemies/Antimony/antimony_ice_ball.tscn" id="5_k4sn6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)
@@ -90,6 +90,8 @@ polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 shape = SubResource("RectangleShape2D_tu80g")
 
 [node name="Floor" type="RigidBody2D" parent="."]
+collision_layer = 255
+collision_mask = 255
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Floor"]
@@ -119,4 +121,5 @@ position = Vector2(-780, -20)
 [node name="Antimony" parent="." instance=ExtResource("4_24juc")]
 position = Vector2(215, -21)
 
-[node name="Antimony Potion" parent="." instance=ExtResource("5_r6f0a")]
+[node name="iceBall" parent="." instance=ExtResource("5_k4sn6")]
+position = Vector2(118, -166)

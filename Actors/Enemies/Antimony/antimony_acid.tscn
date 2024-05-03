@@ -6,6 +6,7 @@
 [node name="Antimony Acid" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_58iy5")
+metadata/Damage = 10.0
 
 [node name="Antimony Acid" type="Sprite2D" parent="."]
 position = Vector2(0, -16)

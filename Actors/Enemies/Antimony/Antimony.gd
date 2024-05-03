@@ -10,10 +10,9 @@ extends HitableCharacterBody
 @export var GRAVITY = 20
 @export var JUMP_SPEED = -500
 @export var ATTACK_COOLDOWN = 0.5
+@export var FLOURINE_ATTACK_COOLDOWN = 2.1
 @export var GRENADE_COOLDOWN = 10
-var acidScene = load("res://Actors/Enemies/Antimony/antimony_acid.tscn")
-var fistScene = load("res://Actors/Enemies/Antimony/antimony_fist.tscn")
-var grenadeScene = load("res://Actors/Enemies/Antimony/antimony_grenade.tscn")
+@export var ICEBALL_COOLDOWN = 5
 ### ENUMS ###
 enum State {
 	IDLE,
@@ -22,12 +21,20 @@ enum State {
 }
 
 ### VARIABLES ###
+var enemyHealth = 1000
 var has_seen: bool         = false
 var direction: float       = 1
 var player:Node2D          = null
 var state:State            = State.IDLE
 var last_attack_time:float = 0.0
 var last_grenade_attack_time:float = 0.0
+var last_flourine_attack_time:float = 0.0
+var last_iceball_attack_time:float = 0.0
+var acidScene = load("res://Actors/Enemies/Antimony/antimony_acid.tscn")
+var fistScene = load("res://Actors/Enemies/Antimony/antimony_fist.tscn")
+var grenadeScene = load("res://Actors/Enemies/Antimony/antimony_grenade.tscn")
+var flourineScene = load("res://Actors/Enemies/Antimony/antimony_flourine.tscn")
+var iceBallScene = load("res://Actors/Enemies/Antimony/antimony_ice_ball.tscn")
 ### METHODS ###
 func _ready():
 	super()
@@ -38,7 +45,8 @@ func _physics_process(_delta) -> void:
 	if kill_check(): return
 	
 	if !is_on_floor(): velocity.y += GRAVITY
-
+	if enemyHealth<=0:
+		destroy()
 	state_logic()
 	move_and_slide()
 
@@ -75,6 +83,14 @@ func attack_logic() -> void:
 	if current_time - last_attack_time > ATTACK_COOLDOWN and distance_to_player <= MEL_ATTACK_RANGE:
 		last_attack_time = current_time
 		mel_attack ()
+	###Flourine
+	if current_time - last_iceball_attack_time > ICEBALL_COOLDOWN:
+		iceball_attack()
+		last_iceball_attack_time = current_time
+	###Flourine
+	if current_time - last_flourine_attack_time > FLOURINE_ATTACK_COOLDOWN:
+		flourine_attack()
+		last_flourine_attack_time = current_time
 	###Acid
 	if current_time - last_attack_time > ATTACK_COOLDOWN:
 		ranged_attack()
@@ -102,10 +118,15 @@ func check_can_see() -> bool:
 func mel_attack () -> void:
 	var fist = fistScene.instantiate()
 	add_child(fist)
-	
+func flourine_attack() -> void:
+	var flourine = flourineScene.instantiate()
+	add_child(flourine)
 func ranged_attack() -> void:
 	var acid = acidScene.instantiate()
 	add_child(acid)
+func iceball_attack() -> void:
+	var iceball = iceBallScene.instantiate()
+	add_child(iceball)
 func grenade_attack()-> void:
 	var grenade = grenadeScene.instantiate()
 	add_child(grenade)
