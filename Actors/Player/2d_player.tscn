@@ -1,16 +1,107 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0m6asdiav5p7"]
+[gd_scene load_steps=15 format=3 uid="uid://d0m6asdiav5p7"]
 
 [ext_resource type="Script" path="res://Actors/Player/2d_player.gd" id="1_f6vrf"]
 [ext_resource type="Script" path="res://Actors/Player/firing_controller.gd" id="2_13451"]
 [ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="3_u4wqh"]
 [ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/slug.tscn" id="4_ygk0a"]
+[ext_resource type="Texture2D" uid="uid://cwjjpbk6tyunw" path="res://Actors/Player/spritesheet_sh_notext.png" id="2_amuni"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4vr"]
 size = Vector2(25, 50)
 
-[node name="2DPlayer" type="CharacterBody2D"]
-collision_layer = 16
+[sub_resource type="AtlasTexture" id="AtlasTexture_sh4ar"]
+atlas = ExtResource("2_amuni")
+region = Rect2(316, 182, 158, 182)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu366"]
+atlas = ExtResource("2_amuni")
+region = Rect2(474, 182, 158, 182)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm2m2"]
+atlas = ExtResource("2_amuni")
+region = Rect2(0, 182, 158, 182)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cygah"]
+atlas = ExtResource("2_amuni")
+region = Rect2(0, 368, 158, 182)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va3cr"]
+atlas = ExtResource("2_amuni")
+region = Rect2(158, 368, 158, 182)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ug2ck"]
+atlas = ExtResource("2_amuni")
+region = Rect2(316, 368, 158, 182)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7h1e"]
+atlas = ExtResource("2_amuni")
+region = Rect2(474, 368, 158, 182)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ap7i"]
+atlas = ExtResource("2_amuni")
+region = Rect2(632, 368, 158, 182)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxgl1"]
+atlas = ExtResource("2_amuni")
+region = Rect2(790, 368, 158, 182)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mpi1c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sh4ar")
+}],
+"loop": true,
+"name": &"crouch",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu366")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dm2m2")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cygah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_va3cr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ug2ck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7h1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ap7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxgl1")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_lo8wt"]
+colors = PackedColorArray(0.18359, 0.18359, 0.18359, 1, 1, 1, 1, 1)
+
 script = ExtResource("1_f6vrf")
+
+[node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 16
 
 [node name="LossOfControlTimer" type="Timer" parent="."]
 one_shot = true
@@ -44,3 +135,52 @@ polygon = PackedVector2Array(-2.5, -2.5, 2.5, -2.5, 2.5, 2.5, -2.5, 2.5)
 
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
 [connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -26)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_mpi1c")
+animation = &"run"
+frame_progress = 0.193913
+
+[node name="Aimline" type="Line2D" parent="."]
+position = Vector2(0, -25)
+points = PackedVector2Array(80, 0, 0, 0)
+width = 1.0
+default_color = Color(0, 1, 1, 1)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Aimline"]
+position = Vector2(13, 0)
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.33
+lifetime_randomness = 0.66
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angular_velocity_min = 91.94
+angular_velocity_max = 385.45
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+color = Color(1, 0.160784, 0, 1)
+color_ramp = SubResource("Gradient_lo8wt")
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="Reload" type="Timer" parent="Timers"]
+
+[node name="Shot" type="Timer" parent="Timers"]
+
+[node name="DebugHealthLabel" type="Label" parent="."]
+offset_left = -18.0
+offset_top = -66.0
+offset_right = 18.0
+offset_bottom = -50.0
+theme_override_font_sizes/font_size = 11
+text = "(100%)"

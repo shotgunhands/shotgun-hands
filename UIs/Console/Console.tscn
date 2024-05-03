@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://cproofim1e8ns"]
+
+[ext_resource type="Script" path="res://UIs/Console/console.gd" id="1_v3f10"]
+
+[node name="Console" type="CanvasLayer"]
+script = ExtResource("1_v3f10")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 324.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "a [rainbow]person[/rainbow]
+has [shake]fallen[/shake] into the [wave]river in lego[/wave] city, [rainbow]they're fucking dead[/rainbow]
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc iaculis sapien sed metus molestie mattis. Integer posuere velit a odio efficitur bibendum. Praesent pharetra metus quis tortor egestas, sit amet efficitur quam aliquam. Quisque pulvinar sed eros at vulputate. Etiam tempor, lectus et ullamcorper molestie, velit nisl fermentum est, in dignissim erat metus non leo. Proin maximus pretium gravida. Nulla sed nisl semper, malesuada ante nec, aliquet nunc."
+fit_content = true
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "command()"

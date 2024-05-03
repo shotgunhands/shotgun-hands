@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c32res81juhqg"]
+[gd_scene load_steps=7 format=3 uid="uid://c32res81juhqg"]
 
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2d_player.tscn" id="1_qs7i5"]
 [ext_resource type="Script" path="res://Actors/Player/camera_follow.gd" id="2_yljtj"]
+[ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="3_sgwxf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)
@@ -12,7 +13,7 @@ size = Vector2(100, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu80g"]
 size = Vector2(2000, 2)
 
-[node name="playground" type="Node2D"]
+[node name="Playground" type="Node2D"]
 
 [node name="Bg" type="Polygon2D" parent="."]
 color = Color(0.384314, 0.384314, 0.384314, 1)
@@ -49,6 +50,17 @@ freeze_mode = 1
 shape = SubResource("RectangleShape2D_np1uq")
 
 [node name="Sprite" type="Sprite2D" parent="Obstacle3"]
+texture = SubResource("PlaceholderTexture2D_wxg5a")
+
+[node name="Obstacle4" type="RigidBody2D" parent="."]
+position = Vector2(-435, -50)
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="Obstacle4"]
+shape = SubResource("RectangleShape2D_np1uq")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle4"]
 texture = SubResource("PlaceholderTexture2D_wxg5a")
 
 [node name="Wall" type="RigidBody2D" parent="."]
@@ -95,5 +107,15 @@ gravity = 28.0
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -97)
 zoom = Vector2(2, 2)
+process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("2_yljtj")
+
+[node name="Enemy" parent="." instance=ExtResource("3_sgwxf")]
+position = Vector2(-780, -20)
+MEL_ATTACK_RANGE = 100
+SPEED = 200
+GRAVITY = 20
+JUMP_SPEED = -500
+MAX_HEALTH = 100.0
+INIT_HEALTH = 100.0

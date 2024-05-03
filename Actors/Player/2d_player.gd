@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends HitableCharacterBody
 
 @export_range(1.0, 100.0) var speed = 10.0
 var crouch_speed_modifier = 0.75
@@ -16,6 +16,8 @@ var default_hitbox_size
 var default_hitbox_offset
 @onready var roof_probe = $RoofProbe
 
+@onready var debug_health_label = $DebugHealthLabel
+
 @onready var placeholder_sprite = $Placeholder
 var default_placeholder_polygon = PackedVector2Array([Vector2(-12, -49),Vector2(12, -49),Vector2(12, 0),Vector2(-12, 0)])
 var crouched_placeholder_polygon = PackedVector2Array([Vector2(-12, -24),Vector2(12, -24),Vector2(12, 0),Vector2(-12, 0)])
@@ -26,7 +28,15 @@ var use_crouch_speed
 var _control_degree: float = 1
 var max_velocity_x: float
 
+var facing_right = true
+
+@onready var animated_sprite = $AnimatedSprite
+@onready var aimline = $Aimline
+
+
 func _ready():
+	super()
+
 	default_hitbox_size = hitbox.shape.size.y
 	default_hitbox_offset = hitbox.position.y
 	speed *= SCALE
@@ -37,6 +47,11 @@ func _ready():
 	
 	max_velocity_x = speed
 
+
+func _process(_delta):
+	# ONLY FOR DEBUGGING; THIS WILL BE REPLACED
+	if Input.is_action_just_pressed("toggle_pause"):
+		Scenemanager.change_scene("main_menu")
 
 func _physics_process(delta):
 	_evaluate_control_degree()
@@ -55,7 +70,7 @@ func _physics_process(delta):
 		use_crouch_speed = true
 	else:
 		crouching = false
-		
+
 	if crouching:
 		hitbox.shape.size.y = default_hitbox_size / 2
 		hitbox.position.y = default_hitbox_offset / 2
@@ -67,7 +82,41 @@ func _physics_process(delta):
 			placeholder_sprite.polygon = default_placeholder_polygon
 			use_crouch_speed = false
 
-	_evaluate_max_velocity()
+  debug_health_label.text = "({hp}%)\n{pos}".format({"hp": health_perc(), "pos": global_position})
+  
+  if velocity.x < 0:
+		facing_right = false
+	elif velocity.x > 0:
+		facing_right = true
+	else:
+		facing_right = facing_right
+
+	var aimline_root = position + Vector2(0, -25)
+	var _aimline_point = (get_global_mouse_position() - aimline_root).normalized()
+	aimline.rotation = aimline_root.angle_to_point(get_global_mouse_position())
+
+	animated_sprite.flip_h = !facing_right
+  
+  if is_on_floor():
+		if velocity.length() > 1:
+			if use_crouch_speed:
+				if not animated_sprite.animation == "crouch":
+					animated_sprite.play("crouch")
+			else:
+				if not animated_sprite.animation == "run":
+					animated_sprite.play("run")
+		else:
+			if not use_crouch_speed:
+				if not animated_sprite.animation == "idle":
+					animated_sprite.play("idle")
+			else:
+				if not animated_sprite.animation == "crouch":
+					animated_sprite.play("crouch")
+	else:
+		if not animated_sprite.animation == "jump":
+			animated_sprite.play("jump")
+
+  _evaluate_max_velocity()
 	_move_horizontal()
 	
 	move_and_slide()
@@ -102,7 +151,7 @@ func _move_horizontal():
 	else:
 		if not crouching:
 			velocity.x = move_toward(velocity.x, 0, (momentum_retention * _control_degree))
-		else:
+    else:
 			velocity.x = move_toward(velocity.x, 0, (momentum_retention_slide * _control_degree))
 
 
@@ -110,3 +159,6 @@ func lose_control():
 	_control_degree = 0
 	_loss_of_control_timer.start()
 	max_velocity_x = abs(velocity.x)
+  
+func destroy():
+	Scenemanager.change_scene("main_menu")
