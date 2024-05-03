@@ -1,13 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://bgxridg8dd5ey"]
 
 [ext_resource type="Script" path="res://Ammunition/Slug/slug.gd" id="1_cxd1u"]
-[ext_resource type="PackedScene" uid="uid://dnrx3ulhbkjr8" path="res://Ammunition/Shared/pellet.tscn" id="2_vjva3"]
+[ext_resource type="PackedScene" uid="uid://dnrx3ulhbkjr8" path="res://Ammunition/Shared/pellet.tscn" id="2_aokum"]
 
 [node name="Slug" type="Node"]
 script = ExtResource("1_cxd1u")
 effective_range = Array[float]([15.0])
 damage = Array[float]([20.0, 40.0])
 max_ammo = 3
-pellet = ExtResource("2_vjva3")
-pellet_count = 1
+_pellet = ExtResource("2_aokum")
+_pellet_count = 1
+_pellet_spread_angle = 1
 blast_force = 4.0
