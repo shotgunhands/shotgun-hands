@@ -4,9 +4,6 @@ extends AmmoType
 func fire(player: CharacterBody2D, pivot: Node2D) -> Array:
 	super.fire(player, pivot)
 	
-	
-	var angle_offsets = get_angle_offsets()
-	
 	var hits = []
 	var angle = pivot.global_rotation
 	var reticle = pivot.find_child("Reticle")

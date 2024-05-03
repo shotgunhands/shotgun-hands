@@ -16,3 +16,7 @@ mono_crash.*.json
 
 # Readme
 README.md
+
+# Project-specific ignores (SHOTGUN HANDS)
+.tmp
+.vscode/

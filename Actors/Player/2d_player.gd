@@ -31,7 +31,6 @@ var max_velocity_x: float
 var facing_right = true
 
 @onready var animated_sprite = $AnimatedSprite
-@onready var aimline = $Aimline
 
 
 func _ready():
@@ -81,23 +80,19 @@ func _physics_process(delta):
 			hitbox.position.y = default_hitbox_offset
 			placeholder_sprite.polygon = default_placeholder_polygon
 			use_crouch_speed = false
-
-  debug_health_label.text = "({hp}%)\n{pos}".format({"hp": health_perc(), "pos": global_position})
-  
-  if velocity.x < 0:
+	
+	debug_health_label.text = "({hp}%)\n{pos}".format({"hp": health_perc(), "pos": global_position})
+	
+	if velocity.x < 0:
 		facing_right = false
 	elif velocity.x > 0:
 		facing_right = true
 	else:
 		facing_right = facing_right
 
-	var aimline_root = position + Vector2(0, -25)
-	var _aimline_point = (get_global_mouse_position() - aimline_root).normalized()
-	aimline.rotation = aimline_root.angle_to_point(get_global_mouse_position())
-
 	animated_sprite.flip_h = !facing_right
-  
-  if is_on_floor():
+	
+	if is_on_floor():
 		if velocity.length() > 1:
 			if use_crouch_speed:
 				if not animated_sprite.animation == "crouch":
@@ -116,7 +111,7 @@ func _physics_process(delta):
 		if not animated_sprite.animation == "jump":
 			animated_sprite.play("jump")
 
-  _evaluate_max_velocity()
+	_evaluate_max_velocity()
 	_move_horizontal()
 	
 	move_and_slide()
@@ -151,7 +146,7 @@ func _move_horizontal():
 	else:
 		if not crouching:
 			velocity.x = move_toward(velocity.x, 0, (momentum_retention * _control_degree))
-    else:
+		else:
 			velocity.x = move_toward(velocity.x, 0, (momentum_retention_slide * _control_degree))
 
 
