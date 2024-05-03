@@ -1,8 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bdopfeohkeodg"]
 
-[ext_resource type="Script" path="res://Menus/Main/Scripts/play_button.gd" id="1_scgw2"]
+[ext_resource type="Script" path="res://Menus/Main/main_menu.gd" id="1_mbf0w"]
 
 [node name="MainMenu" type="Node"]
+script = ExtResource("1_mbf0w")
 
 [node name="Center" type="CenterContainer" parent="."]
 anchors_preset = 8
@@ -29,4 +30,7 @@ text = "Shotgun Hands"
 [node name="Play" type="Button" parent="Center/VBox"]
 layout_mode = 2
 text = "Play"
-script = ExtResource("1_scgw2")
+
+[node name="Quit" type="Button" parent="Center/VBox"]
+layout_mode = 2
+text = "Quit"
