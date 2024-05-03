@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bahghhgjcusig"]
+
+[ext_resource type="Script" path="res://Actors/Enemies/Antimony/ProjectileBase.gd" id="1_58iy5"]
+[ext_resource type="Texture2D" uid="uid://yllsk21dgsk3" path="res://Actors/Enemies/Antimony/Acid.png" id="2_5py2i"]
+
+[node name="Antimony Acid" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_58iy5")
+
+[node name="Antimony Acid" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_5py2i")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

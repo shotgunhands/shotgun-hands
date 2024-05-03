@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Actors/Player/camera_follow.gd" id="2_yljtj"]
 [ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="3_sgwxf"]
 [ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="4_24juc"]
-[ext_resource type="PackedScene" uid="uid://bahghhgjcusig" path="res://Actors/Enemies/Antimony/antimony_potion.tscn" id="5_r6f0a"]
+[ext_resource type="PackedScene" uid="uid://bahghhgjcusig" path="res://Actors/Enemies/Antimony/antimony_acid.tscn" id="5_r6f0a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)

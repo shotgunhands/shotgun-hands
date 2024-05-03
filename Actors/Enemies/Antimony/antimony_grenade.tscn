@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bexj6xnr0jyjv"]
+
+[ext_resource type="Script" path="res://Antimony Grenade.gd" id="1_e4xtl"]
+[ext_resource type="Texture2D" uid="uid://bwno3unla4cc5" path="res://Actors/Enemies/Antimony/Grenade.png" id="2_3id75"]
+
+[node name="Antimony Grenade" type="CharacterBody2D"]
+top_level = true
+motion_mode = 1
+script = ExtResource("1_e4xtl")
+
+[node name="Antimony Grenade" type="Sprite2D" parent="."]
+scale = Vector2(5, 5)
+texture = ExtResource("2_3id75")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
