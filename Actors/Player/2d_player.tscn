@@ -1,6 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://d0m6asdiav5p7"]
 
 [ext_resource type="Script" path="res://Actors/Player/2d_player.gd" id="1_f6vrf"]
+[ext_resource type="Script" path="res://Actors/Player/firing_controller.gd" id="2_13451"]
+[ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="3_u4wqh"]
+[ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/slug.tscn" id="4_ygk0a"]
 [ext_resource type="Texture2D" uid="uid://cwjjpbk6tyunw" path="res://Actors/Player/spritesheet_sh_notext.png" id="2_amuni"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4vr"]
@@ -95,8 +98,21 @@ animations = [{
 [sub_resource type="Gradient" id="Gradient_lo8wt"]
 colors = PackedColorArray(0.18359, 0.18359, 0.18359, 1, 1, 1, 1, 1)
 
-[node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_f6vrf")
+
+[node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 16
+
+[node name="LossOfControlTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FiringController" type="Node" parent="."]
+script = ExtResource("2_13451")
+_default_ammo = Array[PackedScene]([ExtResource("3_u4wqh"), ExtResource("4_ygk0a")])
+
+[node name="ReloadTimer" type="Timer" parent="FiringController"]
+wait_time = 0.7
+one_shot = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -25)
@@ -108,6 +124,17 @@ polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
 
 [node name="RoofProbe" type="RayCast2D" parent="."]
 target_position = Vector2(0, -50)
+
+[node name="ShotgunPivot" type="Node2D" parent="."]
+position = Vector2(0, -25)
+
+[node name="Reticle" type="Polygon2D" parent="ShotgunPivot"]
+position = Vector2(24, 0)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-2.5, -2.5, 2.5, -2.5, 2.5, 2.5, -2.5, 2.5)
+
+[connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
+[connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -26)
