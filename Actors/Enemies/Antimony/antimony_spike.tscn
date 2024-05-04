@@ -8,7 +8,7 @@ script/source = "class_name IceBall
 extends HitableCharacterBody
 	
 	
-@export var MEL_ATTACK_RANGE = 100
+@export var MEL_ATTACK_RANGE = 40
 @export var ATTACK_COOLDOWN = 1.0
 var last_attack_time:float = 0.0
 var player:Node2D          = null

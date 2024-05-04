@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c32res81juhqg"]
+[gd_scene load_steps=10 format=3 uid="uid://c32res81juhqg"]
 
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2d_player.tscn" id="1_qs7i5"]
 [ext_resource type="Script" path="res://Actors/Player/camera_follow.gd" id="2_yljtj"]
 [ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="3_sgwxf"]
 [ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="4_24juc"]
+[ext_resource type="PackedScene" uid="uid://c31qwtlxdvjm1" path="res://Actors/Enemies/Antimony/antimony_ice_ball.tscn" id="5_k4sn6"]
+[ext_resource type="PackedScene" uid="uid://bahghhgjcusig" path="res://Actors/Enemies/Antimony/antimony_acid.tscn" id="5_r6f0a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu80g"]
 size = Vector2(2000, 2)
@@ -133,6 +135,9 @@ position = Vector2(-780, -20)
 [node name="Antimony" parent="." instance=ExtResource("4_24juc")]
 position = Vector2(215, -21)
 
+[node name="iceBall" parent="." instance=ExtResource("5_k4sn6")]
+position = Vector2(118, -166)
+
 [node name="Floor2" type="RigidBody2D" parent="."]
 collision_layer = 255
 collision_mask = 255
@@ -144,3 +149,60 @@ polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 
 [node name="Hitbox" type="CollisionShape2D" parent="Floor2"]
 shape = SubResource("RectangleShape2D_tu80g")
+
+[node name="Antimony Acid" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(-658, -613)
+
+[node name="Antimony Acid2" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(-528, -514)
+
+[node name="Antimony Acid3" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(-617, -381)
+
+[node name="Antimony Acid4" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(-801, -317)
+
+[node name="Antimony Acid5" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(-410, -784)
+
+[node name="Antimony Acid6" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(-458, -651)
+
+[node name="Antimony Acid7" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(-255, -810)
+
+[node name="Antimony Acid8" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(-55, -740)
+
+[node name="Antimony Acid9" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(-315, -597)
+
+[node name="Antimony Acid10" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(-109, -632)
+
+[node name="Antimony Acid11" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(101, -591)
+
+[node name="Antimony Acid12" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(374, -648)
+
+[node name="Antimony Acid13" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(352, -502)
+
+[node name="Antimony Acid14" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(545, -521)
+
+[node name="Antimony Acid15" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(609, -718)
+
+[node name="Antimony Acid16" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(221, -889)
+
+[node name="Antimony Acid17" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(190, -724)
+
+[node name="Antimony Acid18" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(717, -438)
+
+[node name="Antimony Acid19" parent="." instance=ExtResource("5_r6f0a")]
+position = Vector2(764, -619)

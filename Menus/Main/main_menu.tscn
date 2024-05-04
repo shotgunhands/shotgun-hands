@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdopfeohkeodg"]
+[gd_scene load_steps=3 format=3 uid="uid://bdopfeohkeodg"]
 
 [ext_resource type="Script" path="res://Menus/Main/Scripts/play_button.gd" id="1_scgw2"]
+[ext_resource type="Texture2D" uid="uid://dmj6e5jtq2xy8" path="res://UIs/Khong_Co_Tieu_e423_20240502141948.webp" id="2_7733y"]
 
 [node name="MainMenu" type="Node"]
 
@@ -10,23 +11,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
 [node name="VBox" type="VBoxContainer" parent="Center"]
 layout_mode = 2
 
-[node name="Text" type="Label" parent="Center/VBox"]
-layout_mode = 2
-text = "Shotgun Hands"
-
 [node name="Play" type="Button" parent="Center/VBox"]
 layout_mode = 2
-text = "Play"
+size_flags_vertical = 3
+icon = ExtResource("2_7733y")
 script = ExtResource("1_scgw2")
