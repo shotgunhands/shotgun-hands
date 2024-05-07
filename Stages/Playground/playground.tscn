@@ -99,6 +99,7 @@ shape = SubResource("RectangleShape2D_tu80g")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -97)
 zoom = Vector2(2, 2)
+process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("2_yljtj")
 

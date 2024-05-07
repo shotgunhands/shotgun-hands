@@ -1,5 +1,4 @@
-class_name BaseEnemy
-extends HitableCharacterBody
+class_name BaseEnemy extends HitableCharacterBody
 
 ### CONSTANTS ###
 @export var MEL_ATTACK_RANGE = 100
@@ -15,19 +14,20 @@ enum State {
 	ATTACK
 }
 
+### ONREADY ###
+@onready var player:Node2D = get_tree().get_nodes_in_group("Player")[0]
+
 ### VARIABLES ###
 var has_seen: bool         = false
 var direction: float       = 1
-var player:Node2D          = null
 var state:State            = State.IDLE
 var last_attack_time:float = 0.0
 
 ### METHODS ###
 func _ready():
 	super()
-	player = get_tree().get_nodes_in_group("Player")[0]
 
-func _physics_process(_delta) -> void:
+func _physics_process(_delta: float) -> void:
 	if kill_check(): return
 
 	if !is_on_floor(): velocity.y += GRAVITY
