@@ -1,4 +1,4 @@
-extends HitableCharacterBody
+class_name Player extends HitableCharacterBody
 
 @export_range(1.0, 100.0) var speed = 10.0
 var crouch_speed_modifier = 0.75
@@ -10,6 +10,8 @@ var momentum_retention_slide = 1.0
 #var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export_range(0, 50.0) var gravity = 9.81
 const SCALE = 10
+
+var is_jumping:bool
 
 @onready var hitbox = $Hitbox
 var default_hitbox_size
@@ -43,26 +45,31 @@ func _ready():
 	gravity *= SCALE
 	momentum_retention *= SCALE
 	momentum_retention_slide *= SCALE
-	
+
 	max_velocity_x = speed
 
 
-func _process(_delta):
+func _input(_delta):
 	# ONLY FOR DEBUGGING; THIS WILL BE REPLACED
 	if Input.is_action_just_pressed("toggle_pause"):
 		Scenemanager.change_scene("main_menu")
 
 func _physics_process(delta):
 	_evaluate_control_degree()
-	
+
 	# Apply gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta # no delta mb, we're in phys_process
-	
+
 	# Handle jump.
 	if Input.is_action_just_pressed("move_jump") and is_on_floor():
 		velocity.y -= jump_power
-	
+		is_jumping = true
+	elif Input.is_action_just_released("move_jump") and is_jumping:
+		if velocity.y < 0: # If player is still ascending
+			velocity.y /= 2 # Reduce the upward velocity
+		is_jumping = false
+
 	# Handle crouching.
 	if Input.is_action_pressed("move_crouch") and is_on_floor():
 		crouching = true
@@ -80,9 +87,9 @@ func _physics_process(delta):
 			hitbox.position.y = default_hitbox_offset
 			placeholder_sprite.polygon = default_placeholder_polygon
 			use_crouch_speed = false
-	
+
 	debug_health_label.text = "({hp}%)\n{pos}".format({"hp": health_perc(), "pos": global_position})
-	
+
 	if velocity.x < 0:
 		facing_right = false
 	elif velocity.x > 0:
@@ -91,7 +98,7 @@ func _physics_process(delta):
 		facing_right = facing_right
 
 	animated_sprite.flip_h = !facing_right
-	
+
 	if is_on_floor():
 		if velocity.length() > 1:
 			if use_crouch_speed:
@@ -113,7 +120,7 @@ func _physics_process(delta):
 
 	_evaluate_max_velocity()
 	_move_horizontal()
-	
+
 	move_and_slide()
 
 
@@ -154,6 +161,6 @@ func lose_control():
 	_control_degree = 0
 	_loss_of_control_timer.start()
 	max_velocity_x = abs(velocity.x)
-  
+
 func destroy():
 	Scenemanager.change_scene("main_menu")
