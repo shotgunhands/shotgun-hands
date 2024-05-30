@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @onready var _player: CharacterBody2D = $".."
 @onready var _pivot: Node2D = _player.get_node("ShotgunPivot")
@@ -47,7 +47,7 @@ func _fire(mouse: int):
 	if _ammo_types[mouse].ammo <= 0 or not _reload_timer.is_stopped():
 		return
 	
-	_ammo_types[mouse].fire(_player, _pivot)
+	_ammo_types[mouse].fire(_pivot)
 	
 	if not _player.is_on_floor() and _ammo_types[mouse].touched_ground:
 		_launch(mouse)

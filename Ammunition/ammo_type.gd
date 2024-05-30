@@ -28,9 +28,12 @@ func get_angle_offsets() -> Array[float]:
 		return _angle_offsets
 		
 	var output: Array[float] = []
-	for pellet in range(_pellet_count): # this is so disgusting i'm sorry
-		output.append(((-deg_to_rad(_pellet_spread_angle) / 2.0) + \
-				(pellet * (deg_to_rad(_pellet_spread_angle) / (_pellet_count - 1.0)))))
+	if _pellet_count > 1:
+		for pellet in range(_pellet_count): # this is so disgusting i'm sorry
+			output.append(((-deg_to_rad(_pellet_spread_angle) / 2.0) + \
+					(pellet * (deg_to_rad(_pellet_spread_angle) / (_pellet_count - 1.0)))))
+	else:
+		output = [0]
 	_angle_offsets = output
 	return _angle_offsets
 
@@ -50,20 +53,44 @@ func get_damage(distance: float) -> float:
 
 
 #region interface
-func fire(player: CharacterBody2D, pivot: Node2D):
+func fire(pivot: Node2D):
 	ammo -= 1
-	pass
+
+	var angle_offsets = get_angle_offsets()
+	
+	var hit_info: HitInfo = HitInfo.new()
+	for offset in angle_offsets:
+		var angle = pivot.global_rotation + offset
+		var reticle = pivot.find_child("Reticle")
+		var target = reticle.global_position + Vector2.RIGHT.rotated(angle) * 6000.0
+		var r_info = _cast_ray(reticle.global_position, target)
+
+		if r_info:
+			hit_info.add_collider(r_info["collider"], reticle.global_position.distance_to(r_info["position"]))
+			if r_info["collider"].get_collision_layer_value(2): # environment
+				print("Hit the environment!")
+			elif r_info["collider"].get_collision_layer_value(9): # enemy
+				print("Hit an enemy!")
+			elif r_info["collider"].get_collision_layer_value(10): # destructible
+				print("Hit a destructible!")
+		_send_visual_pellet(angle, reticle.global_position)
+
+	hit_info.apply_damage(self)
 
 
 # given an angle offset, sends a ray in the given direction
 func _cast_ray(start: Vector2, target: Vector2) -> Dictionary:
 	var state = get_viewport().world_2d.direct_space_state
-	var r_pars = PhysicsRayQueryParameters2D.create(start, target, 0b1_0000_0001)
+	var r_pars = PhysicsRayQueryParameters2D.create(start, target, 0b11_0000_0010)
+	r_pars.collide_with_areas = true
 	return state.intersect_ray(r_pars)
 
 
 # empty for now. may be useful as an interface for different ammo types
-func _send_visual_pellet(angle: float, start_pos: Vector2, final_pos: Vector2, parent: Node):
-	pass
+func _send_visual_pellet(angle: float, start_pos: Vector2):
+	var visual = _pellet.instantiate()
+	get_tree().root.add_child(visual)
+	visual.global_position = start_pos
+	visual.global_rotation = angle
 #endregion
 

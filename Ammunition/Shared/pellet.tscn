@@ -4,6 +4,7 @@
 
 [node name="DebugPellet" type="Node2D"]
 script = ExtResource("1_ihujv")
+_pellet_speed = 60.0
 
 [node name="DestroyTimer" type="Timer" parent="."]
 wait_time = 1.5

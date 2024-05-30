@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c32res81juhqg"]
+[gd_scene load_steps=10 format=3 uid="uid://c32res81juhqg"]
 
-[ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2d_player.tscn" id="1_qs7i5"]
-[ext_resource type="Script" path="res://Actors/Player/camera_follow.gd" id="2_yljtj"]
+[ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="1_ms6ri"]
+[ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="1_qs7i5"]
+[ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="2_yljtj"]
+[ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/TestEnemy.tscn" id="4_qtr78"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)
@@ -12,6 +14,12 @@ size = Vector2(100, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu80g"]
 size = Vector2(2000, 2)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gh1uu"]
+size = Vector2(30, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqcbu"]
+size = Vector2(30, 28)
+
 [node name="Playground" type="Node2D"]
 
 [node name="Bg" type="Polygon2D" parent="."]
@@ -20,6 +28,8 @@ polygon = PackedVector2Array(-1000, -1000, -1000, 1, 1000, 1, 1000, -1000)
 
 [node name="Obstacle" type="RigidBody2D" parent="."]
 position = Vector2(128, -49)
+collision_layer = 3
+collision_mask = 0
 freeze = true
 freeze_mode = 1
 
@@ -31,6 +41,8 @@ texture = SubResource("PlaceholderTexture2D_wxg5a")
 
 [node name="Obstacle2" type="RigidBody2D" parent="."]
 position = Vector2(-120, -126)
+collision_layer = 3
+collision_mask = 0
 freeze = true
 freeze_mode = 1
 
@@ -42,6 +54,8 @@ texture = SubResource("PlaceholderTexture2D_wxg5a")
 
 [node name="Obstacle3" type="RigidBody2D" parent="."]
 position = Vector2(-220, -78)
+collision_layer = 3
+collision_mask = 0
 freeze = true
 freeze_mode = 1
 
@@ -53,6 +67,8 @@ texture = SubResource("PlaceholderTexture2D_wxg5a")
 
 [node name="Obstacle4" type="RigidBody2D" parent="."]
 position = Vector2(-435, -50)
+collision_layer = 3
+collision_mask = 0
 freeze = true
 freeze_mode = 1
 
@@ -65,6 +81,8 @@ texture = SubResource("PlaceholderTexture2D_wxg5a")
 [node name="Wall" type="RigidBody2D" parent="."]
 position = Vector2(-1000, -455)
 rotation = 1.5708
+collision_layer = 3
+collision_mask = 0
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Wall"]
@@ -77,6 +95,8 @@ shape = SubResource("RectangleShape2D_tu80g")
 [node name="Wall2" type="RigidBody2D" parent="."]
 position = Vector2(1000, -455)
 rotation = 1.5708
+collision_layer = 3
+collision_mask = 0
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Wall2"]
@@ -87,6 +107,8 @@ polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 shape = SubResource("RectangleShape2D_tu80g")
 
 [node name="Floor" type="RigidBody2D" parent="."]
+collision_layer = 3
+collision_mask = 0
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Floor"]
@@ -96,6 +118,22 @@ polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 [node name="Hitbox" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("RectangleShape2D_tu80g")
 
+[node name="Destructible" type="RigidBody2D" parent="."]
+position = Vector2(256, -29)
+collision_mask = 0
+freeze = true
+
+[node name="HittableComponent" parent="Destructible" instance=ExtResource("1_ms6ri")]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Destructible/HittableComponent"]
+shape = SubResource("RectangleShape2D_gh1uu")
+
+[node name="Collider" type="CollisionShape2D" parent="Destructible"]
+shape = SubResource("RectangleShape2D_tqcbu")
+
+[node name="Vis" type="Polygon2D" parent="Destructible"]
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -97)
 zoom = Vector2(2, 2)
@@ -104,3 +142,6 @@ script = ExtResource("2_yljtj")
 
 [node name="2DPlayer" parent="." instance=ExtResource("1_qs7i5")]
 speed = 20.0
+
+[node name="Enemy" parent="." instance=ExtResource("4_qtr78")]
+position = Vector2(-675, -13)

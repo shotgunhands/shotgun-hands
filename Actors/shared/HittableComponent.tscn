@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://7vyirkeofdrx"]
+
+[ext_resource type="Script" path="res://Actors/shared/hittable_component.gd" id="1_gidrq"]
+
+[node name="HittableComponent" type="Area2D"]
+collision_layer = 512
+collision_mask = 512
+script = ExtResource("1_gidrq")
