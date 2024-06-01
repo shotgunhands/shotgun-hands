@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Actors/Player/Scripts/2d_player.gd" id="1_oua8l"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/movement_controller.gd" id="2_e27d1"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/firing_controller.gd" id="3_u4ryj"]
-[ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/Buckshot.tscn" id="4_bblcg"]
-[ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/Slug.tscn" id="5_6mrvq"]
+[ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="4_bblcg"]
+[ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/slug.tscn" id="5_6mrvq"]
 [ext_resource type="Texture2D" uid="uid://cwjjpbk6tyunw" path="res://Actors/Player/Sprites/spritesheet_sh_notext.png" id="6_xqhmg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4vr"]
@@ -146,14 +146,6 @@ frame_progress = 0.193913
 [node name="Reload" type="Timer" parent="Timers"]
 
 [node name="Shot" type="Timer" parent="Timers"]
-
-[node name="DebugHealthLabel" type="Label" parent="."]
-offset_left = -18.0
-offset_top = -66.0
-offset_right = 18.0
-offset_bottom = -50.0
-theme_override_font_sizes/font_size = 11
-text = "(100%)"
 
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
 [connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]
