@@ -15,18 +15,18 @@ var touched_ground = true
 
 @export var _pellet: PackedScene
 @export var _pellet_count: int
-@export var _pellet_spread_angle: int # in degrees :pensive:
+@export var _pellet_spread_angle: int ## in degrees :pensive:
 
 @export var blast_force: float
 
 var _angle_offsets: Array[float] = []
 
 
-# returns a list of floats representing the offset for each _pellet
+## returns a list of floats representing the offset for each _pellet
 func get_angle_offsets() -> Array[float]:
 	if not _angle_offsets.is_empty():
 		return _angle_offsets
-		
+
 	var output: Array[float] = []
 	if _pellet_count > 1:
 		for pellet in range(_pellet_count): # this is so disgusting i'm sorry
@@ -38,26 +38,27 @@ func get_angle_offsets() -> Array[float]:
 	return _angle_offsets
 
 
-# returns damage based on passed distance
+## returns damage based on passed distance
 func get_damage(distance: float) -> float:
 	if distance < 0: return -1.0
-	
+
 	if effective_range.is_empty():
 		return damage[0]
-	
+
 	for _range in effective_range: # underscore to avoid shadowing "range"
 		if distance < _range:
 			return damage[effective_range.find(_range)]
-	
+
 	return damage.back()
 
 
 #region interface
+
 func fire(pivot: Node2D):
 	ammo -= 1
 
 	var angle_offsets = get_angle_offsets()
-	
+
 	var hit_info: HitInfo = HitInfo.new()
 	for offset in angle_offsets:
 		var angle = pivot.global_rotation + offset
@@ -78,7 +79,7 @@ func fire(pivot: Node2D):
 	hit_info.apply_damage(self)
 
 
-# given an angle offset, sends a ray in the given direction
+## given an angle offset, sends a ray in the given direction
 func _cast_ray(start: Vector2, target: Vector2) -> Dictionary:
 	var state = get_viewport().world_2d.direct_space_state
 	var r_pars = PhysicsRayQueryParameters2D.create(start, target, 0b11_0000_0010)
@@ -86,7 +87,7 @@ func _cast_ray(start: Vector2, target: Vector2) -> Dictionary:
 	return state.intersect_ray(r_pars)
 
 
-# empty for now. may be useful as an interface for different ammo types
+## empty for now. may be useful as an interface for different ammo types
 func _send_visual_pellet(angle: float, start_pos: Vector2):
 	var visual = _pellet.instantiate()
 	get_tree().root.add_child(visual)
