@@ -1,13 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://buyv076dqph8u"]
+[gd_scene load_steps=6 format=3 uid="uid://buyv076dqph8u"]
 
+[ext_resource type="Script" path="res://Actors/Enemies/TestEnemy/melee_test_enemy.gd" id="1_3ri18"]
 [ext_resource type="Texture2D" uid="uid://c6ilwe71su38a" path="res://Actors/Enemies/TestEnemy/scernshoot.png" id="2_a02r7"]
+[ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="3_l8dgy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftuqn"]
+size = Vector2(27, 51)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ic78v"]
 size = Vector2(25, 50)
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+script = ExtResource("1_3ri18")
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="HittableComponent" parent="." instance=ExtResource("3_l8dgy")]
+collision_layer = 256
+collision_mask = 256
+
+[node name="Hitbox" type="CollisionShape2D" parent="HittableComponent"]
+position = Vector2(-0.5, -25.5)
+shape = SubResource("RectangleShape2D_ftuqn")
+
+[node name="PhysicsCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_ic78v")
 

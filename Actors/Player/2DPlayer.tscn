@@ -1,48 +1,49 @@
-[gd_scene load_steps=17 format=3 uid="uid://d0m6asdiav5p7"]
+[gd_scene load_steps=18 format=3 uid="uid://d0m6asdiav5p7"]
 
-[ext_resource type="Script" path="res://Actors/Player/2d_player.gd" id="1_f6vrf"]
-[ext_resource type="Script" path="res://Actors/Player/firing_controller.gd" id="2_13451"]
-[ext_resource type="Texture2D" uid="uid://cwjjpbk6tyunw" path="res://Actors/Player/spritesheet_sh_notext.png" id="2_amuni"]
-[ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="3_u4wqh"]
-[ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/slug.tscn" id="4_ygk0a"]
+[ext_resource type="Script" path="res://Actors/Player/Scripts/2d_player.gd" id="1_oua8l"]
+[ext_resource type="Script" path="res://Actors/Player/Scripts/movement_controller.gd" id="2_e27d1"]
+[ext_resource type="Script" path="res://Actors/Player/Scripts/firing_controller.gd" id="3_u4ryj"]
+[ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/Buckshot.tscn" id="4_bblcg"]
+[ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/Slug.tscn" id="5_6mrvq"]
+[ext_resource type="Texture2D" uid="uid://cwjjpbk6tyunw" path="res://Actors/Player/Sprites/spritesheet_sh_notext.png" id="6_xqhmg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4vr"]
 size = Vector2(25, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sh4ar"]
-atlas = ExtResource("2_amuni")
+atlas = ExtResource("6_xqhmg")
 region = Rect2(316, 182, 158, 182)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qu366"]
-atlas = ExtResource("2_amuni")
+atlas = ExtResource("6_xqhmg")
 region = Rect2(474, 182, 158, 182)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dm2m2"]
-atlas = ExtResource("2_amuni")
+atlas = ExtResource("6_xqhmg")
 region = Rect2(0, 182, 158, 182)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cygah"]
-atlas = ExtResource("2_amuni")
+atlas = ExtResource("6_xqhmg")
 region = Rect2(0, 368, 158, 182)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_va3cr"]
-atlas = ExtResource("2_amuni")
+atlas = ExtResource("6_xqhmg")
 region = Rect2(158, 368, 158, 182)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ug2ck"]
-atlas = ExtResource("2_amuni")
+atlas = ExtResource("6_xqhmg")
 region = Rect2(316, 368, 158, 182)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r7h1e"]
-atlas = ExtResource("2_amuni")
+atlas = ExtResource("6_xqhmg")
 region = Rect2(474, 368, 158, 182)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3ap7i"]
-atlas = ExtResource("2_amuni")
+atlas = ExtResource("6_xqhmg")
 region = Rect2(632, 368, 158, 182)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxgl1"]
-atlas = ExtResource("2_amuni")
+atlas = ExtResource("6_xqhmg")
 region = Rect2(790, 368, 158, 182)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mpi1c"]
@@ -97,14 +98,18 @@ animations = [{
 
 [node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 16
-script = ExtResource("1_f6vrf")
+script = ExtResource("1_oua8l")
 
-[node name="LossOfControlTimer" type="Timer" parent="."]
+[node name="MovementController" type="Node2D" parent="."]
+script = ExtResource("2_e27d1")
+speed = 25.0
+
+[node name="LossOfControlTimer" type="Timer" parent="MovementController"]
 one_shot = true
 
-[node name="FiringController" type="Node" parent="."]
-script = ExtResource("2_13451")
-_default_ammo = Array[PackedScene]([ExtResource("3_u4wqh"), ExtResource("4_ygk0a")])
+[node name="FiringController" type="Node2D" parent="."]
+script = ExtResource("3_u4ryj")
+_default_ammo = Array[PackedScene]([ExtResource("4_bblcg"), ExtResource("5_6mrvq")])
 
 [node name="ReloadTimer" type="Timer" parent="FiringController"]
 wait_time = 0.7
@@ -143,7 +148,6 @@ frame_progress = 0.193913
 [node name="Shot" type="Timer" parent="Timers"]
 
 [node name="DebugHealthLabel" type="Label" parent="."]
-visible = false
 offset_left = -18.0
 offset_top = -66.0
 offset_right = 18.0

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s5cdxdl5plh8"
-path="res://.godot/imported/spritesheet_sh_no_borders_notext_bu.png-bba9c0f6fbd5cf2a89b8dbe16092ec38.ctex"
+uid="uid://c5x52yhi7elfq"
+path="res://.godot/imported/spritesheet_sh_no_borders.png-f2c7c5932b0130c4ba2afc803d330527.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Actors/Player/spritesheet_sh_no_borders_notext_bu.png"
-dest_files=["res://.godot/imported/spritesheet_sh_no_borders_notext_bu.png-bba9c0f6fbd5cf2a89b8dbe16092ec38.ctex"]
+source_file="res://Actors/Player/Sprites/spritesheet_sh_no_borders.png"
+dest_files=["res://.godot/imported/spritesheet_sh_no_borders.png-f2c7c5932b0130c4ba2afc803d330527.ctex"]
 
 [params]
 
