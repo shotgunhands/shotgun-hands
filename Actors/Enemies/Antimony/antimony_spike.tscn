@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://dat1g20ajsr52"]
+
+[ext_resource type="Texture2D" uid="uid://b61x5c22crg2p" path="res://Actors/Enemies/Antimony/iceSpike.png" id="1_xc4ol"]
+
+[sub_resource type="GDScript" id="GDScript_uksqx"]
+resource_name = "IceSpike"
+script/source = "class_name IceBall
+extends HitableCharacterBody
+	
+	
+@export var MEL_ATTACK_RANGE = 40
+@export var ATTACK_COOLDOWN = 1.0
+var last_attack_time:float = 0.0
+var player:Node2D          = null
+var iceBall:Node2D          = null
+func _ready():
+	player = get_tree().get_nodes_in_group(\"Player\")[0]
+	iceBall = get_tree().get_nodes_in_group(\"iceBall\")[0]
+	global_position = iceBall.global_position
+	global_position = iceBall.global_position
+func _physics_process(_delta):
+	var distance_to_player = player.global_position.distance_to(global_position)
+
+	if !is_on_floor(): velocity.y += 20
+	
+	var current_time = Time.get_ticks_msec() / 1000.0
+	
+	if current_time - last_attack_time > ATTACK_COOLDOWN and distance_to_player <= MEL_ATTACK_RANGE:
+		mel_attack()
+		last_attack_time = current_time
+	move_and_slide()
+
+func mel_attack() -> void:
+	player.health -= 10
+func _on_timer_timeout():
+	destroy()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58e2r"]
+size = Vector2(80, 160)
+
+[node name="Antimony Spike" type="CharacterBody2D"]
+top_level = true
+scale = Vector2(0.5, 0.5)
+collision_layer = 2
+collision_mask = 2
+motion_mode = 1
+script = SubResource("GDScript_uksqx")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -80)
+shape = SubResource("RectangleShape2D_58e2r")
+one_way_collision = true
+
+[node name="Antimony Spike" type="Sprite2D" parent="."]
+position = Vector2(0, -80)
+scale = Vector2(5, 5)
+texture = ExtResource("1_xc4ol")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

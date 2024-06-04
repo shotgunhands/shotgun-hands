@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bynmltb6d8oco"]
+
+[ext_resource type="Script" path="res://Antimony Fist.gd" id="1_advxr"]
+[ext_resource type="Texture2D" uid="uid://c3oroiso2ywaj" path="res://Actors/Enemies/Antimony/fist.png" id="2_nsd0j"]
+
+[node name="Antimony Fist" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_advxr")
+
+[node name="Antimony Fist" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+scale = Vector2(5, 5)
+texture = ExtResource("2_nsd0j")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
