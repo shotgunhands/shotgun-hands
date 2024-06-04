@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c32res81juhqg"]
+[gd_scene load_steps=11 format=3 uid="uid://c32res81juhqg"]
 
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="1_ms6ri"]
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="1_qs7i5"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="2_yljtj"]
-[ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/TestEnemy.tscn" id="4_qtr78"]
+[ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="4_qtr78"]
+[ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="5_1u1da"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)
@@ -142,7 +143,9 @@ position_smoothing_enabled = true
 script = ExtResource("2_yljtj")
 
 [node name="2DPlayer" parent="." instance=ExtResource("1_qs7i5")]
-speed = 20.0
 
 [node name="Enemy" parent="." instance=ExtResource("4_qtr78")]
 position = Vector2(-675, -13)
+
+[node name="Antimony" parent="." instance=ExtResource("5_1u1da")]
+position = Vector2(322, -55)
