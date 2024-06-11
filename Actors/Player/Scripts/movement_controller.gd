@@ -1,4 +1,4 @@
-extends Node2D
+class_name MovementController extends Node2D
 
 @export_range(1.0, 100.0) var speed = 10.0
 var crouch_speed_modifier = 0.75

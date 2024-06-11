@@ -1,4 +1,4 @@
-extends Node2D
+class_name FiringController extends Node2D
 
 @onready var _player: CharacterBody2D = $".."
 @onready var _pivot: Node2D = _player.get_node("ShotgunPivot")
@@ -26,14 +26,14 @@ func _process(_delta):
 	if _player.is_on_floor():
 		_ammo_types[0].touched_ground = true
 		_ammo_types[1].touched_ground = true
-	
+
 	_aim()
-	
+
 	if Input.is_action_just_pressed("fire_left"):
 		_fire(0)
 	if Input.is_action_just_pressed("fire_right"):
 		_fire(1)
-	
+
 	if Input.is_action_just_pressed("fire_reload"):
 		_reload()
 
@@ -46,9 +46,9 @@ func _aim():
 func _fire(mouse: int):
 	if _ammo_types[mouse].ammo <= 0 or not _reload_timer.is_stopped():
 		return
-	
+
 	_ammo_types[mouse].fire(_pivot)
-	
+
 	if not _player.is_on_floor() and _ammo_types[mouse].touched_ground:
 		_launch(mouse)
 		_ammo_types[mouse].touched_ground = false
