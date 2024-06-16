@@ -1,5 +1,5 @@
 class_name Antimony
-extends HitableCharacterBody
+extends CharacterBody2D
 
 ### CONSTANTS ###
 ###Acid Range
@@ -37,16 +37,13 @@ var flourineScene = load("res://Actors/Enemies/Antimony/antimony_flourine.tscn")
 var iceBallScene = load("res://Actors/Enemies/Antimony/antimony_ice_ball.tscn")
 ### METHODS ###
 func _ready():
-	super()
 	player = get_tree().get_nodes_in_group("Player")[0]
 
 func _physics_process(_delta) -> void:
 
-	if kill_check(): return
 	
 	if !is_on_floor(): velocity.y += GRAVITY
-	if enemyHealth<=0:
-		destroy()
+
 	state_logic()
 	move_and_slide()
 

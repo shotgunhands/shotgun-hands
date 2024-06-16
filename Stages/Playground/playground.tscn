@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://c32res81juhqg"]
+[gd_scene load_steps=9 format=3 uid="uid://c32res81juhqg"]
 
-[ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="1_ms6ri"]
+[ext_resource type="PackedScene" uid="uid://cohbaywbyod68" path="res://Actors/shared/HittableComponent.tscn" id="1_ms6ri"]
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="1_qs7i5"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="2_yljtj"]
-[ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="4_qtr78"]
 [ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="5_1u1da"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
@@ -15,11 +14,8 @@ size = Vector2(100, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu80g"]
 size = Vector2(2000, 2)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gh1uu"]
-size = Vector2(30, 30)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqcbu"]
-size = Vector2(30, 28)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pt4ky"]
+size = Vector2(22, 50)
 
 [node name="Playground" type="Node2D"]
 
@@ -119,22 +115,6 @@ polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 [node name="Hitbox" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("RectangleShape2D_tu80g")
 
-[node name="Destructible" type="RigidBody2D" parent="."]
-position = Vector2(256, -29)
-collision_mask = 0
-freeze = true
-
-[node name="HittableComponent" parent="Destructible" instance=ExtResource("1_ms6ri")]
-
-[node name="Hitbox" type="CollisionShape2D" parent="Destructible/HittableComponent"]
-shape = SubResource("RectangleShape2D_gh1uu")
-
-[node name="Collider" type="CollisionShape2D" parent="Destructible"]
-shape = SubResource("RectangleShape2D_tqcbu")
-
-[node name="Vis" type="Polygon2D" parent="Destructible"]
-polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -97)
 zoom = Vector2(2, 2)
@@ -144,8 +124,11 @@ script = ExtResource("2_yljtj")
 
 [node name="2DPlayer" parent="." instance=ExtResource("1_qs7i5")]
 
-[node name="Enemy" parent="." instance=ExtResource("4_qtr78")]
-position = Vector2(-675, -13)
-
 [node name="Antimony" parent="." instance=ExtResource("5_1u1da")]
 position = Vector2(322, -55)
+
+[node name="Area2D" parent="Antimony" instance=ExtResource("1_ms6ri")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Antimony/Area2D"]
+position = Vector2(-1, -25)
+shape = SubResource("RectangleShape2D_pt4ky")

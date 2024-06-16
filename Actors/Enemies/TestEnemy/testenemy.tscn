@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Actors/Enemies/TestEnemy/melee_test_enemy.gd" id="1_3ri18"]
 [ext_resource type="Texture2D" uid="uid://c6ilwe71su38a" path="res://Actors/Enemies/TestEnemy/scernshoot.png" id="2_a02r7"]
-[ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="3_l8dgy"]
+[ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableCharacter.tscn" id="3_l8dgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ftuqn"]
 size = Vector2(27, 51)
