@@ -1,4 +1,4 @@
-extends Node2D
+class_name MovementController extends Node2D
 
 @export_range(1.0, 100.0) var speed = 10.0
 var crouch_speed_modifier = 0.75
@@ -17,8 +17,6 @@ const SCALE = 10
 var default_hitbox_size
 var default_hitbox_offset
 @onready var roof_probe = player.find_child("RoofProbe")
-
-@onready var debug_health_label = player.find_child("DebugHealthLabel")
 
 @onready var placeholder_sprite = player.find_child("Placeholder")
 var default_placeholder_polygon = PackedVector2Array([Vector2(-12, -49),Vector2(12, -49),Vector2(12, 0),Vector2(-12, 0)])
@@ -80,9 +78,6 @@ func _physics_process(delta):
 			hitbox.position.y = default_hitbox_offset
 			placeholder_sprite.polygon = default_placeholder_polygon
 			use_crouch_speed = false
-
-	#debug_health_label.text = "({hp}%)\n{pos}".format({"hp": health_perc(), "pos": player.global_position})
-	debug_health_label.text = "({hp}%)\n{pos}".format({"pos": player.global_position})
 
 	if player.velocity.x < 0:
 		facing_right = false
