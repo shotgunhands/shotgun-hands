@@ -103,6 +103,8 @@ script = ExtResource("1_oua8l")
 [node name="MovementController" type="Node2D" parent="."]
 script = ExtResource("2_e27d1")
 speed = 25.0
+jump_height = 20.4
+gravity = 35.0
 
 [node name="LossOfControlTimer" type="Timer" parent="MovementController"]
 one_shot = true
@@ -138,8 +140,7 @@ polygon = PackedVector2Array(-2.5, -2.5, 2.5, -2.5, 2.5, 2.5, -2.5, 2.5)
 position = Vector2(0, -26)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_mpi1c")
-animation = &"run"
-frame_progress = 0.193913
+animation = &"idle"
 
 [node name="Timers" type="Node2D" parent="."]
 

@@ -1,26 +1,29 @@
 class_name MovementController extends Node2D
 
-@export_range(1.0, 100.0) var speed = 10.0
+@export_range(1.0, 100.0) var speed = 10.0 ## the speed you run at, what else
 var crouch_speed_modifier = 0.75
-@export_range(1.0, 50.0) var jump_power = 20.0
+@export_range(1.0, 50.0) var jump_height = 20.0 ## the height of your jump, why are you reading this
+var jump_force
 
 @export_range(1, 10.0) var momentum_retention = 2.0
 var momentum_retention_slide = 1.0
 
-#var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export_range(0, 50.0) var gravity = 9.81
 const SCALE = 10
 
 @onready var player = $".."
 
 @onready var hitbox = player.find_child("Hitbox")
+@onready var roof_probe = player.find_child("RoofProbe")
 var default_hitbox_size
 var default_hitbox_offset
-@onready var roof_probe = player.find_child("RoofProbe")
 
+#PSK01: do we even need this placeholder anymore?
+#should be safe enough to remove it
 @onready var placeholder_sprite = player.find_child("Placeholder")
 var default_placeholder_polygon = PackedVector2Array([Vector2(-12, -49),Vector2(12, -49),Vector2(12, 0),Vector2(-12, 0)])
 var crouched_placeholder_polygon = PackedVector2Array([Vector2(-12, -24),Vector2(12, -24),Vector2(12, 0),Vector2(-12, 0)])
+
 var crouching
 var use_crouch_speed
 
@@ -37,10 +40,12 @@ func _ready():
 	default_hitbox_size = hitbox.shape.size.y
 	default_hitbox_offset = hitbox.position.y
 	speed *= SCALE
-	jump_power *= SCALE
+	jump_height *= SCALE
 	gravity *= SCALE
 	momentum_retention *= SCALE
 	momentum_retention_slide *= SCALE
+
+	jump_force = sqrt(gravity * jump_height) #PSK: i'm attempting smart
 
 	max_velocity_x = speed
 
@@ -59,7 +64,7 @@ func _physics_process(delta):
 
 	# Handle jump.
 	if Input.is_action_just_pressed("move_jump") and player.is_on_floor():
-		player.velocity.y -= jump_power
+		player.velocity.y -= jump_force
 
 	# Handle crouching.
 	if Input.is_action_pressed("move_crouch") and player.is_on_floor():

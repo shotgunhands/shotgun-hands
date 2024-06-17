@@ -40,7 +40,7 @@ func _process(_delta):
 
 func _aim():
 	# pick a sprite or rotate it or whatev here
-	_pivot.look_at(_pivot.get_global_mouse_position())
+	_pivot.look_at(get_global_mouse_position())
 
 
 func _fire(mouse: int):
