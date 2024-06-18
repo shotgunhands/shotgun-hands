@@ -8,7 +8,7 @@ var crouch_speed_modifier = 0.75
 var momentum_retention_slide = 1.0
 
 #var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-@export_range(0, 50.0) var gravity = 9.81
+@export_range(0, 50.0) var gravity = 18
 const SCALE = 10
 
 @onready var player = $".."

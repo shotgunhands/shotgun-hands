@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3ef4slnoojev"]
+
+[ext_resource type="Script" path="res://Actors/Enemies/Shared/MeleeSlash.gd" id="1_kqk4t"]
+[ext_resource type="Texture2D" uid="uid://1p0pdgo6dc72" path="res://icon.svg" id="1_ybbeo"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_kqk4t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ybbeo")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

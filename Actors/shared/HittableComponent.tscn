@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cohbaywbyod68"]
+[gd_scene load_steps=3 format=3 uid="uid://cohbaywbyod68"]
 
 [ext_resource type="Script" path="res://Actors/shared/hittable_component.gd" id="1_gidrq"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5b3a"]
+
 [node name="Area2D" type="Area2D"]
 script = ExtResource("1_gidrq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_l5b3a")

@@ -22,6 +22,10 @@ UiManager="*res://Globals/ui_manager.gd"
 Logger="*res://Globals/logger.gd"
 Console="*res://UIs/Console/Console.tscn"
 
+[display]
+
+window/size/mode=3
+
 [dotnet]
 
 project/assembly_name="Shotgun Hands"

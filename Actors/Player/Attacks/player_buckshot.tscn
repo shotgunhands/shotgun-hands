@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxak7t71tnkhv"]
+
+[ext_resource type="Script" path="res://Actors/Player/Attacks/player_buckshot.gd" id="1_ocwt4"]
+[ext_resource type="Texture2D" uid="uid://yllsk21dgsk3" path="res://Actors/Enemies/Antimony/Acid.png" id="2_rngnb"]
+
+[node name="Buckshot" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_ocwt4")
+metadata/Damage = 10.0
+
+[node name="Buckshot" type="Sprite2D" parent="."]
+texture = ExtResource("2_rngnb")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
