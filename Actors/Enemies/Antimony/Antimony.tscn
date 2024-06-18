@@ -15,7 +15,6 @@ position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_ic78v")
 
 [node name="Placeholder" type="Polygon2D" parent="."]
-visible = false
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
 

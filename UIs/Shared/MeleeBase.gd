@@ -25,9 +25,15 @@ var player:Node2D          = null
 var state:State            = State.IDLE
 var last_attack_time:float = 0.0
 var fistScene = load("res://Actors/Enemies/Shared/MeleeSlash.tscn")
+# assume the first spawn node is closest
+
+	# look through spawn nodes to see if any are closer
+
 ### METHODS ###
 func _ready():
 	player = get_tree().get_nodes_in_group("Player")[0]
+
+
 
 func _physics_process(_delta) -> void:
 	if !is_on_floor(): velocity.y += GRAVITY

@@ -126,3 +126,8 @@ func iceball_attack() -> void:
 func grenade_attack()-> void:
 	var grenade = grenadeScene.instantiate()
 	add_child(grenade)
+
+
+
+func _on_area_2d_2_die_father():
+	queue_free()

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1slq5kjhtmbv"]
+
+[ext_resource type="Script" path="res://Actors/Enemies/Club Scrub/DamageDetecter.gd" id="1_2tp6d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wedp"]
+size = Vector2(104, 84)
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("1_2tp6d")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_8wedp")
