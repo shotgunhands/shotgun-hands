@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5d6jsjupj3vb"]
+
+[ext_resource type="Script" path="res://UIs/Shared/hype_meter.gd" id="1_1pkt2"]
+
+[node name="Hype" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1047.0
+offset_bottom = -589.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1pkt2")
+
+[node name="RankLabel" type="Label" parent="."]
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 90.0
+offset_bottom = 26.0
+text = "Hype meter"
+
+[node name="HypeProg" type="ProgressBar" parent="."]
+offset_left = -1.0
+offset_top = 21.0
+offset_right = 91.0
+offset_bottom = 48.0

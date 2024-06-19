@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://c8ck542510xd"]
+[gd_scene load_steps=2 format=3 uid="uid://c8ck542510xd"]
+
+[ext_resource type="PackedScene" uid="uid://c5d6jsjupj3vb" path="res://UIs/Shared/hype_meter.tscn" id="1_fucbm"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -19,3 +21,9 @@ Right Click Slug
 R to reload
 WASD move
 Space Jump"
+
+[node name="Hype" parent="CanvasLayer" instance=ExtResource("1_fucbm")]
+offset_left = 2.0
+offset_top = 164.0
+offset_right = -1045.0
+offset_bottom = -425.0
