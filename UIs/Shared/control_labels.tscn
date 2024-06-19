@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c8ck542510xd"]
 
-[ext_resource type="PackedScene" uid="uid://c5d6jsjupj3vb" path="res://UIs/Shared/hype_meter.tscn" id="1_fucbm"]
+[ext_resource type="PackedScene" uid="uid://yunjwwpynjwd" path="res://UIs/Shared/hype_meter.tscn" id="1_fucbm"]
 
 [node name="Control" type="Control"]
 layout_mode = 3

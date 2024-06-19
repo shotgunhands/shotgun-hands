@@ -6,7 +6,7 @@ var delay_seconds = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	Scenemanager.hype_meter = self
 
 
 # Reduces Hype each frame by an amount depending on the current rank
