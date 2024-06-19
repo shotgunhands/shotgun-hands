@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://c8ck542510xd"]
+[gd_scene load_steps=2 format=3 uid="uid://c8ck542510xd"]
+
+[ext_resource type="PackedScene" uid="uid://yunjwwpynjwd" path="res://UIs/Shared/hype_meter.tscn" id="1_fucbm"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -8,8 +10,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
 offset_left = 1.0
 offset_right = 1152.0
 offset_bottom = 648.0
@@ -18,3 +21,9 @@ Right Click Slug
 R to reload
 WASD move
 Space Jump"
+
+[node name="Hype" parent="CanvasLayer" instance=ExtResource("1_fucbm")]
+offset_left = 2.0
+offset_top = 164.0
+offset_right = -1045.0
+offset_bottom = -425.0

@@ -12,6 +12,8 @@ var scene_library := {
 
 var active_scene # instance of the current scene
 
+var hype_meter : Control # Contains the hype meter object for quick reference
+
 func _ready():
 	active_scene = $"/root/MainMenu" # set the main menu as the active scene
 
