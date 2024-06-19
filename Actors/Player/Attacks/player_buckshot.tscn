@@ -11,6 +11,7 @@ collision_layer = 128
 collision_mask = 128
 mass = 0.01
 gravity_scale = 0.0
+can_sleep = false
 script = ExtResource("1_ocwt4")
 metadata/Damage = 10.0
 
@@ -23,4 +24,6 @@ one_shot = true
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 128
+visibility_layer = 128
 shape = SubResource("RectangleShape2D_aak2e")

@@ -11,6 +11,9 @@ func _process(_delta):
 		dieFather.emit()
 
 
+
+
+
 func _on_body_entered(body: Node2D):
 	print("hrgre")
 	if body.is_in_group("bullet"):

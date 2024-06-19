@@ -93,3 +93,7 @@ func check_can_see() -> bool:
 func mel_attack () -> void:
 	var fist = fistScene.instantiate()
 	add_child(fist)
+
+
+func _on_area_2d_die_father():
+	queue_free()
