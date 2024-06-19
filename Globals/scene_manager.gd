@@ -3,7 +3,7 @@ extends Node
 var scene_library := {
 	"main_menu":"res://Menus/Main/main_menu.tscn",
 	"playground":"res://Stages/Playground/playground.tscn",
-	"stage_01":"",
+	"stage_01":"res://Stages/Streets/Level1/Streets level 1.tscn",
 	"stage_02":"",
 	"stage_03":"",
 	"stage_04":"",

@@ -131,3 +131,7 @@ func grenade_attack()-> void:
 
 func _on_area_2d_2_die_father():
 	queue_free()
+
+
+func _on_area_2d_die_father():
+	queue_free()

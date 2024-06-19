@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://fboxclm3p6ap"]
+
+[ext_resource type="Script" path="res://Stages/Shared/Assets/destroyableObject.gd" id="1_mo0os"]
+[ext_resource type="Script" path="res://Actors/Enemies/Shared/DamageDetecter.gd" id="2_j0ype"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4n5nv"]
+size = Vector2(100, 100)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cc00a"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywk5m"]
+size = Vector2(19.084, 23.8095)
+
+[node name="RigidBody2D" type="RigidBody2D"]
+script = ExtResource("1_mo0os")
+
+[node name="Hitbox2" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4n5nv")
+
+[node name="Sprite2" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_cc00a")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(5.24, 4.2)
+collision_layer = 192
+collision_mask = 192
+script = ExtResource("2_j0ype")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1.90735e-06, -9.53674e-07)
+shape = SubResource("RectangleShape2D_ywk5m")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="dieFather" from="Area2D" to="." method="_on_area_2d_die_father"]
