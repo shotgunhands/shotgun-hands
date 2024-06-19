@@ -9,7 +9,8 @@ func _ready():
 	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Reduces Hype each frame by an amount depending on the current rank
+# unless the delay is active in which case it counts that down instead.
 func _process(delta):
 	if delay_seconds <= 0:
 		match(rank):
@@ -49,8 +50,11 @@ func _process(delta):
 	$RankLabel.text = rank
 	$HypeProg.value = hype
 
+
+# Increases the current hype by the amount given. Overflows to the next rank
+# if given enough to rank up. Also temprarily pauses hype loss.
 func increase_hype(amount):
-	delay_seconds = 0.5
+	delay_seconds = 0.5 # feel free to tweak this number, but don't make it zero.
 	hype += amount
 	while hype >= 100:
 		hype -= 100
@@ -69,7 +73,7 @@ func increase_hype(amount):
 			_:
 				rank = "C"
 				hype = 0
-
+	
 
 # Note: This is just a placeholder for now. Once hype increasing has properly been implemented, this can be removed
 func _on_increase_hype_placeholder_pressed():
