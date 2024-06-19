@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bm5vk6w77jlaj"]
+[gd_scene load_steps=9 format=3 uid="uid://bm5vk6w77jlaj"]
 
 [ext_resource type="PackedScene" uid="uid://du3m0im4ehmv6" path="res://Stages/Shared/Assets/cube.tscn" id="1_k66gr"]
 [ext_resource type="PackedScene" uid="uid://dmxecalvc4b4c" path="res://Actors/Enemies/Chain Brute/Chain Brute.tscn" id="2_s461c"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="4_w631d"]
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="5_j2ml6"]
 [ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="6_optyc"]
+[ext_resource type="PackedScene" uid="uid://fboxclm3p6ap" path="res://Stages/Shared/Assets/destroyableCube.tscn" id="7_fuu1y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qgt5t"]
 size = Vector2(2000, 2)
@@ -140,3 +141,9 @@ position = Vector2(-959, -12)
 position = Vector2(2091, -38)
 collision_layer = 2
 collision_mask = 2
+
+[node name="RigidBody2D" parent="." instance=ExtResource("7_fuu1y")]
+position = Vector2(988, -54)
+
+[node name="RigidBody2D2" parent="." instance=ExtResource("7_fuu1y")]
+position = Vector2(1316, -30)
