@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://du3m0im4ehmv6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hplvd"]
+size = Vector2(100, 100)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_t5y7i"]
+size = Vector2(100, 100)
+
+[node name="Obstacle" type="RigidBody2D"]
+position = Vector2(128, -49)
+scale = Vector2(0.5, 0.5)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox2" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hplvd")
+
+[node name="Sprite2" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_t5y7i")

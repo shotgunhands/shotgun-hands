@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0r21s0oafi4y"]
+[gd_scene load_steps=7 format=3 uid="uid://c0r21s0oafi4y"]
 
 [ext_resource type="Script" path="res://Actors/Enemies/Antimony/Antimony.gd" id="1_abkgn"]
 [ext_resource type="Texture2D" uid="uid://d2aquenjraaxa" path="res://Actors/Enemies/Antimony/Antimony.png" id="2_vlg85"]
 [ext_resource type="AudioStream" uid="uid://g7701skx2lxg" path="res://Actors/Enemies/Antimony/Acid_Slug_wip.mp3" id="3_s6d1i"]
+[ext_resource type="Script" path="res://Actors/Enemies/Shared/DamageDetecter.gd" id="4_ymynu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ic78v"]
 size = Vector2(25, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6smgc"]
+size = Vector2(14.5038, 32.381)
 
 [node name="Antimony" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_abkgn")
@@ -27,3 +31,17 @@ texture = ExtResource("2_vlg85")
 stream = ExtResource("3_s6d1i")
 volume_db = 4.539
 autoplay = true
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(5.24, 4.2)
+collision_layer = 192
+collision_mask = 192
+script = ExtResource("4_ymynu")
+health = 10000
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(9.09995e-08, -4.54131e-07)
+shape = SubResource("RectangleShape2D_6smgc")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="dieFather" from="Area2D" to="." method="_on_area_2d_die_father"]

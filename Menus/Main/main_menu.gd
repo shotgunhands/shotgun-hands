@@ -7,7 +7,7 @@ func _ready() -> void:
 	_connect_signals()
 
 func _on_play():
-	Scenemanager.change_scene("playground")
+	Scenemanager.change_scene("stage_01")
 	
 func _on_quit():
 	get_tree().quit()

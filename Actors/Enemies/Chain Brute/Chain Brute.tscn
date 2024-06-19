@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmxecalvc4b4c"]
+
+[ext_resource type="Script" path="res://UIs/Shared/MeleeBase.gd" id="1_kqm6p"]
+[ext_resource type="Script" path="res://Actors/Enemies/Shared/DamageDetecter.gd" id="2_tejq6"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ijxbu"]
+load_path = "res://.godot/imported/SpritesheetMisc.png-149dc50d3a38640a4736e9133bb4c595.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3ltf"]
+size = Vector2(76, 136)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxs24"]
+size = Vector2(14.5038, 32.381)
+
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["Enemy"]]
+scale = Vector2(0.5, 0.5)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_kqm6p")
+MEL_ATTACK_RANGE = 150
+SPEED = 50
+ATTACK_COOLDOWN = 0.5
+
+[node name="Unnamed" type="Sprite2D" parent="."]
+texture = SubResource("CompressedTexture2D_ijxbu")
+region_enabled = true
+region_rect = Rect2(321, 92, 76, 137)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_r3ltf")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(5.24, 4.2)
+collision_layer = 192
+collision_mask = 192
+script = ExtResource("2_tejq6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(9.09995e-08, -4.54131e-07)
+shape = SubResource("RectangleShape2D_gxs24")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="dieFather" from="Area2D" to="." method="_on_area_2d_die_father"]

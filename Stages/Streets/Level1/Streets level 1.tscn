@@ -1,0 +1,142 @@
+[gd_scene load_steps=8 format=3 uid="uid://bm5vk6w77jlaj"]
+
+[ext_resource type="PackedScene" uid="uid://du3m0im4ehmv6" path="res://Stages/Shared/Assets/cube.tscn" id="1_k66gr"]
+[ext_resource type="PackedScene" uid="uid://dmxecalvc4b4c" path="res://Actors/Enemies/Chain Brute/Chain Brute.tscn" id="2_s461c"]
+[ext_resource type="PackedScene" uid="uid://cbh3yrg0r2t5w" path="res://Actors/Enemies/Club Scrub/Club Scrub.tscn" id="3_wnunx"]
+[ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="4_w631d"]
+[ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="5_j2ml6"]
+[ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="6_optyc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgt5t"]
+size = Vector2(2000, 2)
+
+[node name="StreetsLevel1" type="Node2D"]
+
+[node name="Bg" type="Polygon2D" parent="."]
+color = Color(0.384314, 0.384314, 0.384314, 1)
+polygon = PackedVector2Array(-1000, -1000, -1000, 1, 1000, 1, 3011, 0, 2991, -1000)
+
+[node name="Floor" type="RigidBody2D" parent="Bg"]
+scale = Vector2(32.225, 1)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Bg/Floor"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Bg/Floor"]
+shape = SubResource("RectangleShape2D_qgt5t")
+
+[node name="Wall" type="RigidBody2D" parent="Bg"]
+position = Vector2(-1000, -455)
+rotation = 1.5708
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Bg/Wall"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Bg/Wall"]
+shape = SubResource("RectangleShape2D_qgt5t")
+
+[node name="Wall2" type="RigidBody2D" parent="Bg"]
+position = Vector2(3000, -455)
+rotation = 1.5708
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Bg/Wall2"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Bg/Wall2"]
+shape = SubResource("RectangleShape2D_qgt5t")
+
+[node name="Roof" type="RigidBody2D" parent="Bg"]
+position = Vector2(0, -300)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Bg/Roof"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Bg/Roof"]
+shape = SubResource("RectangleShape2D_qgt5t")
+
+[node name="Enviroment" type="Node2D" parent="."]
+
+[node name="Obstacle" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(-885, -26)
+
+[node name="Obstacle4" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(-503, -23)
+
+[node name="Obstacle7" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(-885, -24)
+
+[node name="Obstacle12" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(-355, -275)
+
+[node name="Obstacle13" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(-401, -271)
+
+[node name="Obstacle14" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(-303, -273)
+
+[node name="Obstacle15" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(-352, -239)
+
+[node name="Obstacle16" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(-31, -24)
+
+[node name="Obstacle18" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(297, -24)
+
+[node name="Obstacle21" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(442, -24)
+
+[node name="Obstacle22" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(438, -67)
+
+[node name="Obstacle23" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(442, -111)
+
+[node name="Obstacle24" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(419, -22)
+
+[node name="Obstacle25" parent="Enviroment" instance=ExtResource("1_k66gr")]
+position = Vector2(601, -28)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_s461c")]
+position = Vector2(38, -59)
+
+[node name="CharacterBody2D2" parent="." instance=ExtResource("3_wnunx")]
+position = Vector2(-371, -50)
+
+[node name="CharacterBody2D4" parent="." instance=ExtResource("3_wnunx")]
+position = Vector2(-698, -79)
+
+[node name="CharacterBody2D5" parent="." instance=ExtResource("2_s461c")]
+position = Vector2(521, -60)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -97)
+zoom = Vector2(2, 2)
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("4_w631d")
+
+[node name="2DPlayer" parent="." instance=ExtResource("5_j2ml6")]
+position = Vector2(-959, -12)
+
+[node name="Antimony" parent="." instance=ExtResource("6_optyc")]
+position = Vector2(2091, -38)
+collision_layer = 2
+collision_mask = 2

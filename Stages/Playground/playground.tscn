@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://c32res81juhqg"]
+[gd_scene load_steps=9 format=3 uid="uid://c32res81juhqg"]
 
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="1_qs7i5"]
 [ext_resource type="PackedScene" uid="uid://c8ck542510xd" path="res://UIs/Shared/control_labels.tscn" id="2_jnl8n"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="2_yljtj"]
+[ext_resource type="PackedScene" uid="uid://dmxecalvc4b4c" path="res://Actors/Enemies/Chain Brute/Chain Brute.tscn" id="5_dmael"]
 [ext_resource type="PackedScene" uid="uid://cbh3yrg0r2t5w" path="res://Actors/Enemies/Club Scrub/Club Scrub.tscn" id="6_0ytr4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tu80g"]
+size = Vector2(2000, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)
@@ -11,14 +15,64 @@ size = Vector2(100, 100)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wxg5a"]
 size = Vector2(100, 100)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tu80g"]
-size = Vector2(2000, 2)
-
 [node name="Playground" type="Node2D"]
 
 [node name="Bg" type="Polygon2D" parent="."]
 color = Color(0.384314, 0.384314, 0.384314, 1)
-polygon = PackedVector2Array(-1000, -1000, -1000, 1, 1000, 1, 1000, -1000)
+polygon = PackedVector2Array(-1000, -1000, -1000, 1, 1000, 1, 1000, -137.732, 1000, -1000)
+
+[node name="Floor" type="RigidBody2D" parent="Bg"]
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Bg/Floor"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Bg/Floor"]
+shape = SubResource("RectangleShape2D_tu80g")
+
+[node name="Wall" type="RigidBody2D" parent="Bg"]
+position = Vector2(-1000, -455)
+rotation = 1.5708
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Bg/Wall"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Bg/Wall"]
+shape = SubResource("RectangleShape2D_tu80g")
+
+[node name="Wall2" type="RigidBody2D" parent="Bg"]
+position = Vector2(1000, -455)
+rotation = 1.5708
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Bg/Wall2"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Bg/Wall2"]
+shape = SubResource("RectangleShape2D_tu80g")
+
+[node name="Roof" type="RigidBody2D" parent="Bg"]
+position = Vector2(0, -300)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Bg/Roof"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Bg/Roof"]
+shape = SubResource("RectangleShape2D_tu80g")
 
 [node name="Obstacle" type="RigidBody2D" parent="."]
 position = Vector2(128, -49)
@@ -72,46 +126,6 @@ shape = SubResource("RectangleShape2D_np1uq")
 [node name="Sprite" type="Sprite2D" parent="Obstacle4"]
 texture = SubResource("PlaceholderTexture2D_wxg5a")
 
-[node name="Wall" type="RigidBody2D" parent="."]
-position = Vector2(-1000, -455)
-rotation = 1.5708
-collision_layer = 3
-collision_mask = 0
-freeze = true
-
-[node name="Vis" type="Polygon2D" parent="Wall"]
-color = Color(0.176471, 0.176471, 0.176471, 1)
-polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
-
-[node name="Hitbox" type="CollisionShape2D" parent="Wall"]
-shape = SubResource("RectangleShape2D_tu80g")
-
-[node name="Wall2" type="RigidBody2D" parent="."]
-position = Vector2(1000, -455)
-rotation = 1.5708
-collision_layer = 3
-collision_mask = 0
-freeze = true
-
-[node name="Vis" type="Polygon2D" parent="Wall2"]
-color = Color(0.176471, 0.176471, 0.176471, 1)
-polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
-
-[node name="Hitbox" type="CollisionShape2D" parent="Wall2"]
-shape = SubResource("RectangleShape2D_tu80g")
-
-[node name="Floor" type="RigidBody2D" parent="."]
-collision_layer = 3
-collision_mask = 0
-freeze = true
-
-[node name="Vis" type="Polygon2D" parent="Floor"]
-color = Color(0.176471, 0.176471, 0.176471, 1)
-polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
-
-[node name="Hitbox" type="CollisionShape2D" parent="Floor"]
-shape = SubResource("RectangleShape2D_tu80g")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -97)
 zoom = Vector2(2, 2)
@@ -127,18 +141,8 @@ offset_bottom = 163.0
 
 [node name="2DPlayer" parent="." instance=ExtResource("1_qs7i5")]
 
-[node name="Roof" type="RigidBody2D" parent="."]
-position = Vector2(0, -300)
-collision_layer = 3
-collision_mask = 0
-freeze = true
-
-[node name="Vis" type="Polygon2D" parent="Roof"]
-color = Color(0.176471, 0.176471, 0.176471, 1)
-polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
-
-[node name="Hitbox" type="CollisionShape2D" parent="Roof"]
-shape = SubResource("RectangleShape2D_tu80g")
-
 [node name="CharacterBody2D" parent="." instance=ExtResource("6_0ytr4")]
-position = Vector2(226.285, -28.49)
+position = Vector2(230, -37)
+
+[node name="CharacterBody2D2" parent="." instance=ExtResource("5_dmael")]
+position = Vector2(477, -41)
