@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c32res81juhqg"]
+[gd_scene load_steps=10 format=3 uid="uid://c32res81juhqg"]
 
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="1_qs7i5"]
+[ext_resource type="PackedScene" uid="uid://c8ck542510xd" path="res://UIs/Shared/control_labels.tscn" id="2_jnl8n"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="2_yljtj"]
+[ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="4_3akxr"]
+[ext_resource type="PackedScene" uid="uid://d1slq5kjhtmbv" path="res://Actors/Enemies/Shared/DamageDetector.tscn" id="5_fyx2d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)
@@ -11,6 +14,9 @@ size = Vector2(100, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu80g"]
 size = Vector2(2000, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12pdk"]
+size = Vector2(25, 50)
 
 [node name="Playground" type="Node2D"]
 
@@ -117,4 +123,37 @@ process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("2_yljtj")
 
+[node name="Control" parent="Camera2D" instance=ExtResource("2_jnl8n")]
+offset_left = -288.0
+offset_top = -162.0
+offset_right = 288.0
+offset_bottom = 163.0
+
 [node name="2DPlayer" parent="." instance=ExtResource("1_qs7i5")]
+
+[node name="Roof" type="RigidBody2D" parent="."]
+position = Vector2(0, -300)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Roof"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Roof"]
+shape = SubResource("RectangleShape2D_tu80g")
+
+[node name="Folder" type="Node2D" parent="."]
+
+[node name="Antimony" parent="Folder" instance=ExtResource("4_3akxr")]
+position = Vector2(290, -60)
+
+[node name="Area2D2" parent="Folder" instance=ExtResource("5_fyx2d")]
+position = Vector2(290, -60)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Folder/Area2D2"]
+position = Vector2(0, -25)
+shape = SubResource("RectangleShape2D_12pdk")
+
+[connection signal="dieFather" from="Folder/Area2D2" to="Folder/Antimony" method="_on_area_2d_2_die_father"]

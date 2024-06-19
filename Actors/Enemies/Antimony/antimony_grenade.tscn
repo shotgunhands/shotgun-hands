@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bexj6xnr0jyjv"]
 
-[ext_resource type="Script" path="res://Antimony Grenade.gd" id="1_e4xtl"]
+[ext_resource type="Script" path="res://Actors/Enemies/Antimony/Antimony Grenade.gd" id="1_e4xtl"]
 [ext_resource type="Texture2D" uid="uid://bwno3unla4cc5" path="res://Actors/Enemies/Antimony/Grenade.png" id="2_3id75"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_58e2r"]

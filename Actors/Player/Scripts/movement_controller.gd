@@ -8,7 +8,7 @@ var jump_force
 @export_range(1, 10.0) var momentum_retention = 2.0
 var momentum_retention_slide = 1.0
 
-@export_range(0, 50.0) var gravity = 9.81
+@export_range(0, 50.0) var gravity = 18
 const SCALE = 10
 
 @onready var player = $".."

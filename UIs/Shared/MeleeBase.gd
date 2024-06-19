@@ -1,4 +1,4 @@
-class_name Antimony
+class_name MeleeBase
 extends CharacterBody2D
 
 ### CONSTANTS ###
@@ -9,10 +9,7 @@ extends CharacterBody2D
 @export var SPEED = 150
 @export var GRAVITY = 20
 @export var JUMP_SPEED = -500
-@export var ATTACK_COOLDOWN = 0.5
-@export var FLOURINE_ATTACK_COOLDOWN = 2.1
-@export var GRENADE_COOLDOWN = 10
-@export var ICEBALL_COOLDOWN = 5
+@export var ATTACK_COOLDOWN = 1.5
 ### ENUMS ###
 enum State {
 	IDLE,
@@ -27,17 +24,16 @@ var direction: float       = 1
 var player:Node2D          = null
 var state:State            = State.IDLE
 var last_attack_time:float = 0.0
-var last_grenade_attack_time:float = 0.0
-var last_flourine_attack_time:float = 0.0
-var last_iceball_attack_time:float = 0.0
-var acidScene = load("res://Actors/Enemies/Antimony/antimony_acid.tscn")
-var fistScene = load("res://Actors/Enemies/Antimony/antimony_fist.tscn")
-var grenadeScene = load("res://Actors/Enemies/Antimony/antimony_grenade.tscn")
-var flourineScene = load("res://Actors/Enemies/Antimony/antimony_flourine.tscn")
-var iceBallScene = load("res://Actors/Enemies/Antimony/antimony_ice_ball.tscn")
+var fistScene = load("res://Actors/Enemies/Shared/MeleeSlash.tscn")
+# assume the first spawn node is closest
+
+	# look through spawn nodes to see if any are closer
+
 ### METHODS ###
 func _ready():
 	player = get_tree().get_nodes_in_group("Player")[0]
+
+
 
 func _physics_process(_delta) -> void:
 	if !is_on_floor(): velocity.y += GRAVITY
@@ -79,25 +75,8 @@ func attack_logic() -> void:
 	if current_time - last_attack_time > ATTACK_COOLDOWN and distance_to_player <= MEL_ATTACK_RANGE:
 		last_attack_time = current_time
 		mel_attack ()
-	###Flourine
-	if current_time - last_iceball_attack_time > ICEBALL_COOLDOWN:
-		iceball_attack()
-		last_iceball_attack_time = current_time
-	###Flourine
-	if current_time - last_flourine_attack_time > FLOURINE_ATTACK_COOLDOWN:
-		flourine_attack()
-		last_flourine_attack_time = current_time
-	###Acid
-	if current_time - last_attack_time > ATTACK_COOLDOWN:
-		ranged_attack()
-		last_attack_time = current_time
-	###Grenade
-	if current_time - last_grenade_attack_time > GRENADE_COOLDOWN:
-		grenade_attack()
-		last_grenade_attack_time = current_time
 	var dir_to_player = (player.global_position - global_position).normalized()
-	velocity.x = SPEED * dir_to_player.x
-
+	velocity.x = SPEED * dir_to_player.x	
 func check_can_see() -> bool:
 	var space_state:PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 
@@ -114,20 +93,3 @@ func check_can_see() -> bool:
 func mel_attack () -> void:
 	var fist = fistScene.instantiate()
 	add_child(fist)
-func flourine_attack() -> void:
-	var flourine = flourineScene.instantiate()
-	add_child(flourine)
-func ranged_attack() -> void:
-	var acid = acidScene.instantiate()
-	add_child(acid)
-func iceball_attack() -> void:
-	var iceball = iceBallScene.instantiate()
-	add_child(iceball)
-func grenade_attack()-> void:
-	var grenade = grenadeScene.instantiate()
-	add_child(grenade)
-
-
-
-func _on_area_2d_2_die_father():
-	queue_free()

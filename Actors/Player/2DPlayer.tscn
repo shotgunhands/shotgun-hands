@@ -1,10 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://d0m6asdiav5p7"]
+[gd_scene load_steps=16 format=3 uid="uid://d0m6asdiav5p7"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/2d_player.gd" id="1_oua8l"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/movement_controller.gd" id="2_e27d1"]
-[ext_resource type="Script" path="res://Actors/Player/Scripts/firing_controller.gd" id="3_u4ryj"]
-[ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="4_bblcg"]
-[ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/slug.tscn" id="5_6mrvq"]
+[ext_resource type="Script" path="res://Actors/Player/AimController.gd" id="3_nrlis"]
 [ext_resource type="Texture2D" uid="uid://cwjjpbk6tyunw" path="res://Actors/Player/Sprites/spritesheet_sh_notext.png" id="6_xqhmg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4vr"]
@@ -109,14 +107,6 @@ gravity = 35.0
 [node name="LossOfControlTimer" type="Timer" parent="MovementController"]
 one_shot = true
 
-[node name="FiringController" type="Node2D" parent="."]
-script = ExtResource("3_u4ryj")
-_default_ammo = Array[PackedScene]([ExtResource("4_bblcg"), ExtResource("5_6mrvq")])
-
-[node name="ReloadTimer" type="Timer" parent="FiringController"]
-wait_time = 0.7
-one_shot = true
-
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_vn4vr")
@@ -128,10 +118,11 @@ polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
 [node name="RoofProbe" type="RayCast2D" parent="."]
 target_position = Vector2(0, -50)
 
-[node name="ShotgunPivot" type="Node2D" parent="."]
+[node name="ShotgunPivot" type="RigidBody2D" parent="." groups=["pivot"]]
 position = Vector2(0, -25)
+script = ExtResource("3_nrlis")
 
-[node name="Reticle" type="Polygon2D" parent="ShotgunPivot"]
+[node name="Crosshair" type="Polygon2D" parent="ShotgunPivot"]
 position = Vector2(24, 0)
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-2.5, -2.5, 2.5, -2.5, 2.5, 2.5, -2.5, 2.5)
@@ -147,6 +138,3 @@ animation = &"idle"
 [node name="Reload" type="Timer" parent="Timers"]
 
 [node name="Shot" type="Timer" parent="Timers"]
-
-[connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
-[connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]

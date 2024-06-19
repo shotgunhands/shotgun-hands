@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bynmltb6d8oco"]
 
-[ext_resource type="Script" path="res://Antimony Fist.gd" id="1_advxr"]
+[ext_resource type="Script" path="res://Actors/Enemies/Antimony/Antimony Fist.gd" id="1_advxr"]
 [ext_resource type="Texture2D" uid="uid://c3oroiso2ywaj" path="res://Actors/Enemies/Antimony/fist.png" id="2_nsd0j"]
 
 [node name="Antimony Fist" type="CharacterBody2D"]

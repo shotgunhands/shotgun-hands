@@ -8,7 +8,7 @@ func _ready() -> void:
 
 func _on_play():
 	Scenemanager.change_scene("playground")
-
+	
 func _on_quit():
 	get_tree().quit()
 
