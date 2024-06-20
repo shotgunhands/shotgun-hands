@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://07iabpnh8htg"]
+[gd_scene load_steps=4 format=3 uid="uid://cxak7t71tnkhv"]
 
-[ext_resource type="Script" path="res://Actors/Player/Attacks/player_slug.gd" id="1_qvk4l"]
+[ext_resource type="Script" path="res://Actors/Player/Attacks/player_slug.gd" id="1_ocwt4"]
 [ext_resource type="Texture2D" uid="uid://yllsk21dgsk3" path="res://Actors/Enemies/Antimony/Acid.png" id="2_rngnb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6mkui"]
@@ -17,12 +17,12 @@ one_shot = true
 autostart = true
 
 [node name="RigidBody2D" type="RigidBody2D" parent="." groups=["bullet"]]
-position = Vector2(31, 0)
-collision_layer = 128
-collision_mask = 128
+position = Vector2(0, 5.96046e-08)
+collision_layer = 4096
+collision_mask = 4096
 mass = 0.01
 gravity_scale = 0.0
-script = ExtResource("1_qvk4l")
+script = ExtResource("1_ocwt4")
 
 [node name="Buckshot" type="Sprite2D" parent="RigidBody2D"]
 texture = ExtResource("2_rngnb")
@@ -33,12 +33,12 @@ visibility_layer = 128
 shape = SubResource("RectangleShape2D_6mkui")
 
 [node name="RigidBody2D2" type="RigidBody2D" parent="." groups=["bullet"]]
-position = Vector2(-31, 0)
-collision_layer = 128
-collision_mask = 128
+position = Vector2(-4.76837e-07, -2.38419e-06)
+collision_layer = 2048
+collision_mask = 2048
 mass = 0.01
 gravity_scale = 0.0
-script = ExtResource("1_qvk4l")
+script = ExtResource("1_ocwt4")
 
 [node name="Buckshot" type="Sprite2D" parent="RigidBody2D2"]
 texture = ExtResource("2_rngnb")
@@ -49,12 +49,12 @@ visibility_layer = 128
 shape = SubResource("RectangleShape2D_6mkui")
 
 [node name="RigidBody2D3" type="RigidBody2D" parent="." groups=["bullet"]]
-position = Vector2(60, 0)
-collision_layer = 128
-collision_mask = 128
+position = Vector2(0, 4.29153e-06)
+collision_layer = 1024
+collision_mask = 1024
 mass = 0.01
 gravity_scale = 0.0
-script = ExtResource("1_qvk4l")
+script = ExtResource("1_ocwt4")
 
 [node name="Buckshot" type="Sprite2D" parent="RigidBody2D3"]
 texture = ExtResource("2_rngnb")
@@ -65,12 +65,12 @@ visibility_layer = 128
 shape = SubResource("RectangleShape2D_6mkui")
 
 [node name="RigidBody2D4" type="RigidBody2D" parent="." groups=["bullet"]]
-position = Vector2(-60, 0)
-collision_layer = 128
-collision_mask = 128
+position = Vector2(0, -4.29153e-06)
+collision_layer = 512
+collision_mask = 512
 mass = 0.01
 gravity_scale = 0.0
-script = ExtResource("1_qvk4l")
+script = ExtResource("1_ocwt4")
 
 [node name="Buckshot" type="Sprite2D" parent="RigidBody2D4"]
 texture = ExtResource("2_rngnb")
@@ -81,11 +81,11 @@ visibility_layer = 128
 shape = SubResource("RectangleShape2D_6mkui")
 
 [node name="RigidBody2D5" type="RigidBody2D" parent="." groups=["bullet"]]
-collision_layer = 384
-collision_mask = 128
+collision_layer = 256
+collision_mask = 256
 mass = 0.01
 gravity_scale = 0.0
-script = ExtResource("1_qvk4l")
+script = ExtResource("1_ocwt4")
 
 [node name="Buckshot" type="Sprite2D" parent="RigidBody2D5"]
 texture = ExtResource("2_rngnb")

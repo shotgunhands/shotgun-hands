@@ -1,12 +1,13 @@
 extends RigidBody2D
 @export var SPEED = 50
+@export var NUMBER = 1
 var pivot
 func _ready():
-
 	pivot = get_tree().get_nodes_in_group("pivot")[0]
 	rotation=pivot.rotation
-	position=pivot.position
+	position=pivot.position+Vector2(-40,40)
 	constant_force  = Vector2(1, 0).rotated(rotation) * SPEED
+
 func _physics_process(_delta):
 	pass
 func _on_timer_timeout():
