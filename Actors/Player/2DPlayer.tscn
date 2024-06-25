@@ -115,6 +115,10 @@ _default_ammo = Array[PackedScene]([ExtResource("4_bblcg"), ExtResource("5_6mrvq
 wait_time = 0.7
 one_shot = true
 
+[node name="ShotgunJumpTimer" type="Timer" parent="FiringController"]
+wait_time = 0.05
+one_shot = true
+
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_vn4vr")
@@ -149,3 +153,4 @@ frame_progress = 0.193913
 
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
 [connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]
+[connection signal="timeout" from="FiringController/ShotgunJumpTimer" to="FiringController" method="_shotgun_jump_timeout"]

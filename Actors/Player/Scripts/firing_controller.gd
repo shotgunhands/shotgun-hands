@@ -10,6 +10,12 @@ const SCALE = 100.0
 @export var _default_ammo: Array[PackedScene]
 @onready var _ammo_types: Array[AmmoType] = []
 
+@onready var _shotgun_jump_timer: Timer = $ShotgunJumpTimer
+@export var _shotgun_jump_blast_force: float = 5
+var _can_shotgun_jump = false
+
+var _touched_ground = 0
+
 signal hit_enemy
 signal midair_shot
 
@@ -24,8 +30,7 @@ func _ready():
 # to wait until some discussion is done abt this :P ~wdbros
 func _process(_delta):
 	if _player.is_on_floor():
-		_ammo_types[0].touched_ground = true
-		_ammo_types[1].touched_ground = true
+		_touched_ground = 0
 	
 	_aim()
 	
@@ -46,12 +51,17 @@ func _aim():
 func _fire(mouse: int):
 	if _ammo_types[mouse].ammo <= 0 or not _reload_timer.is_stopped():
 		return
+
+	if not _player.is_on_floor() and _can_shotgun_jump:
+		_touched_ground += 1
+		_launch(mouse)
+
 	
 	_ammo_types[mouse].fire(_pivot)
 	
-	if not _player.is_on_floor() and _ammo_types[mouse].touched_ground:
-		_launch(mouse)
-		_ammo_types[mouse].touched_ground = false
+	if not _can_shotgun_jump and _touched_ground < 2:
+		_can_shotgun_jump = true
+		_shotgun_jump_timer.start()
 
 
 func _reload():
@@ -65,7 +75,10 @@ func _reloaded():
 	_ammo_types[1].ammo = _ammo_types[1].max_ammo
 
 
-func _launch(mouse: int):
-	# particle effects go here
-	_player.velocity = Vector2.RIGHT.rotated(_pivot.rotation) * _ammo_types[mouse].blast_force * SCALE * -1
+func _shotgun_jump_timeout():
+	_can_shotgun_jump = false
+
+
+func _launch(mouse: int): # particle effects go here
+	_player.velocity = Vector2.RIGHT.rotated(_pivot.rotation) * _shotgun_jump_blast_force * SCALE * -1
 	emit_signal("midair_shot")

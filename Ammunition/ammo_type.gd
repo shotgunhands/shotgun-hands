@@ -11,8 +11,6 @@ class_name AmmoType
 @export var max_ammo: int
 @onready var ammo: int = max_ammo
 
-var touched_ground = true
-
 @export var _pellet: PackedScene
 @export var _pellet_count: int
 @export var _pellet_spread_angle: int ## in degrees :pensive:
