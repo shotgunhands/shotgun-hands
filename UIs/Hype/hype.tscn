@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://bndnajomynxhj"]
+
+[ext_resource type="Script" path="res://UIs/Hype/hype_meter.gd" id="1_qd3er"]
+
+[node name="Hype" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qd3er")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 131.0
+offset_bottom = 54.0
+
+[node name="HypeLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+text = "S"
+fit_content = true
+
+[node name="HypeBar" type="ProgressBar" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="temp_increase_hype_btn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "more hype!!!"
+
+[connection signal="pressed" from="VBoxContainer/temp_increase_hype_btn" to="." method="_on_temp_increase_hype_btn_pressed"]
