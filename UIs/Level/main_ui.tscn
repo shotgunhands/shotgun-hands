@@ -36,6 +36,14 @@ fit_content = true
 [node name="PlayerHealth" type="ProgressBar" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 
+[node name="OverheatLabel" type="RichTextLabel" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Overheat:"
+fit_content = true
+
+[node name="OverheatBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
 [node name="Hype" parent="CanvasLayer/VBoxContainer" instance=ExtResource("1_rp71p")]
 layout_mode = 2
 size_flags_vertical = 3
