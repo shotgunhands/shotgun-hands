@@ -94,5 +94,6 @@ func increase_hype(amount : float):
 
 
 
+# Feel free to remove this, it's just a temporary thing until actual hype increases are implemented.
 func _on_temp_increase_hype_btn_pressed():
 	Scenemanager.hype_meter.increase_hype(25)

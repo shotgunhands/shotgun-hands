@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c32res81juhqg"]
+[gd_scene load_steps=11 format=3 uid="uid://c32res81juhqg"]
 
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="1_qs7i5"]
 [ext_resource type="PackedScene" uid="uid://c8ck542510xd" path="res://UIs/Shared/control_labels.tscn" id="2_jnl8n"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="2_yljtj"]
 [ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="4_3akxr"]
 [ext_resource type="PackedScene" uid="uid://d1slq5kjhtmbv" path="res://Actors/Enemies/Shared/DamageDetector.tscn" id="5_fyx2d"]
+[ext_resource type="PackedScene" uid="uid://bcmdybtse1fig" path="res://UIs/Level/main_ui.tscn" id="6_jl4cm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)
@@ -155,5 +156,8 @@ position = Vector2(290, -60)
 [node name="Hitbox" type="CollisionShape2D" parent="Folder/Area2D2"]
 position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_12pdk")
+
+[node name="MainUI" parent="." node_paths=PackedStringArray("player_hold") instance=ExtResource("6_jl4cm")]
+player_hold = NodePath("../2DPlayer")
 
 [connection signal="dieFather" from="Folder/Area2D2" to="Folder/Antimony" method="_on_area_2d_2_die_father"]
