@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c8ck542510xd" path="res://UIs/Shared/control_labels.tscn" id="2_jnl8n"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="2_yljtj"]
 [ext_resource type="PackedScene" uid="uid://c0r21s0oafi4y" path="res://Actors/Enemies/Antimony/Antimony.tscn" id="4_3akxr"]
-[ext_resource type="PackedScene" uid="uid://d1slq5kjhtmbv" path="res://Actors/Enemies/Shared/DamageDetector.tscn" id="5_fyx2d"]
+[ext_resource type="PackedScene" path="res://Actors/Enemies/Shared/DamageDetector.tscn" id="5_fyx2d"]
 [ext_resource type="PackedScene" uid="uid://bcmdybtse1fig" path="res://UIs/Level/main_ui.tscn" id="6_jl4cm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
