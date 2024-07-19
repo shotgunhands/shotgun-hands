@@ -14,10 +14,7 @@ func _ready():
 	
 	_start_position = global_position;
 func _physics_process(_delta):
-	var old_position := global_position;
-	#TODO find best distance to check
-	var position_delta := Vector2.RIGHT.rotated(rotation) * _pellet_speed;
-	var target := global_position + position_delta
+	var target: Vector2 = _get_next_frame_position()
 	#detect if bullet will hit enemy if it moves
 	var r_info := _cast_enemy_ray(global_position, target)
 	if r_info:
@@ -27,11 +24,11 @@ func _physics_process(_delta):
 		destroy()
 		return
 	#move
-	global_position += position_delta
+	global_position = _get_next_frame_position()
 	#if check to stop case where there is no predicted target (i.e. it goes offscreen) otherwise it casts itself to (0,0)
 	if stop_pos != unset_vec2:
 		#Check if the bullet has overshot the desired position
-		if old_position.distance_squared_to(stop_pos) <= global_position.distance_squared_to(stop_pos):
+		if _get_last_frame_position().distance_squared_to(stop_pos) <= global_position.distance_squared_to(stop_pos):
 			print("visual hit env")
 			destroy()
 			return
@@ -45,3 +42,14 @@ func _cast_enemy_ray(start: Vector2, target: Vector2) -> Dictionary:
 	var r_pars = PhysicsRayQueryParameters2D.create(start, target, 0b11_0000_0000)
 	r_pars.collide_with_areas = true
 	return state.intersect_ray(r_pars)
+
+
+func _get_next_frame_position() -> Vector2:
+	#TODO find best distance to check
+	var position_delta: Vector2 = Vector2.RIGHT.rotated(rotation) * _pellet_speed;
+	return global_position + position_delta
+
+
+func _get_last_frame_position() -> Vector2:
+	var position_delta: Vector2 = Vector2.RIGHT.rotated(rotation) * _pellet_speed * -1;
+	return global_position + position_delta
