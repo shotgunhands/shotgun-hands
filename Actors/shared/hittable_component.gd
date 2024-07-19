@@ -4,6 +4,8 @@ extends Area2D
 @export var MAX_HEALTH: float = 100.0
 @export var INIT_HEALTH: float = 100.0
 
+signal destroy
+
 var _health: float
 var health: float = 100: set = set_health, get = get_health # The health you **ACTUALLY** access
 
@@ -12,14 +14,13 @@ var health: float = 100: set = set_health, get = get_health # The health you **A
 func _ready() -> void:
 	_health = INIT_HEALTH
 
-
 func get_health_perc() -> int:
 	return round(100 * _health / MAX_HEALTH)
 
 
 func kill_check() -> bool:
 	if _health <= 0:
-		destroy()
+		destroy.emit()
 		return true
 	return false
 
@@ -37,5 +38,5 @@ func hurt(value: float) -> void:
 	health = max(health - value, 0)
 
 
-func destroy() -> void:
-	parent.queue_free()
+# func destroy() -> void:
+# 	parent.queue_free()

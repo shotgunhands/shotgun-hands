@@ -1,7 +1,7 @@
 extends Node
 
 var scene_library := {
-	"main_menu":"res://Menus/Main/main_menu.tscn",
+	"main_menu":"res://Menus/Main/MainMenu.tscn",
 	"playground":"res://Stages/Playground/playground.tscn",
 	"stage_01":"",
 	"stage_02":"",
