@@ -1,15 +1,27 @@
 extends Node2D
 
+const SCALE = 10
+
 @export_range(1.0, 100.0) var speed = 10.0
 var crouch_speed_modifier = 0.75
-@export_range(1.0, 50.0) var jump_power = 20.0
 
 @export_range(1, 10.0) var momentum_retention = 2.0
 var momentum_retention_slide = 1.0
 
-#var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-@export_range(0, 50.0) var gravity = 9.81
-const SCALE = 10
+@export_group("Jump")
+@export var jump_height : float
+@export var jump_time_to_peak : float
+@export var jump_time_to_descent : float
+@export_subgroup("Polish")
+@export var coyote_time: float = 0.2
+@export var buffer_time: float = 0.2
+
+# Meth and jumping - PSK
+@onready var jump_vel : float = ((2.0 * jump_height) / jump_time_to_peak) * -1.
+@onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.
+@onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.
+var coyote_time_left: float = 0.0
+var jump_buffer_time_left: float = 0.0
 
 @onready var player = $".."
 
@@ -32,18 +44,17 @@ var facing_right = true
 
 @onready var animated_sprite = player.find_child("AnimatedSprite")
 
-
 func _ready():
 	default_hitbox_size = hitbox.shape.size.y
 	default_hitbox_offset = hitbox.position.y
 	speed *= SCALE
-	jump_power *= SCALE
-	gravity *= SCALE
+	jump_vel *= SCALE
+	jump_gravity *= SCALE
+	fall_gravity *= SCALE
 	momentum_retention *= SCALE
 	momentum_retention_slide *= SCALE
 
 	max_velocity_x = speed
-
 
 func _process(_delta):
 	# ONLY FOR DEBUGGING; THIS WILL BE REPLACED
@@ -55,11 +66,24 @@ func _physics_process(delta):
 
 	# Apply gravity.
 	if not player.is_on_floor():
-		player.velocity.y += gravity * delta # no delta mb, we're in phys_process
+		player.velocity.y += (jump_gravity if player.velocity.y < 0.0 else fall_gravity) * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("move_jump") and player.is_on_floor():
-		player.velocity.y -= jump_power
+	if player.is_on_floor():
+		coyote_time_left = coyote_time
+	else:
+		coyote_time_left -= delta
+
+    # Handle jump buffering.
+	if jump_buffer_time_left > 0: jump_buffer_time_left -= delta
+	if jump_buffer_time_left > 0 and (player.is_on_floor() or coyote_time_left > 0):
+		player.velocity.y = jump_vel
+		jump_buffer_time_left = 0
+
+	if Input.is_action_just_pressed("move_jump"):
+		if player.is_on_floor() or coyote_time_left > 0:
+			player.velocity.y = jump_vel
+		else:
+			jump_buffer_time_left = buffer_time
 
 	# Handle crouching.
 	if Input.is_action_pressed("move_crouch") and player.is_on_floor():
@@ -79,6 +103,14 @@ func _physics_process(delta):
 			placeholder_sprite.polygon = default_placeholder_polygon
 			use_crouch_speed = false
 
+	_animate()
+
+	_evaluate_max_velocity()
+	_move_horizontal()
+
+	player.move_and_slide()
+
+func _animate():
 	if player.velocity.x < 0:
 		facing_right = false
 	elif player.velocity.x > 0:
@@ -107,18 +139,11 @@ func _physics_process(delta):
 		if not animated_sprite.animation == "jump":
 			animated_sprite.play("jump")
 
-	_evaluate_max_velocity()
-	_move_horizontal()
-
-	player.move_and_slide()
-
-
 func _evaluate_control_degree():
 	if _control_degree != 1:
 		_control_degree = (_loss_of_control_timer.wait_time - _loss_of_control_timer.time_left) / (_loss_of_control_timer.wait_time)
 		_control_degree = pow(_control_degree, 3)
 		_control_degree = clampf(_control_degree, 0, 1)
-
 
 # checks state, returns what the value of max_velocity should be
 func _evaluate_max_velocity():
@@ -128,7 +153,6 @@ func _evaluate_max_velocity():
 	if max_velocity_x > speed and (player.is_on_floor() and not crouching):
 		max_velocity_x -= (max_velocity_x - speed) * _control_degree
 		max_velocity_x = max(speed, max_velocity_x)
-
 
 func _move_horizontal():
 	var direction = Input.get_axis("move_left", "move_right")
@@ -145,7 +169,6 @@ func _move_horizontal():
 		else:
 			player.velocity.x = move_toward(player.velocity.x, 0, (momentum_retention_slide * _control_degree))
 
-
 func lose_control():
 	_control_degree = 0
 	_loss_of_control_timer.start()
@@ -153,3 +176,4 @@ func lose_control():
 
 func destroy():
 	Scenemanager.change_scene("main_menu")
+
