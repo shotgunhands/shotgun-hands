@@ -58,9 +58,8 @@ func _ready():
 
 func _process(_delta):
 	# ONLY FOR DEBUGGING; THIS WILL BE REPLACED
-	#if Input.is_action_just_pressed("toggle_pause"):
-		#Scenemanager.change_scene("main_menu")
-	pass
+	if Input.is_action_just_pressed("toggle_pause"):
+		Scenemanager.change_scene("main_menu")
 
 func _physics_process(delta):
 	_evaluate_control_degree()

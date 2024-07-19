@@ -10,15 +10,15 @@ var scene_library := {
 	"stage_05":"",
 }
 
-var active_scene:Node # instance of the current scene
+var active_scene # instance of the current scene
 
 func _ready():
 	active_scene = $"/root/MainMenu" # set the main menu as the active scene
 
 # load scene by name
 func change_scene(scenename :String):
-	var loaded_new_scene:PackedScene = load(scene_library[scenename])
-	var new_scene:Node2D = loaded_new_scene.instantiate()
+	var loaded_new_scene = load(scene_library[scenename])
+	var new_scene = loaded_new_scene.instantiate()
 	$"/root".add_child(new_scene)
 	$"/root".remove_child(active_scene)
 	active_scene.queue_free()
