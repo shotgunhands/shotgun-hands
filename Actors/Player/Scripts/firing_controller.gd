@@ -136,7 +136,8 @@ func _shotgun_jump_timeout():
 func _increment_overheat():
 	_overheat += 1
 	_overheat_timer.start()
-	if _overheat > OVERHEAT_THRESHOLD:
+	
+	if _overheat >= OVERHEAT_THRESHOLD:
 		_start_overheat()
 
 
