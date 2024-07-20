@@ -73,7 +73,7 @@ func _process(delta):
 # Increases the hype amount and increases the rank if it must
 # This funciton can be called globally using the scene manager
 # by typing `Scenemanager.hype_meter.increase_hype(amount)`
-func increase_hype(amount : float):
+func _increase_hype(amount : float):
 	hype += amount
 	while hype > 100:
 		hype -= 100
@@ -96,4 +96,4 @@ func increase_hype(amount : float):
 
 # Feel free to remove this, it's just a temporary thing until actual hype increases are implemented.
 func _on_temp_increase_hype_btn_pressed():
-	Scenemanager.hype_meter.increase_hype(25)
+	Scenemanager.hype_meter._increase_hype(25)

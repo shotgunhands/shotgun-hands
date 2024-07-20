@@ -43,6 +43,9 @@ fit_content = true
 
 [node name="OverheatBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+max_value = 8.0
+show_percentage = false
 
 [node name="Hype" parent="CanvasLayer/VBoxContainer" instance=ExtResource("2_xammy")]
 layout_mode = 2
