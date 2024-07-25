@@ -1,6 +1,7 @@
 class_name BaseEnemyBehaviour
 extends CharacterBody2D
 
+# dictionary of strings so that the list is mutable without being shadowed
 var _states: Dictionary = {
 	"IDLE": _idle_logic,
 	"CHASE": _chase_logic,
@@ -16,6 +17,7 @@ const VIEW_ANGLE: float = 80
 func _ready():
 	pass
 
+
 func _physics_process(_delta) -> void:
 	# apply gravity
 	if not is_on_floor():
@@ -25,17 +27,24 @@ func _physics_process(_delta) -> void:
 
 	_states[_current_state].call()
 
+	move_and_slide()
+
+
 func _state_logic() -> void:
 	pass
+
 
 func _idle_logic() -> void:
 	pass
 
+
 func _chase_logic() -> void:
 	pass
 
+
 func _attack_logic() -> void:
 	pass
+
 
 # func _check_can_see() -> bool:
 # 	var space_state:PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
