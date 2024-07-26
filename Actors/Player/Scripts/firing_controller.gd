@@ -74,16 +74,20 @@ func _aim():
 
 
 func _fire(mouse: int):
-	if _is_overheated:
-		return
+	
 	if _ammo_types[mouse].ammo <= 0 or not _reload_timer.is_stopped() or not _ammo_types[mouse].can_fire:
 		return
-
-	_increment_overheat()
-
+	
+	
+	
 	if not _player.is_on_floor() and _can_shotgun_jump:
 		_touched_ground += 1
 		_launch()
+	elif _is_overheated:
+		return
+	print(_touched_ground)
+	if not _is_overheated:
+		_increment_overheat()
 	
 	_ammo_types[mouse].fire(_pivot)
 	
