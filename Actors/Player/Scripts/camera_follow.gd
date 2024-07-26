@@ -1,17 +1,19 @@
-extends Camera2D
+class_name Camera extends Camera2D
 
-@export var max_dist:Vector2 = Vector2(50, 50)
-@export var camera_offset: Vector2 = Vector2(0,0)
+@export var SmoothCamera : bool = true
+@export var SmoothSpeed : float = 10.0 # Speed of camera smoothing
+@export var MouseInfluence : float = 0.2 # How much the mouse position influences the camera
 
 @onready var player = $"../2DPlayer"
 
 var camera_look_off: float
 
 func _process(_delta) -> void:
-	var mouse_pos = get_local_mouse_position()
-	var des_pos = (player.position + mouse_pos)
-	des_pos = des_pos.clamp(player.position - max_dist, player.position + max_dist)
-	position = des_pos + camera_offset
+	if player == null:
+		return
 
+	var mouse_pos = get_viewport().get_mouse_position()
+	var viewport_size = get_viewport_rect().size
+	var mouse_offset = (mouse_pos - viewport_size / 2) * MouseInfluence
 
-
+	position = player.position + mouse_offset
