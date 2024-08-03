@@ -25,6 +25,7 @@ var C_time : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Sets the amount each rank should drain in a second.
 	P_time = 100/P_drain
 	S_time = 100/S_drain
 	A_time = 100/A_drain
@@ -33,8 +34,8 @@ func _ready():
 	Scenemanager.hype_meter = self
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# Using the switch statement, determine how fast the hype should be draining
 	match rank:
 		"P":
 			hype -= P_time*delta
@@ -73,7 +74,7 @@ func _process(delta):
 # Increases the hype amount and increases the rank if it must
 # This funciton can be called globally using the scene manager
 # by typing `Scenemanager.hype_meter.increase_hype(amount)`
-func _increase_hype(amount : float):
+func _increase_hype(amount : float) -> void:
 	hype += amount
 	while hype > 100:
 		hype -= 100

@@ -1,6 +1,8 @@
 extends Control
 
+# player_hold is a variable containing the player
 @export var player_hold : CharacterBody2D
+# health_bar, left_ammo, right_ammo and overheat_bar all contain the children of this node.
 @onready var health_bar : ProgressBar = $CanvasLayer/VBoxContainer/PlayerHealth
 @onready var left_ammo : RichTextLabel = $CanvasLayer/VBoxContainer/LeftHandAmmo
 @onready var right_ammo : RichTextLabel = $CanvasLayer/VBoxContainer/RightHandAmmo
@@ -12,7 +14,7 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Set the text of each ammo to their gun, set the overheat bar value.
 func _process(delta):
 	left_ammo.text = "Left gun ammo: " + str(player_hold.firing_controller._ammo_types[0].ammo)
 	right_ammo.text = "Right gun ammo: " + str(player_hold.firing_controller._ammo_types[1].ammo)
