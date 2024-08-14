@@ -11,26 +11,26 @@ var rank : String = "C"
 
 # Variables containing the time in seconds that each rank will take to fully drain
 # C is not included since it doesn't drain
-var P_drain : float = 2
-var S_drain : float = 4
-var A_drain : float = 5
-var B_drain : float = 6
+var _p_drain : float = 2
+var _s_drain : float = 4
+var _a_drain : float = 5
+var _b_drain : float = 6
 
 # Variables containing the amount that must be removed from the hype every second
-var P_time : float
-var S_time : float
-var A_time : float
-var B_time : float
-var C_time : float
+var _p_time : float
+var _s_time : float
+var _a_time : float
+var _b_time : float
+var _c_time : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Sets the amount each rank should drain in a second.
-	P_time = 100/P_drain
-	S_time = 100/S_drain
-	A_time = 100/A_drain
-	B_time = 100/B_drain
-	C_time = 0
+	_p_time = 100/_p_drain
+	_s_time = 100/_s_drain
+	_a_time = 100/_a_drain
+	_b_time = 100/_b_drain
+	_c_time = 0
 	Scenemanager.hype_meter = self
 
 
@@ -38,28 +38,28 @@ func _process(delta):
 	# Using the switch statement, determine how fast the hype should be draining
 	match rank:
 		"P":
-			hype -= P_time*delta
+			hype -= _p_time*delta
 			if hype < 0:
 				hype = 100
 				rank = "S"
 		"S":
-			hype -= S_time*delta
+			hype -= _s_time*delta
 			if hype < 0:
 				hype = 100
 				rank = "A"
 		"A":
-			hype -= A_time*delta
+			hype -= _a_time*delta
 			if hype < 0:
 				hype = 100
 				rank = "B"
 		"B":
-			hype -= B_time*delta
+			hype -= _b_time*delta
 			if hype < 0:
 				hype = 100
 				rank = "C"
 		# Note: C is still included in case it is given a drain time of its own later on.
 		"C":
-			hype -= C_time*delta
+			hype -= _c_time*delta
 			if hype < 0:
 				hype = 0
 		"F":
