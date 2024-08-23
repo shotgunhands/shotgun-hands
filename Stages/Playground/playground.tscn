@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://c32res81juhqg"]
+[gd_scene load_steps=14 format=3 uid="uid://c32res81juhqg"]
 
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="1_ms6ri"]
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="1_qs7i5"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="2_yljtj"]
 [ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="4_qtr78"]
 [ext_resource type="Script" path="res://Stages/Shared/Scripts/Pause.gd" id="5_lblk1"]
+[ext_resource type="PackedScene" uid="uid://ydh7h6mcksme" path="res://UIs/Main/main_ui.tscn" id="6_ha557"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)
@@ -280,5 +281,8 @@ text = "Continue"
 [node name="Quit" type="Button" parent="Control/Center/VBox"]
 layout_mode = 2
 text = "Quit"
+
+[node name="MainUI" parent="." node_paths=PackedStringArray("player_hold") instance=ExtResource("6_ha557")]
+player_hold = NodePath("../2DPlayer")
 
 [connection signal="destroy" from="Destructible/HittableComponent" to="Destructible" method="_on_hittable_component_destroy"]

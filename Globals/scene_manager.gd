@@ -12,6 +12,8 @@ var scene_library := {
 
 var active_scene:Node # instance of the current scene
 
+var hype_meter : HypeMeter # Instance of the hype meter so that it can be accessed from anywhere
+
 func _ready():
 	active_scene = $"/root/MainMenu" # set the main menu as the active scene
 

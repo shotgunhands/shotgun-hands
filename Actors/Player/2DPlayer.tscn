@@ -142,7 +142,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="OverheatTimeout" type="Timer" parent="FiringController/MeleeTimers"]
-wait_time = 0.5
+wait_time = 1.7
 one_shot = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
