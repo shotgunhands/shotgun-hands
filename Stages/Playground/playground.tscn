@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="1_qs7i5"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="2_yljtj"]
 [ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="4_qtr78"]
+[ext_resource type="Script" path="res://Stages/Shared/Scripts/Pause.gd" id="5_lblk1"]
+[ext_resource type="PackedScene" uid="uid://ydh7h6mcksme" path="res://UIs/Main/main_ui.tscn" id="6_ha557"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_np1uq"]
 size = Vector2(100, 100)
@@ -246,3 +248,43 @@ camera_offset = Vector2(0, -75)
 position = Vector2(-675, -13)
 
 [connection signal="destroy" from="Destructible/HittableComponent" to="Destructible" method="_on_hittable_component_destroy"]
+
+[node name="Control" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("5_lblk1")
+
+[node name="Center" type="CenterContainer" parent="Control"]
+process_mode = 2
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -49.0
+offset_right = 39.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBox" type="VBoxContainer" parent="Control/Center"]
+process_mode = 2
+layout_mode = 2
+
+[node name="Paused" type="Label" parent="Control/Center/VBox"]
+layout_mode = 2
+text = "Paused"
+
+[node name="Continue" type="Button" parent="Control/Center/VBox"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Quit" type="Button" parent="Control/Center/VBox"]
+layout_mode = 2
+text = "Quit"
+
+[node name="MainUI" parent="." node_paths=PackedStringArray("player_hold") instance=ExtResource("6_ha557")]
+player_hold = NodePath("../2DPlayer")
