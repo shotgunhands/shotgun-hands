@@ -34,3 +34,5 @@ polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
 position = Vector2(-0.499985, -25.5)
 scale = Vector2(0.0489131, 0.356643)
 texture = ExtResource("2_a02r7")
+
+[connection signal="destroy" from="HittableComponent" to="." method="_on_destroy"]

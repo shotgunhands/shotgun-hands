@@ -74,12 +74,28 @@ func _aim():
 
 
 func _fire(mouse: int):
-	
-	if _ammo_types[mouse].ammo <= 0 or not _reload_timer.is_stopped() or not _ammo_types[mouse].can_fire:
+	if _is_overheated:
+		print("overheat")
+		return
+	if not _ammo_types[mouse].can_fire:
+		print("weapon on cooldown")
+		return
+	if _ammo_types[mouse].ammo <= 0 or not _reload_timer.is_stopped():
+		print("no ammo")
 		return
 	
+	#check if the center of the reticle is inside part of the Environment
+	var r_pars = PhysicsPointQueryParameters2D.new()
+	r_pars.collision_mask = 0b00_0000_0010
+	r_pars.collide_with_areas = true
+	r_pars.position = _pivot.find_child("Reticle").global_position
+	if get_viewport().world_2d.direct_space_state.intersect_point(r_pars, 1):
+		print("in wall")
+		return
 	
-	
+	_increment_overheat()
+
+
 	if not _player.is_on_floor() and _can_shotgun_jump:
 		_touched_ground += 1
 		_launch()
