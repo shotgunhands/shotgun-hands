@@ -12,7 +12,7 @@ const SCALE = 100.0
 
 @onready var _shotgun_jump_timer: Timer = $ShotgunJumpTimer
 @export var _shotgun_jump_blast_force: float = 5
-var _can_shotgun_jump = false
+var _can_shotgun_jump = true
 
 var _touched_ground = 0
 
