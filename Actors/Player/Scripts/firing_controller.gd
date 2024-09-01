@@ -93,9 +93,8 @@ func _fire(mouse: int):
 		print("in wall")
 		return
 	
-	_increment_overheat()
-
-
+	
+	
 	if not _player.is_on_floor() and _can_shotgun_jump:
 		_touched_ground += 1
 		_launch()
