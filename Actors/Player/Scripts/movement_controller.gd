@@ -74,7 +74,7 @@ func _physics_process(delta):
 	else:
 		coyote_time_left -= delta
 
-    # Handle jump buffering.
+	# Handle jump buffering.
 	if jump_buffer_time_left > 0: jump_buffer_time_left -= delta
 	if jump_buffer_time_left > 0 and (player.is_on_floor() or coyote_time_left > 0):
 		player.velocity.y = jump_vel
