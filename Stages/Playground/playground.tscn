@@ -13,8 +13,18 @@ size = Vector2(100, 100)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wxg5a"]
 size = Vector2(100, 100)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_435bx"]
+size = Vector2(100, 38)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu80g"]
 size = Vector2(2000, 2)
+
+[sub_resource type="GDScript" id="GDScript_hnu8l"]
+script/source = "extends RigidBody2D
+
+func _on_hittable_component_destroy() -> void:
+	queue_free()
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gh1uu"]
 size = Vector2(30, 30)
@@ -39,6 +49,20 @@ freeze_mode = 1
 shape = SubResource("RectangleShape2D_np1uq")
 
 [node name="Sprite" type="Sprite2D" parent="Obstacle"]
+texture = SubResource("PlaceholderTexture2D_wxg5a")
+
+[node name="Obstacle10" type="RigidBody2D" parent="."]
+position = Vector2(491, -1)
+rotation = 0.785397
+collision_layer = 3
+collision_mask = 0
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="Obstacle10"]
+shape = SubResource("RectangleShape2D_np1uq")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle10"]
 texture = SubResource("PlaceholderTexture2D_wxg5a")
 
 [node name="Obstacle2" type="RigidBody2D" parent="."]
@@ -78,6 +102,76 @@ freeze_mode = 1
 shape = SubResource("RectangleShape2D_np1uq")
 
 [node name="Sprite" type="Sprite2D" parent="Obstacle4"]
+texture = SubResource("PlaceholderTexture2D_wxg5a")
+
+[node name="Obstacle5" type="RigidBody2D" parent="."]
+position = Vector2(-308, -214)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="Obstacle5"]
+shape = SubResource("RectangleShape2D_435bx")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle5"]
+scale = Vector2(1, 0.38)
+texture = SubResource("PlaceholderTexture2D_wxg5a")
+
+[node name="Obstacle6" type="RigidBody2D" parent="."]
+position = Vector2(-458, -306)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="Obstacle6"]
+shape = SubResource("RectangleShape2D_435bx")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle6"]
+scale = Vector2(1, 0.38)
+texture = SubResource("PlaceholderTexture2D_wxg5a")
+
+[node name="Obstacle7" type="RigidBody2D" parent="."]
+position = Vector2(-255, -390)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="Obstacle7"]
+shape = SubResource("RectangleShape2D_435bx")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle7"]
+scale = Vector2(1, 0.38)
+texture = SubResource("PlaceholderTexture2D_wxg5a")
+
+[node name="Obstacle8" type="RigidBody2D" parent="."]
+position = Vector2(-84, -472)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="Obstacle8"]
+shape = SubResource("RectangleShape2D_435bx")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle8"]
+scale = Vector2(1, 0.38)
+texture = SubResource("PlaceholderTexture2D_wxg5a")
+
+[node name="Obstacle9" type="RigidBody2D" parent="."]
+position = Vector2(132, -563)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+freeze_mode = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="Obstacle9"]
+shape = SubResource("RectangleShape2D_435bx")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle9"]
+scale = Vector2(1, 0.38)
 texture = SubResource("PlaceholderTexture2D_wxg5a")
 
 [node name="Wall" type="RigidBody2D" parent="."]
@@ -124,8 +218,10 @@ shape = SubResource("RectangleShape2D_tu80g")
 position = Vector2(256, -29)
 collision_mask = 0
 freeze = true
+script = SubResource("GDScript_hnu8l")
 
 [node name="HittableComponent" parent="Destructible" instance=ExtResource("1_ms6ri")]
+MAX_HEALTH = 20.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="Destructible/HittableComponent"]
 shape = SubResource("RectangleShape2D_gh1uu")
@@ -141,12 +237,17 @@ position = Vector2(0, -97)
 zoom = Vector2(2, 2)
 process_callback = 0
 position_smoothing_enabled = true
+position_smoothing_speed = 7.0
 script = ExtResource("2_yljtj")
+max_dist = Vector2(60, 40)
+camera_offset = Vector2(0, -75)
 
 [node name="2DPlayer" parent="." instance=ExtResource("1_qs7i5")]
 
 [node name="Enemy" parent="." instance=ExtResource("4_qtr78")]
 position = Vector2(-675, -13)
+
+[connection signal="destroy" from="Destructible/HittableComponent" to="Destructible" method="_on_hittable_component_destroy"]
 
 [node name="Control" type="CanvasLayer" parent="."]
 process_mode = 3

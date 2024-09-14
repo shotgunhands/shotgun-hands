@@ -106,6 +106,9 @@ script = ExtResource("1_oua8l")
 [node name="MovementController" type="Node2D" parent="."]
 script = ExtResource("2_e27d1")
 speed = 25.0
+jump_height = 10.0
+jump_time_to_peak = 0.4
+jump_time_to_descent = 0.5
 
 [node name="LossOfControlTimer" type="Timer" parent="MovementController"]
 one_shot = true
