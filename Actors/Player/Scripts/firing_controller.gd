@@ -7,14 +7,17 @@ extends Node2D
 
 const SCALE = 100.0
 
+#desturctables and enemies
+const DAMAGE_MASK: int = 0b11_0000_0000;
+
 @export var _default_ammo: Array[PackedScene]
 @onready var _ammo_types: Array[AmmoType] = []
 
 @onready var _shotgun_jump_timer: Timer = $ShotgunJumpTimer
 @export var _shotgun_jump_blast_force: float = 5
-var _can_shotgun_jump = true
+var _can_shotgun_jump := true
 
-var _touched_ground = 0
+var _touched_ground: int = 0
 
 @onready var _melee_duration_timer: Timer = $"MeleeTimers/MeleeDuration"
 @onready var _melee_cooldown_timer: Timer = $"MeleeTimers/MeleeCooldown"
@@ -84,7 +87,7 @@ func _fire(mouse: int):
 	
 	#check if the center of the reticle is inside part of the Environment
 	var r_pars = PhysicsPointQueryParameters2D.new()
-	r_pars.collision_mask = 0b00_0000_0010
+	r_pars.collision_mask = 0b00_0000_0010 #environment
 	r_pars.collide_with_areas = true
 	r_pars.position = _pivot.find_child("Reticle").global_position
 	if get_viewport().world_2d.direct_space_state.intersect_point(r_pars, 1):
@@ -97,7 +100,7 @@ func _fire(mouse: int):
 		_touched_ground += 1
 		_launch()
 	
-	_ammo_types[mouse].fire(_pivot)
+	_ammo_types[mouse].fire(_pivot, DAMAGE_MASK)
 	
 	if not _can_shotgun_jump and _touched_ground < 2:
 		_can_shotgun_jump = true

@@ -289,6 +289,9 @@ player_hold = NodePath("../2DPlayer")
 [node name="Shooter" type="Node2D" parent="."]
 position = Vector2(731, -47)
 
+[node name="Enemy" parent="Shooter" instance=ExtResource("7_jev61")]
+position = Vector2(113, 40)
+
 [node name="ShootHider" type="RigidBody2D" parent="Shooter"]
 collision_layer = 3
 collision_mask = 0
@@ -300,8 +303,5 @@ shape = SubResource("RectangleShape2D_np1uq")
 
 [node name="Sprite" type="Sprite2D" parent="Shooter/ShootHider"]
 texture = SubResource("PlaceholderTexture2D_wxg5a")
-
-[node name="Enemy" parent="Shooter/ShootHider" instance=ExtResource("7_jev61")]
-position = Vector2(113, 40)
 
 [connection signal="destroy" from="Destructible/HittableComponent" to="Destructible" method="_on_hittable_component_destroy"]
