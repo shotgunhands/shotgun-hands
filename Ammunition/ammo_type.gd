@@ -59,7 +59,7 @@ func _cooldown_timeout() -> void:
 
 #region interface
 
-func fire(pivot: Node2D):
+func fire(pivot: Node2D, damage_mask: int):
 	ammo -= 1
 	can_fire = false
 	_cooldown_timer.start()
@@ -70,25 +70,31 @@ func fire(pivot: Node2D):
 	for offset in angle_offsets:
 		var angle := pivot.global_rotation + offset
 		var reticle := pivot.find_child("Reticle")
-		_send_visual_pellet(angle, reticle.global_position,self)
+		var target:Vector2 = reticle.global_position + Vector2.RIGHT.rotated(angle) * 6000.0
+		var stop_pos:Vector2
+		var r_info := _cast_ray(reticle.global_position, target, 0b00_0000_0010)
+		if r_info:
+			#hit_info.add_collider(r_info["collider"], reticle.global_position.distance_to(r_info["position"]))
+			stop_pos = Vector2(r_info["position"]["x"],r_info["position"]["y"])
+		_send_visual_pellet(angle, reticle.global_position,stop_pos,damage_mask,self)
 	#hit_info.apply_damage(self)
 
 
 ## given an angle offset, sends a ray in the given direction
-func _cast_env_ray(start: Vector2, target: Vector2) -> Dictionary:
-	var state = get_viewport().world_2d.direct_space_state
-	#only triggers for the environment
-	var r_pars = PhysicsRayQueryParameters2D.create(start, target, 0b00_0000_0010) #0b00_0000_0010
+func _cast_ray(start: Vector2, target: Vector2, layer_mask:int) -> Dictionary:
+	var state := get_viewport().world_2d.direct_space_state
+	var r_pars := PhysicsRayQueryParameters2D.create(start, target, layer_mask)
 	r_pars.collide_with_areas = true
 	return state.intersect_ray(r_pars)
 
 
-## empty for now. may be useful as an interface for different ammo types
-func _send_visual_pellet(angle: float, start_pos: Vector2, ammo_base:AmmoType):
+## create pellet, set varables then start script running
+func _send_visual_pellet(angle: float, start_pos: Vector2,stop_pos:Vector2, damage_mask: int, ammo_base:AmmoType):
 	var visual = _pellet.instantiate()
 	visual.global_position = start_pos
 	visual.global_rotation = angle
 	visual.ammo_base = ammo_base
+	visual.damage_mask = damage_mask
 	get_tree().root.add_child(visual)
-	return visual
+	#make sure not to set any varibles for the pallet after this point
 #endregion
