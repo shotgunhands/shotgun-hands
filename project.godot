@@ -23,11 +23,6 @@ Scenemanager="*res://Globals/scene_manager.gd"
 UiManager="*res://Globals/ui_manager.gd"
 Logger="*res://Globals/logger.gd"
 
-[debug]
-
-gdscript/warnings/unsafe_method_access=1
-gdscript/warnings/unsafe_cast=1
-
 [display]
 
 window/size/viewport_width=1920
