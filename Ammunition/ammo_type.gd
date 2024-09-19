@@ -59,24 +59,23 @@ func _cooldown_timeout() -> void:
 
 #region interface
 
-func fire(pivot: Node2D, damage_mask: int):
+func fire(shoot_angle:float, shoot_position: Vector2, damage_mask: int):
+	##
 	ammo -= 1
 	can_fire = false
 	_cooldown_timer.start()
 
 	var angle_offsets := get_angle_offsets()
-
-	#var hit_info: HitInfo = HitInfo.new()
+	#var shoot_angle :=pivot.global_rotation
+	#var shoot_position :Vector2= pivot.find_child("Reticle").global_position
 	for offset in angle_offsets:
-		var angle := pivot.global_rotation + offset
-		var reticle := pivot.find_child("Reticle")
-		var target:Vector2 = reticle.global_position + Vector2.RIGHT.rotated(angle) * 6000.0
+		var angle := shoot_angle + offset
 		var stop_pos:Vector2
-		var r_info := _cast_ray(reticle.global_position, target, 0b00_0000_0010)
+		var r_info := _cast_ray(shoot_position, shoot_position + Vector2.RIGHT.rotated(angle) * 6000.0, 0b00_0000_0010)
 		if r_info:
 			#hit_info.add_collider(r_info["collider"], reticle.global_position.distance_to(r_info["position"]))
 			stop_pos = Vector2(r_info["position"]["x"],r_info["position"]["y"])
-		_send_visual_pellet(angle, reticle.global_position,stop_pos,damage_mask,self)
+		_send_visual_pellet(angle, shoot_position, stop_pos, damage_mask,self)
 	#hit_info.apply_damage(self)
 
 
