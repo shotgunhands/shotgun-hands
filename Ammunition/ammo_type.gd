@@ -9,20 +9,13 @@ class_name AmmoType
 @export var effective_range: Array[float]
 @export var damage: Array[float]
 
-#@export var max_ammo: int
-#@onready var ammo: int = max_ammo
-
 @export var _pellet: PackedScene
 @export var _pellet_count: int
 @export var _pellet_spread_angle: int ## in degrees :pensive:
 
 @export var blast_force: float
 
-#var can_fire = true
-#@export var _cooldown_timer: Timer
-
 var _angle_offsets: Array[float] = []
-
 
 ## returns a list of floats representing the offset for each _pellet
 func get_angle_offsets() -> Array[float]:
@@ -53,11 +46,6 @@ func get_damage(distance: float) -> float:
 
 	return damage.back()
 
-
-#func _cooldown_timeout() -> void:
-	#can_fire = true
-
-
 #region interface
 
 func fire(shoot_angle:float, shoot_position: Vector2, damage_mask: int):
@@ -70,7 +58,7 @@ func fire(shoot_angle:float, shoot_position: Vector2, damage_mask: int):
 	for offset in angle_offsets:
 		var angle := shoot_angle + offset
 		var stop_pos:Vector2
-		var r_info := _cast_ray(shoot_position, shoot_position + Vector2.RIGHT.rotated(angle) * 6000.0, 0b00_0000_0010)
+		var r_info := cast_ray(shoot_position, shoot_position + Vector2.RIGHT.rotated(angle) * 6000.0, 0b00_0000_0010)
 		if r_info:
 			#hit_info.add_collider(r_info["collider"], reticle.global_position.distance_to(r_info["position"]))
 			stop_pos = Vector2(r_info["position"]["x"],r_info["position"]["y"])
@@ -79,7 +67,7 @@ func fire(shoot_angle:float, shoot_position: Vector2, damage_mask: int):
 
 
 ## given an angle offset, sends a ray in the given direction
-func _cast_ray(start: Vector2, target: Vector2, layer_mask:int) -> Dictionary:
+func cast_ray(start: Vector2, target: Vector2, layer_mask:int) -> Dictionary:
 	var state := get_viewport().world_2d.direct_space_state
 	var r_pars := PhysicsRayQueryParameters2D.create(start, target, layer_mask)
 	r_pars.collide_with_areas = true
