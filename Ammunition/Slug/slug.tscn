@@ -3,19 +3,17 @@
 [ext_resource type="Script" path="res://Ammunition/Slug/slug.gd" id="1_cxd1u"]
 [ext_resource type="PackedScene" uid="uid://dnrx3ulhbkjr8" path="res://Ammunition/Shared/pellet.tscn" id="2_aokum"]
 
-[node name="Slug" type="Node" node_paths=PackedStringArray("_cooldown_timer")]
+[node name="Slug" type="Node"]
 script = ExtResource("1_cxd1u")
 effective_range = Array[float]([100.0])
 damage = Array[float]([20.0, 40.0])
-max_ammo = 6
 _pellet = ExtResource("2_aokum")
 _pellet_count = 1
 _pellet_spread_angle = 1
 blast_force = 4.0
-_cooldown_timer = NodePath("CooldownTimer")
 
-[node name="CooldownTimer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="RightCooldownTimer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 
-[connection signal="timeout" from="CooldownTimer" to="." method="_cooldown_timeout"]
+[connection signal="timeout" from="RightCooldownTimer" to="." method="_cooldown_timeout"]

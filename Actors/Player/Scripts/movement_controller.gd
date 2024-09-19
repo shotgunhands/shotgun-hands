@@ -177,4 +177,3 @@ func lose_control():
 
 func destroy():
 	Scenemanager.change_scene("main_menu")
-
