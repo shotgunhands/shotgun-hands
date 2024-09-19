@@ -194,8 +194,7 @@ shape = SubResource("RectangleShape2D_fcvkl")
 position = Vector2(0, -26)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_mpi1c")
-animation = &"run"
-frame_progress = 0.193913
+animation = &"idle"
 
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
 [connection signal="timeout" from="FiringController/PrimaryCooldownTimer" to="FiringController" method="_on_primary_timeout"]

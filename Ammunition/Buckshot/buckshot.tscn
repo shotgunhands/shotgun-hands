@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Ammunition/Buckshot/buckshot.gd" id="1_s18h3"]
 [ext_resource type="PackedScene" uid="uid://dnrx3ulhbkjr8" path="res://Ammunition/Shared/pellet.tscn" id="2_kik4m"]
 
-[node name="Buckshot" type="Node" node_paths=PackedStringArray("_cooldown_timer")]
+[node name="Buckshot" type="Node"]
 script = ExtResource("1_s18h3")
 effective_range = Array[float]([100.0, 250.0])
 damage = Array[float]([50.0, 25.0, 1.0])
@@ -11,10 +11,3 @@ _pellet = ExtResource("2_kik4m")
 _pellet_count = 12
 _pellet_spread_angle = 20
 blast_force = 5.0
-_cooldown_timer = NodePath("LeftCooldownTimer")
-
-[node name="LeftCooldownTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[connection signal="timeout" from="LeftCooldownTimer" to="." method="_cooldown_timeout"]
