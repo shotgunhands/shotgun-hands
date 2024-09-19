@@ -120,7 +120,7 @@ func _fire(mouse: int):
 	if not _is_overheated:
 		_increment_overheat()
 	
-	_ammo_types[mouse].fire(_pivot, DAMAGE_MASK)
+	_ammo_types[mouse].fire(_pivot.global_rotation, _pivot.find_child("Reticle").global_position, DAMAGE_MASK)
 	
 	if not _can_shotgun_jump and _touched_ground < 2:
 		_can_shotgun_jump = true
