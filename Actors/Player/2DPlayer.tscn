@@ -125,8 +125,10 @@ one_shot = true
 wait_time = 0.2
 one_shot = true
 
-[node name="FiringController" type="Node2D" parent="." node_paths=PackedStringArray("_overheat_timer", "_placeholder_visual_box")]
+[node name="FiringController" type="Node2D" parent="." node_paths=PackedStringArray("primary_cooldown_timer", "secondary_cooldown_timer", "_overheat_timer", "_placeholder_visual_box")]
 script = ExtResource("3_u4ryj")
+primary_cooldown_timer = NodePath("PrimaryCooldownTimer")
+secondary_cooldown_timer = NodePath("SecondaryCooldownTimer")
 _default_ammo = Array[PackedScene]([ExtResource("4_bblcg"), ExtResource("5_6mrvq")])
 _overheat_melee_damage = 150.0
 _melee_damage = 50.0
@@ -134,6 +136,14 @@ _overheat_timer = NodePath("MeleeTimers/OverheatTimeout")
 _placeholder_visual_box = NodePath("../Placeholder")
 _default_color = Color(0, 0, 1, 1)
 _overheated_color = Color(0.537255, 0.0352941, 0.0862745, 1)
+
+[node name="PrimaryCooldownTimer" type="Timer" parent="FiringController"]
+wait_time = 0.5
+one_shot = true
+
+[node name="SecondaryCooldownTimer" type="Timer" parent="FiringController"]
+wait_time = 5.0
+one_shot = true
 
 [node name="ReloadTimer" type="Timer" parent="FiringController"]
 wait_time = 0.7
@@ -209,6 +219,8 @@ frame_progress = 0.193913
 
 [connection signal="timeout" from="MovementController/CoyoteTimer" to="MovementController" method="coyote_timeout"]
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
+[connection signal="timeout" from="FiringController/PrimaryCooldownTimer" to="FiringController" method="_on_primary_timeout"]
+[connection signal="timeout" from="FiringController/SecondaryCooldownTimer" to="FiringController" method="_on_secondary_timeout"]
 [connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]
 [connection signal="timeout" from="FiringController/ShotgunJumpTimer" to="FiringController" method="_shotgun_jump_timeout"]
 [connection signal="timeout" from="FiringController/MeleeTimers/OverheatTimeout" to="FiringController" method="_overheat_timeout"]

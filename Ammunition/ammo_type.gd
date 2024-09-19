@@ -8,8 +8,9 @@ class_name AmmoType
 # it is begging for a different implementation though ngl
 @export var effective_range: Array[float]
 @export var damage: Array[float]
-@export var max_ammo: int
-@onready var ammo: int = max_ammo
+
+#@export var max_ammo: int
+#@onready var ammo: int = max_ammo
 
 @export var _pellet: PackedScene
 @export var _pellet_count: int
@@ -17,8 +18,8 @@ class_name AmmoType
 
 @export var blast_force: float
 
-var can_fire = true
-@export var _cooldown_timer: Timer
+#var can_fire = true
+#@export var _cooldown_timer: Timer
 
 var _angle_offsets: Array[float] = []
 
@@ -53,17 +54,15 @@ func get_damage(distance: float) -> float:
 	return damage.back()
 
 
-func _cooldown_timeout() -> void:
-	can_fire = true
+#func _cooldown_timeout() -> void:
+	#can_fire = true
 
 
 #region interface
 
 func fire(shoot_angle:float, shoot_position: Vector2, damage_mask: int):
-	##
-	ammo -= 1
-	can_fire = false
-	_cooldown_timer.start()
+	#can_fire = false
+	#_cooldown_timer.start()
 
 	var angle_offsets := get_angle_offsets()
 	#var shoot_angle :=pivot.global_rotation
