@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://kjo3f1k7t2ng"]
+
+[ext_resource type="Script" path="res://Actors/Enemies/ShootTestEnemy/shoot_test_enemy.gd" id="1_yfgev"]
+[ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="2_fyy0q"]
+[ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="2_p22bd"]
+[ext_resource type="Texture2D" uid="uid://c6ilwe71su38a" path="res://Actors/Enemies/TestEnemy/scernshoot.png" id="3_yxjcf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftuqn"]
+size = Vector2(27, 51)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ic78v"]
+size = Vector2(25, 50)
+
+[node name="ShootEnemy" type="CharacterBody2D" node_paths=PackedStringArray("shoot_timer") groups=["Enemy"]]
+script = ExtResource("1_yfgev")
+_default_ammo = ExtResource("2_p22bd")
+shoot_timer = NodePath("ShootTimer")
+
+[node name="HittableComponent" parent="." instance=ExtResource("2_fyy0q")]
+collision_layer = 256
+collision_mask = 256
+
+[node name="Hitbox" type="CollisionShape2D" parent="HittableComponent"]
+position = Vector2(-0.5, -25.5)
+shape = SubResource("RectangleShape2D_ftuqn")
+
+[node name="PhysicsCollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -25)
+shape = SubResource("RectangleShape2D_ic78v")
+
+[node name="Placeholder" type="Polygon2D" parent="."]
+visible = false
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.499985, -25.5)
+scale = Vector2(0.0489131, 0.356643)
+texture = ExtResource("3_yxjcf")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer"]
