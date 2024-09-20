@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://d0m6asdiav5p7"]
+[gd_scene load_steps=20 format=3 uid="uid://d0m6asdiav5p7"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/2d_player.gd" id="1_oua8l"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/movement_controller.gd" id="2_e27d1"]
+[ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="2_gei0c"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/firing_controller.gd" id="3_u4ryj"]
 [ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="4_bblcg"]
 [ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/slug.tscn" id="5_6mrvq"]
@@ -103,6 +104,12 @@ animations = [{
 collision_layer = 16
 script = ExtResource("1_oua8l")
 
+[node name="HittableComponent" parent="." instance=ExtResource("2_gei0c")]
+
+[node name="Hitbox" type="CollisionShape2D" parent="HittableComponent"]
+position = Vector2(0, -25)
+shape = SubResource("RectangleShape2D_vn4vr")
+
 [node name="MovementController" type="Node2D" parent="."]
 script = ExtResource("2_e27d1")
 speed = 25.0
@@ -145,7 +152,7 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="MovementHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_vn4vr")
 
@@ -185,7 +192,6 @@ position = Vector2(0, -26)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_mpi1c")
 animation = &"run"
-frame_progress = 0.193913
 
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
 [connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]

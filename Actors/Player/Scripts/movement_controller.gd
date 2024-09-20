@@ -23,12 +23,12 @@ var momentum_retention_slide = 1.0
 var coyote_time_left: float = 0.0
 var jump_buffer_time_left: float = 0.0
 
-@onready var player = $".."
+@onready var player : CharacterBody2D = $".."
 
-@onready var hitbox = player.find_child("Hitbox")
+@onready var hitbox : CollisionShape2D = player.find_child("MovementHitbox")
 var default_hitbox_size
 var default_hitbox_offset
-@onready var roof_probe = player.find_child("RoofProbe")
+@onready var roof_probe : RayCast2D = player.find_child("RoofProbe")
 
 @onready var placeholder_sprite = player.find_child("Placeholder")
 var default_placeholder_polygon = PackedVector2Array([Vector2(-12, -49),Vector2(12, -49),Vector2(12, 0),Vector2(-12, 0)])
@@ -74,7 +74,7 @@ func _physics_process(delta):
 	else:
 		coyote_time_left -= delta
 
-    # Handle jump buffering.
+	# Handle jump buffering.
 	if jump_buffer_time_left > 0: jump_buffer_time_left -= delta
 	if jump_buffer_time_left > 0 and (player.is_on_floor() or coyote_time_left > 0):
 		player.velocity.y = jump_vel
