@@ -193,6 +193,7 @@ scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_mpi1c")
 animation = &"run"
 
+[connection signal="destroy" from="HittableComponent" to="." method="_on_hittable_component_destroy"]
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
 [connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]
 [connection signal="timeout" from="FiringController/ShotgunJumpTimer" to="FiringController" method="_shotgun_jump_timeout"]
