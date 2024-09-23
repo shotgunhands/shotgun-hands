@@ -42,6 +42,8 @@ var _touched_ground: int = 0
 
 @export var _overheat_melee_damage: float
 var _overheat: int = 0
+var _heat_cooldown_time : float = 1.7
+var _heat_active_cooldown : float = 1
 var _is_overheated: bool = false
 const OVERHEAT_THRESHOLD: int = 8
 @export var _overheat_timer: Timer
@@ -126,11 +128,16 @@ func _fire(mouse: int):
 		print("in wall")
 		return
 	
-	_increment_overheat()
-
+	
+	
 	if not _player.is_on_floor() and _can_shotgun_jump:
 		_touched_ground += 1
 		_launch()
+	elif _is_overheated:
+		return
+	print(_touched_ground)
+	if not _is_overheated:
+		_increment_overheat()
 	
 	_ammo_types[mouse].type.fire(_pivot.global_rotation, _pivot.find_child("Reticle").global_position, DAMAGE_MASK)
 	_ammo_types[mouse].ammo -= 1; _ammo_types[mouse].can_fire = false;_ammo_types[mouse].cooldown_timer.start()
@@ -183,7 +190,8 @@ func _shotgun_jump_timeout():
 func _increment_overheat():
 	_overheat += 1
 	_overheat_timer.start()
-	if _overheat > OVERHEAT_THRESHOLD:
+	
+	if _overheat >= OVERHEAT_THRESHOLD:
 		_start_overheat()
 
 
@@ -197,12 +205,14 @@ func _overheat_timeout():
 
 func _start_overheat():
 	_is_overheated = true
+	_overheat_timer.wait_time = _heat_active_cooldown
 	_melee_cooldown_timer.wait_time = _overheated_melee_cooldown_duration
 	_placeholder_visual_box.color = _overheated_color
 
 
 func _end_overheat():
 	_is_overheated = false
+	_overheat_timer.wait_time = _heat_cooldown_time
 	_melee_cooldown_timer.wait_time = _melee_cooldown_duration
 	_placeholder_visual_box.color = _default_color
 
