@@ -105,6 +105,7 @@ collision_layer = 16
 script = ExtResource("1_oua8l")
 
 [node name="HittableComponent" parent="." instance=ExtResource("2_gei0c")]
+collision_layer = 544
 
 [node name="Hitbox" type="CollisionShape2D" parent="HittableComponent"]
 position = Vector2(0, -25)

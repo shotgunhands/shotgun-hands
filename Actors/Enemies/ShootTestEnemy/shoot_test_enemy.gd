@@ -37,7 +37,7 @@ func _process(_delta) -> void:
 			can_fire = false
 			shoot_timer.start()
 			var angle := global_position.angle_to_point(player.global_position)
-			ammo.fire(angle,global_position,0b00_0001_0000)
+			ammo.fire(angle,global_position,0b00_0010_0000)
 
 
 ##NOTICE: cast ray copied from firing_controller
