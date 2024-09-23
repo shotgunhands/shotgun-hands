@@ -8,3 +8,4 @@ func _process(_delta):
 
 func lose_control():
 	movement_controller.lose_control()
+ 

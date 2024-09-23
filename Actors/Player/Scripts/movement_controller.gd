@@ -57,9 +57,6 @@ func _ready():
 	max_velocity_x = speed
 
 func _process(_delta):
-	# ONLY FOR DEBUGGING; THIS WILL BE REPLACED
-	#if Input.is_action_just_pressed("toggle_pause"):
-		#Scenemanager.change_scene("main_menu")
 	pass
 
 func _physics_process(delta):

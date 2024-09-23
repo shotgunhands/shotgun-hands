@@ -12,15 +12,14 @@ const DAMAGE_MASK: int = 0b11_0000_0000;
 
 @export var primary_cooldown_timer: Timer
 @export var secondary_cooldown_timer: Timer
-#TODO: Switch to structs when godot eventually decides to add them
+#NOTE: switch to structs when godot eventually decides to add them
+#stores data about a gun
 class AmmoStore:
 	var type: AmmoType
 	var max_ammo: int
 	var ammo: int
 	var can_fire: bool
 	var cooldown_timer: Timer
-	#ammo, max_ammo, _cooldown_timer. can_fire
-	
 
 @export var _default_ammo: Array[PackedScene]
 @onready var _ammo_types: Array[AmmoStore] = []
@@ -55,6 +54,7 @@ signal midair_shot
 
 
 func _ready():
+	#initialise ammo store
 	var t0 := AmmoStore.new()
 	t0.type = _default_ammo[0].instantiate()
 	t0.max_ammo = 5
@@ -74,10 +74,15 @@ func _ready():
 	add_child(_ammo_types[0].type); add_child(_ammo_types[1].type)
 	_melee_cooldown_timer.wait_time = _melee_cooldown_duration
 
+
 func _on_primary_timeout() -> void:
 	_ammo_types[0].can_fire = true
+
+
 func _on_secondary_timeout() -> void:
 	_ammo_types[1].can_fire = true
+
+
 # the structure here should *really* be changed, though right now im electing
 # to wait until some discussion is done abt this :P ~wdbros
 func _process(_delta):
@@ -90,10 +95,8 @@ func _process(_delta):
 		_fire(0)
 	if Input.is_action_just_pressed("fire_right"):
 		_fire(1)
-	
 	if Input.is_action_just_pressed("fire_reload"):
 		_reload()
-	
 	if Input.is_action_just_pressed("fire_melee"):
 		_melee()
 
