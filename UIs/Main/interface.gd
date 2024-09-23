@@ -15,7 +15,9 @@ func _ready():
 
 
 # Set the text of each ammo to their gun, set the overheat bar value.
-func _process(delta):
+func _process(_delta):
+	var t: HittableComponent = player_hold.find_child("HittableComponent")
+	health_bar.value = t.get_health_perc()
 	left_ammo.text = "Left gun ammo: " + str(player_hold.firing_controller._ammo_types[0].ammo)
 	right_ammo.text = "Right gun ammo: " + str(player_hold.firing_controller._ammo_types[1].ammo)
 	overheat_bar.value = player_hold.firing_controller._overheat

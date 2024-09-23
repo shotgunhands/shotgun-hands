@@ -128,12 +128,13 @@ func _melee_hit():
 
 
 func _on_hurtbox_entered(area: HittableComponent):
-	if _is_overheated:
-		print("Doing overheated damage!")
-		area.hurt(_overheat_melee_damage)
-	else:
-		print("Doing normal damage!")
-		area.hurt(_melee_damage)
+	if(area.get_parent() != _player):
+		if _is_overheated:
+			print("Doing overheated damage!")
+			area.hurt(_overheat_melee_damage)
+		else:
+			print("Doing normal damage!")
+			area.hurt(_melee_damage)
 
 
 func _reloaded():

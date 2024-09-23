@@ -35,7 +35,7 @@ func get_health() -> float:
 
 
 func hurt(value: float) -> void:
-	health = max(health - value, 0)
+	set_health(get_health() - value)
 
 
 # func destroy() -> void:
