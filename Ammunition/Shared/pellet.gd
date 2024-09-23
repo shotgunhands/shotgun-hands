@@ -11,7 +11,7 @@ var velocity:Vector2;
 var damage_mask:int;
 #used to check if a uninitialised value has been used
 @warning_ignore("unassigned_variable")
-var unset_vec2 :Vector2;
+var _unset_vec2:Vector2;
 
 #Detects the previous velocity of the bullet two and one moves ago 
 var _two_moves_ago : float = 0
@@ -19,8 +19,8 @@ var _one_move_ago : float = 0
 
 
 func _ready() -> void:
-	#make sure the position of the bullet have actually been set by the pellet creator
-	assert(global_position != unset_vec2)
+	#make sure the position and damage of the bullet have actually been set
+	assert(global_position != _unset_vec2)
 	@warning_ignore("unassigned_variable")
 	var unset_int:int;
 	assert(damage_mask != unset_int)
@@ -57,7 +57,7 @@ func _physics_process(delta) -> void:
 		destroy()
 
 	#check to stop case where there is no predicted target (i.e. it goes offscreen) otherwise gdscript defaults to (0,0) being the stopping point
-	if stop_pos != unset_vec2:
+	if stop_pos != _unset_vec2:
 		#Check if the bullet has overshot the desired position, squared is used since it is faster
 		if global_position.distance_squared_to(stop_pos) <= updated_position.distance_squared_to(stop_pos):
 			#print("visual hit env")
@@ -98,7 +98,8 @@ func _get_new_frame_position(delta:float) -> Vector2:
 	var position_delta: Vector2 = velocity * _pellet_speed * delta;
 	return global_position + position_delta
 
-#NOTICE: delta of previous frame may approximate but not match delta of next frame
+
+#WARNING: delta of previous frame may approximate but won't match delta of next frame
 func _get_old_frame_position(old_delta:float) -> Vector2:
 	var position_delta: Vector2 = -1 * velocity * _pellet_speed * old_delta;
 	return global_position + position_delta

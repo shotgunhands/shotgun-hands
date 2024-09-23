@@ -10,17 +10,21 @@ class_name ShootTestEnemy
 
 var can_fire := true
 @export var shoot_timer: Timer
+
 func _ready() -> void:
 	ammo = _default_ammo.instantiate()
 	add_child(ammo);
-	
+
+
 func _idle_logic() -> void:
 	velocity.x = 0
 	move_and_slide()
 
+
 func _on_destroy() -> void:
 	queue_free()
-	
+
+
 func _process(_delta) -> void:
 	if can_fire:
 		#check if anything is between player and goal
@@ -34,15 +38,14 @@ func _process(_delta) -> void:
 			shoot_timer.start()
 			var angle := global_position.angle_to_point(player.global_position)
 			ammo.fire(angle,global_position,0b00_0001_0000)
-		
-##NOTICE: both functions are directly copied from firing_controller
 
+
+##NOTICE: cast ray copied from firing_controller
 func _cast_ray(start: Vector2, target: Vector2, layer_mask:int) -> Dictionary:
 	var state := get_viewport().world_2d.direct_space_state
 	var r_pars := PhysicsRayQueryParameters2D.create(start, target, layer_mask)
 	r_pars.collide_with_areas = true
 	return state.intersect_ray(r_pars)
-
 
 
 func _on_shoot_timer() -> void:

@@ -68,6 +68,8 @@ func _ready():
 
 	max_velocity_x = speed
 
+func _process(_delta):
+	pass
 
 func _physics_process(delta):
 	_evaluate_control_degree()

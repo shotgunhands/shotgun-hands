@@ -20,6 +20,7 @@ func get_health_perc() -> int:
 
 func kill_check() -> bool:
 	if _health <= 0:
+		#NOTE: currently this may be emitted more then once if multiple damage sources occur in the same frame
 		destroy.emit()
 		return true
 	return false

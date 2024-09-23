@@ -41,4 +41,5 @@ texture = ExtResource("3_yxjcf")
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[connection signal="destroy" from="HittableComponent" to="." method="_on_destroy"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer"]
