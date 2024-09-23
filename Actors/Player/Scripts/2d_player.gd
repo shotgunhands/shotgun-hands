@@ -8,4 +8,8 @@ func _process(_delta):
 
 func lose_control():
 	movement_controller.lose_control()
- 
+
+
+func _on_hittable_component_destroy():
+	print("dead")
+	Scenemanager.change_scene("main_menu")
