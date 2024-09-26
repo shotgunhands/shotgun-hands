@@ -4,6 +4,7 @@ class_name MeleeTestEnemy
 @export var _direction: int = 1
 @export var _run_speed: float = 5
 var _player_in_range: bool = false
+
 @export var _hurtbox: Area2D
 @export var _debug_visual_hurtbox: Polygon2D
 @export var _debug_visual_enemy: Polygon2D
@@ -58,16 +59,17 @@ func _attack_logic() -> void:
 
 func _attack() -> void:
 	_windup_timer.start()
+
 	await _windup_timer.timeout
 	_hit()
 	_cooldown_timer.start()
-	await _cooldown_timer.timeout
 
 
 func _hit() -> void:
 	_attack_timer.start()
 	_debug_visual_hurtbox.visible = true
 	_hurtbox.monitoring = true
+
 	await _attack_timer.timeout
 	_debug_visual_hurtbox.visible = false
 	_hurtbox.monitoring = false
@@ -83,6 +85,10 @@ func _swap_direction() -> void:
 
 
 func _chase() -> void:
+	if (abs(_player.global_position.x - global_position.x) < 5):
+		velocity.x = 0
+		return
+
 	velocity.x = _run_speed * _direction
 
 

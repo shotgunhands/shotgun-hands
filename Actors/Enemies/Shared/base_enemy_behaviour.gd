@@ -9,8 +9,6 @@ var _states: Dictionary = {
 }
 var _current_state: String = "IDLE"
 
-const VIEW_ANGLE: float = 80
-
 @export_range(0, 100.0) var gravity = 98.1
 
 ### METHODS ###
