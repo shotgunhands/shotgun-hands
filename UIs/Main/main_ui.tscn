@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://ydh7h6mcksme"]
+
+[ext_resource type="Script" path="res://UIs/Main/interface.gd" id="1_rveds"]
+[ext_resource type="PackedScene" uid="uid://dkxtndrdftqva" path="res://UIs/Main/hype.tscn" id="2_xammy"]
+
+[node name="MainUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rveds")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_right = 248.0
+offset_bottom = 296.0
+
+[node name="LeftHandAmmo" type="RichTextLabel" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Left gun ammo: UNAVAILABLE"
+fit_content = true
+
+[node name="RightHandAmmo" type="RichTextLabel" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Right gun ammo: UNAVAILABLE"
+fit_content = true
+
+[node name="PlayerHealthLabel" type="RichTextLabel" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Hit points remaining:"
+fit_content = true
+
+[node name="PlayerHealth" type="ProgressBar" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OverheatLabel" type="RichTextLabel" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Overheat:"
+fit_content = true
+
+[node name="OverheatBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 8.0
+show_percentage = false
+
+[node name="Hype" parent="CanvasLayer/VBoxContainer" instance=ExtResource("2_xammy")]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Hype Boost" type="RichTextLabel" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Selected Hype Boost: N/A"
+fit_content = true

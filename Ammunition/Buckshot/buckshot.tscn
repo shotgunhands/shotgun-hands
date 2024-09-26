@@ -15,7 +15,7 @@ blast_force = 5.0
 _cooldown_timer = NodePath("CooldownTimer")
 
 [node name="CooldownTimer" type="Timer" parent="."]
-wait_time = 0.001
+wait_time = 0.5
 one_shot = true
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_cooldown_timeout"]
