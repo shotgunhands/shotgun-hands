@@ -1,17 +1,69 @@
-[gd_scene load_steps=6 format=3 uid="uid://buyv076dqph8u"]
+[gd_scene load_steps=8 format=3 uid="uid://buyv076dqph8u"]
 
 [ext_resource type="Script" path="res://Actors/Enemies/TestEnemy/melee_test_enemy.gd" id="1_3ri18"]
 [ext_resource type="Texture2D" uid="uid://c6ilwe71su38a" path="res://Actors/Enemies/TestEnemy/scernshoot.png" id="2_a02r7"]
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="3_l8dgy"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3361k"]
+size = Vector2(24, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_srbpc"]
+size = Vector2(24, 30)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ftuqn"]
 size = Vector2(27, 51)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ic78v"]
-size = Vector2(25, 50)
+size = Vector2(27, 51)
 
-[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("_hurtbox", "_debug_visual_hurtbox", "_debug_visual_enemy") groups=["Enemy"]]
 script = ExtResource("1_3ri18")
+_run_speed = 50.0
+_hurtbox = NodePath("Hurtbox")
+_debug_visual_hurtbox = NodePath("Hurtbox/Polygon2D")
+_debug_visual_enemy = NodePath("Placeholder")
+_idle_color = Color(0.337255, 0.752941, 0.337255, 1)
+_chase_color = Color(0.713726, 0.431373, 0.188235, 1)
+_attack_color = Color(0.839216, 0.188235, 0.172549, 1)
+_hit_damage = 25.0
+
+[node name="AttackTimers" type="Node" parent="."]
+
+[node name="WindupTimer" type="Timer" parent="AttackTimers"]
+wait_time = 0.3
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="AttackTimers"]
+wait_time = 0.05
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="AttackTimers"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(27, -29)
+shape = SubResource("RectangleShape2D_3361k")
+
+[node name="Polygon2D" type="Polygon2D" parent="Hurtbox"]
+visible = false
+color = Color(0.984314, 0, 0.215686, 1)
+polygon = PackedVector2Array(15, -44, 39, -44, 39, -14, 15, -14)
+
+[node name="DetectionBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionBox"]
+position = Vector2(27, -29)
+shape = SubResource("RectangleShape2D_srbpc")
 
 [node name="HittableComponent" parent="." instance=ExtResource("3_l8dgy")]
 collision_layer = 256
@@ -22,17 +74,19 @@ position = Vector2(-0.5, -25.5)
 shape = SubResource("RectangleShape2D_ftuqn")
 
 [node name="PhysicsCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -25)
+position = Vector2(-0.5, -25.5)
 shape = SubResource("RectangleShape2D_ic78v")
 
 [node name="Placeholder" type="Polygon2D" parent="."]
-visible = false
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
+position = Vector2(-0.5, 0)
+color = Color(0.517647, 0.0862745, 0.129412, 1)
+polygon = PackedVector2Array(-13.5, -51, 13.5, -51, 13.5, 0, -13.5, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-0.499985, -25.5)
-scale = Vector2(0.0489131, 0.356643)
+position = Vector2(-0.499995, -41)
+scale = Vector2(0.0416666, 0.0979021)
 texture = ExtResource("2_a02r7")
 
-[connection signal="destroy" from="HittableComponent" to="." method="_on_destroy"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hit"]
+[connection signal="area_entered" from="DetectionBox" to="." method="_on_player_in_range"]
+[connection signal="area_exited" from="DetectionBox" to="." method="_on_player_out_of_range"]
