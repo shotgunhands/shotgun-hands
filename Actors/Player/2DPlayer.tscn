@@ -202,4 +202,5 @@ frame_progress = 0.193913
 [connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]
 [connection signal="timeout" from="FiringController/ShotgunJumpTimer" to="FiringController" method="_shotgun_jump_timeout"]
 [connection signal="timeout" from="FiringController/MeleeTimers/OverheatTimeout" to="FiringController" method="_overheat_timeout"]
+[connection signal="destroy" from="HittableComponent" to="." method="_on_destroy"]
 [connection signal="area_entered" from="ShotgunPivot/MeleeHurtbox" to="FiringController" method="_on_hurtbox_entered"]

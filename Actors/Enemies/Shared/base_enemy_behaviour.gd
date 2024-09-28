@@ -44,6 +44,10 @@ func _attack_logic() -> void:
 	pass
 
 
+func _on_destroy() -> void:
+	queue_free()
+
+
 # func _check_can_see() -> bool:
 # 	var space_state:PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 

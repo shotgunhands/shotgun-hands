@@ -90,3 +90,4 @@ texture = ExtResource("2_a02r7")
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hit"]
 [connection signal="area_entered" from="DetectionBox" to="." method="_on_player_in_range"]
 [connection signal="area_exited" from="DetectionBox" to="." method="_on_player_out_of_range"]
+[connection signal="destroy" from="HittableComponent" to="." method="_on_destroy"]
