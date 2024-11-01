@@ -2,26 +2,9 @@ extends Node2D
 
 const SCALE = 10
 
-@export_range(1.0, 100.0) var speed = 10.0
+var props : MovementProps
+
 var crouch_speed_modifier = 0.75
-
-@export_range(1, 10.0) var momentum_retention = 2.0
-var momentum_retention_slide = 1.0
-
-@export_group("Jump")
-@export var jump_height : float
-@export var jump_time_to_peak : float
-@export var jump_time_to_descent : float
-@export_subgroup("Polish")
-@export var coyote_time: float = 0.2
-@export var buffer_time: float = 0.2
-
-# Meth and jumping - PSK
-@onready var jump_vel : float = ((2.0 * jump_height) / jump_time_to_peak) * -1.
-@onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.
-@onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.
-var coyote_time_left: float = 0.0
-var jump_buffer_time_left: float = 0.0
 
 @onready var player = $".."
 
@@ -47,46 +30,24 @@ var facing_right = true
 func _ready():
 	default_hitbox_size = hitbox.shape.size.y
 	default_hitbox_offset = hitbox.position.y
-	speed *= SCALE
-	jump_vel *= SCALE
-	jump_gravity *= SCALE
-	fall_gravity *= SCALE
-	momentum_retention *= SCALE
-	momentum_retention_slide *= SCALE
 
-	max_velocity_x = speed
+	props = player.movement_props
 
-func _process(_delta):
-	# ONLY FOR DEBUGGING; THIS WILL BE REPLACED
-	#if Input.is_action_just_pressed("toggle_pause"):
-		#Scenemanager.change_scene("main_menu")
-	pass
+	props.init_jump()
+	props._scale(SCALE)
+
+	max_velocity_x = props.speed
 
 func _physics_process(delta):
 	_evaluate_control_degree()
 
-	# Apply gravity.
 	if not player.is_on_floor():
-		player.velocity.y += (jump_gravity if player.velocity.y < 0.0 else fall_gravity) * delta
+		player.velocity.y += (props.jump_gravity if player.velocity.y < 0.0 else props.fall_gravity) * delta
 
-	if player.is_on_floor():
-		coyote_time_left = coyote_time
-	else:
-		coyote_time_left -= delta
+	if Input.is_action_just_pressed("move_jump") or (props.autohop and Input.is_action_pressed("move_jump")):
+		if player.is_on_floor():
+			player.velocity.y = props.jump_vel
 
-    # Handle jump buffering.
-	if jump_buffer_time_left > 0: jump_buffer_time_left -= delta
-	if jump_buffer_time_left > 0 and (player.is_on_floor() or coyote_time_left > 0):
-		player.velocity.y = jump_vel
-		jump_buffer_time_left = 0
-
-	if Input.is_action_just_pressed("move_jump"):
-		if player.is_on_floor() or coyote_time_left > 0:
-			player.velocity.y = jump_vel
-		else:
-			jump_buffer_time_left = buffer_time
-
-	# Handle crouching.
 	if Input.is_action_pressed("move_crouch") and player.is_on_floor():
 		crouching = true
 		use_crouch_speed = true
@@ -107,7 +68,7 @@ func _physics_process(delta):
 	_animate()
 
 	_evaluate_max_velocity()
-	_move_horizontal()
+	_move_horizontal(delta)
 
 	player.move_and_slide()
 
@@ -116,8 +77,6 @@ func _animate():
 		facing_right = false
 	elif player.velocity.x > 0:
 		facing_right = true
-	else:
-		facing_right = facing_right
 
 	animated_sprite.flip_h = !facing_right
 
@@ -146,29 +105,34 @@ func _evaluate_control_degree():
 		_control_degree = pow(_control_degree, 3)
 		_control_degree = clampf(_control_degree, 0, 1)
 
-# checks state, returns what the value of max_velocity should be
 func _evaluate_max_velocity():
-	if max_velocity_x != speed or abs(player.velocity.x) < max_velocity_x:
+	if max_velocity_x != props.speed or abs(player.velocity.x) < max_velocity_x:
 		max_velocity_x = abs(player.velocity.x)
-		max_velocity_x = max(speed, abs(player.velocity.x))
-	if max_velocity_x > speed and (player.is_on_floor() and not crouching):
-		max_velocity_x -= (max_velocity_x - speed) * _control_degree
-		max_velocity_x = max(speed, max_velocity_x)
+		max_velocity_x = max(props.speed, abs(player.velocity.x))
+	if max_velocity_x > props.speed and (player.is_on_floor() and not crouching):
+		max_velocity_x -= (max_velocity_x - props.speed) * _control_degree
+		max_velocity_x = max(props.speed, max_velocity_x)
 
-func _move_horizontal():
+func _move_horizontal(delta):
 	var direction = Input.get_axis("move_left", "move_right")
+	var is_on_floor = player.is_on_floor()
+
+	var deceleration = props.ground_deceleration if is_on_floor else props.air_deceleration
+
+	var effective_max_velocity_x = max_velocity_x
+	if is_on_floor and max_velocity_x == props.speed and use_crouch_speed:
+		effective_max_velocity_x *= crouch_speed_modifier
+
 	if direction:
-		player.velocity.x += direction * speed * _control_degree
-		player.velocity.x = clampf(player.velocity.x, -max_velocity_x, max_velocity_x)
-		if player.is_on_floor() and max_velocity_x == speed:
-			# other stuff potentially
-			if use_crouch_speed:
-				player.velocity.x *= crouch_speed_modifier
-	else:
-		if not crouching:
-			player.velocity.x = move_toward(player.velocity.x, 0, (momentum_retention * _control_degree))
+		if not is_on_floor:
+			player.velocity.x = move_toward(player.velocity.x, direction * effective_max_velocity_x, props.air_acceleration * delta)
 		else:
-			player.velocity.x = move_toward(player.velocity.x, 0, (momentum_retention_slide * _control_degree))
+			# multiplied by .01 to make the ground acceleration value more coherent to the air acceleration
+			player.velocity.x = lerp(player.velocity.x, direction * effective_max_velocity_x, props.ground_acceleration * delta * .01)
+		player.velocity.x = clampf(player.velocity.x, -effective_max_velocity_x, effective_max_velocity_x)
+	else:
+		player.velocity.x = move_toward(player.velocity.x, 0, deceleration * delta)
+
 
 func lose_control():
 	_control_degree = 0
@@ -177,4 +141,3 @@ func lose_control():
 
 func destroy():
 	Scenemanager.change_scene("main_menu")
-

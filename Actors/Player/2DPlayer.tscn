@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://d0m6asdiav5p7"]
+[gd_scene load_steps=22 format=3 uid="uid://d0m6asdiav5p7"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/2d_player.gd" id="1_oua8l"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/movement_controller.gd" id="2_e27d1"]
+[ext_resource type="Resource" uid="uid://bmx3ii8e0l3wi" path="res://Actors/Player/joseph_default_mvres.tres" id="3_fxn41"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/firing_controller.gd" id="3_u4ryj"]
 [ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="4_bblcg"]
 [ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/slug.tscn" id="5_6mrvq"]
@@ -105,13 +106,10 @@ animations = [{
 
 [node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_oua8l")
+movement_props = ExtResource("3_fxn41")
 
 [node name="MovementController" type="Node2D" parent="."]
 script = ExtResource("2_e27d1")
-speed = 25.0
-jump_height = 10.0
-jump_time_to_peak = 0.4
-jump_time_to_descent = 0.5
 
 [node name="LossOfControlTimer" type="Timer" parent="MovementController"]
 one_shot = true

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MovementProps" load_steps=2 format=3 uid="uid://bmx3ii8e0l3wi"]
+
+[ext_resource type="Script" path="res://Actors/Player/Scripts/movement_props.gd" id="1_j4kav"]
+
+[resource]
+script = ExtResource("1_j4kav")
+speed = 25.0
+ground_acceleration = 85.0
+ground_deceleration = 75.0
+air_acceleration = 23.0
+air_deceleration = 20.0
+momentum_retention = 2.0
+jump_height = 10.0
+jump_time_to_peak = 0.4
+jump_time_to_descent = 0.5
+autohop = false
