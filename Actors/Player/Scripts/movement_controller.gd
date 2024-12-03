@@ -1,36 +1,34 @@
 extends Node2D
 
-const SCALE = 10
+const SCALE := 10
 
-var props : MovementProps
-
-var crouch_speed_modifier = 0.75
+var props: MovementProps
 
 @onready var player = $".."
 
 @onready var hitbox = player.find_child("Hitbox")
-var default_hitbox_size
-var default_hitbox_offset
+@onready var default_hitbox_size = hitbox.shape.size.y
+@onready var default_hitbox_offset = hitbox.position.y
+
 @onready var roof_probe = player.find_child("RoofProbe")
 
 @onready var placeholder_sprite = player.find_child("Placeholder")
 var default_placeholder_polygon = PackedVector2Array([Vector2(-12, -49),Vector2(12, -49),Vector2(12, 0),Vector2(-12, 0)])
 var crouched_placeholder_polygon = PackedVector2Array([Vector2(-12, -24),Vector2(12, -24),Vector2(12, 0),Vector2(-12, 0)])
-var crouching
-var use_crouch_speed
 
 @onready var _loss_of_control_timer: Timer = $LossOfControlTimer
+@onready var animated_sprite = player.find_child("AnimatedSprite")
+
+var crouching: bool
+var use_crouch_speed: float
+
 var _control_degree: float = 1
 var max_velocity_x: float
 
 var facing_right = true
 
-@onready var animated_sprite = player.find_child("AnimatedSprite")
 
 func _ready():
-	default_hitbox_size = hitbox.shape.size.y
-	default_hitbox_offset = hitbox.position.y
-
 	props = player.movement_props
 
 	props.init_jump()
@@ -121,7 +119,7 @@ func _move_horizontal(delta):
 
 	var effective_max_velocity_x = max_velocity_x
 	if is_on_floor and max_velocity_x == props.speed and use_crouch_speed:
-		effective_max_velocity_x *= crouch_speed_modifier
+		effective_max_velocity_x *= props.crouch_speed_modifier
 
 	if direction:
 		if not is_on_floor:

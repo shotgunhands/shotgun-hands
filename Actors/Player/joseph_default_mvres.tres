@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_j4kav")
 speed = 25.0
-ground_acceleration = 85.0
+ground_acceleration = 95.0
 ground_deceleration = 75.0
 air_acceleration = 40.0
 air_deceleration = 20.0
