@@ -116,11 +116,19 @@ jump_time_to_descent = 0.5
 [node name="LossOfControlTimer" type="Timer" parent="MovementController"]
 one_shot = true
 
+[node name="JumpBufferTimer" type="Timer" parent="MovementController"]
+wait_time = 0.2
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="MovementController"]
+wait_time = 0.2
+one_shot = true
+
 [node name="FiringController" type="Node2D" parent="." node_paths=PackedStringArray("_overheat_timer", "_placeholder_visual_box")]
 script = ExtResource("3_u4ryj")
 _default_ammo = Array[PackedScene]([ExtResource("4_bblcg"), ExtResource("5_6mrvq")])
-_melee_damage = 50.0
 _overheat_melee_damage = 150.0
+_melee_damage = 50.0
 _overheat_timer = NodePath("MeleeTimers/OverheatTimeout")
 _placeholder_visual_box = NodePath("../Placeholder")
 _default_color = Color(0, 0, 1, 1)
@@ -198,6 +206,7 @@ sprite_frames = SubResource("SpriteFrames_mpi1c")
 animation = &"run"
 frame_progress = 0.193913
 
+[connection signal="timeout" from="MovementController/CoyoteTimer" to="MovementController" method="coyote_timeout"]
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
 [connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]
 [connection signal="timeout" from="FiringController/ShotgunJumpTimer" to="FiringController" method="_shotgun_jump_timeout"]

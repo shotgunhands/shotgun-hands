@@ -1,36 +1,49 @@
 extends Node2D
 
+const SCALE = 100.0
+
+var STATES = [
+	"NEUTRAL",
+	"RELOAD",
+	"OVERHEAT",
+]
+var state = "NEUTRAL"
+
 @onready var _player: CharacterBody2D = $".."
 @onready var _pivot: Node2D = _player.get_node("ShotgunPivot")
 
+# ---
 @onready var _reload_timer: Timer = $ReloadTimer
-
-const SCALE = 100.0
 
 @export var _default_ammo: Array[PackedScene]
 @onready var _ammo_types: Array[AmmoType] = []
 
+# ---
 @onready var _shotgun_jump_timer: Timer = $ShotgunJumpTimer
 @export var _shotgun_jump_blast_force: float = 5
-var _can_shotgun_jump = true
 
+var _can_shotgun_jump = false
 var _touched_ground = 0
 
+# ---
 @onready var _melee_duration_timer: Timer = $"MeleeTimers/MeleeDuration"
 @onready var _melee_cooldown_timer: Timer = $"MeleeTimers/MeleeCooldown"
 @export var _melee_cooldown_duration: float = 0.5
 @export var _overheated_melee_cooldown_duration: float = 0.1
+@export var _overheat_melee_damage: float
 
 @onready var _melee_hurtbox: Area2D = _pivot.get_node("MeleeHurtbox")
 @onready var _debug_melee_display: Polygon2D = _melee_hurtbox.get_node("Polygon2D")
 
 @export var _melee_damage: float
 
-@export var _overheat_melee_damage: float
+# ---
 var _overheat: int = 0
 var _is_overheated: bool = false
 const OVERHEAT_THRESHOLD: int = 8
 @export var _overheat_timer: Timer
+
+# ---
 @export var _placeholder_visual_box: Polygon2D
 @export var _default_color: Color
 @export var _overheated_color: Color
@@ -172,6 +185,7 @@ func _end_overheat():
 	_placeholder_visual_box.color = _default_color
 
 
-func _launch(): # particle effects go here
+func _launch():
+	# particle effects go here
 	_player.velocity = Vector2.RIGHT.rotated(_pivot.rotation) * _shotgun_jump_blast_force * SCALE * -1
 	emit_signal("midair_shot")
