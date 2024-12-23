@@ -41,6 +41,18 @@ func _physics_process(delta):
 
 	if not player.is_on_floor():
 		player.velocity.y += (props.jump_gravity if player.velocity.y < 0.0 else props.fall_gravity) * delta
+	else:
+		var floor_normal = player.get_floor_normal()
+		if floor_normal.y < 1.0:  # A slope is detected
+			var slope_angle = acos(floor_normal.y)
+			var slope_factor = sin(slope_angle)
+			var move_direction = Input.get_axis("move_left", "move_right")
+
+			# Prevent speed increase when moving up a slope
+			if move_direction != 0:
+				var is_moving_down_slope = (move_direction > 0 and floor_normal.x > 0) or (move_direction < 0 and floor_normal.x < 0)
+				if is_moving_down_slope:
+					player.velocity.x += slope_factor * props.slope_speed_multiplier * sign(move_direction)
 
 	if Input.is_action_just_pressed("move_jump") or (props.autohop and Input.is_action_pressed("move_jump")):
 		if player.is_on_floor():

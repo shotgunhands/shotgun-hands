@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/2d_player.gd" id="1_oua8l"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/movement_controller.gd" id="2_e27d1"]
-[ext_resource type="Resource" uid="uid://bmx3ii8e0l3wi" path="res://Actors/Player/joseph_default_mvres.tres" id="3_fxn41"]
+[ext_resource type="Resource" uid="uid://caymmuyrae434" path="res://Actors/Player/joseph_default_mvres.tres" id="3_fxn41"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/firing_controller.gd" id="3_u4ryj"]
 [ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="4_bblcg"]
 [ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/slug.tscn" id="5_6mrvq"]
@@ -105,6 +105,9 @@ animations = [{
 }]
 
 [node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
+floor_stop_on_slope = false
+floor_constant_speed = true
+floor_snap_length = 10.0
 script = ExtResource("1_oua8l")
 movement_props = ExtResource("3_fxn41")
 
@@ -194,6 +197,7 @@ position = Vector2(0, -26)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_mpi1c")
 animation = &"run"
+frame_progress = 0.193913
 
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
 [connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]

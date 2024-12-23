@@ -7,6 +7,8 @@ class_name MovementProps extends Resource
 @export var air_acceleration = 40.0
 @export var air_deceleration = 20.0
 @export var crouch_speed_modifier = 0.75
+@export var slope_speed_multiplier: float = 5.0
+
 
 @export_range(1, 10.0) var momentum_retention = 2.0
 var momentum_retention_slide = 1.0

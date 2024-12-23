@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MovementProps" load_steps=2 format=3 uid="uid://bmx3ii8e0l3wi"]
+[gd_resource type="Resource" script_class="MovementProps" load_steps=2 format=3 uid="uid://caymmuyrae434"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/movement_props.gd" id="1_j4kav"]
 
@@ -9,6 +9,8 @@ ground_acceleration = 95.0
 ground_deceleration = 75.0
 air_acceleration = 40.0
 air_deceleration = 20.0
+crouch_speed_modifier = 0.75
+slope_speed_multiplier = 5.0
 momentum_retention = 2.0
 jump_height = 10.0
 jump_time_to_peak = 0.4
