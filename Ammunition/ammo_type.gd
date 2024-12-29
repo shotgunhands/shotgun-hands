@@ -76,7 +76,7 @@ func fire(pivot: Node2D):
 		if r_info:
 			#hit_info.add_collider(r_info["collider"], reticle.global_position.distance_to(r_info["position"]))
 			stop_pos = Vector2(r_info["position"]["x"],r_info["position"]["y"])
-		_send_visual_pellet(angle, reticle.global_position,stop_pos,self, 5)
+		_send_visual_pellet(angle, reticle.global_position,stop_pos,self)
 	#hit_info.apply_damage(self)
 
 
@@ -90,13 +90,13 @@ func _cast_env_ray(start: Vector2, target: Vector2) -> Dictionary:
 
 
 ## empty for now. may be useful as an interface for different ammo types
-func _send_visual_pellet(angle: float, start_pos: Vector2,stop_pos:Vector2, ammo_base:AmmoType, innacuracy:float):
+func _send_visual_pellet(angle: float, start_pos: Vector2,stop_pos:Vector2, ammo_base:AmmoType):
 	var visual = _pellet.instantiate()
 	visual.global_position = start_pos
 	visual.global_rotation = angle
 	visual.stop_pos = stop_pos
 	visual.ammo_base = ammo_base
-	visual.innacuracy = innacuracy
 	get_tree().root.add_child(visual)
+	return visual
 #endregion
 
