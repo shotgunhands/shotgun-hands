@@ -2,6 +2,7 @@ extends Node2D
 #defined externally
 @export var _pellet_speed: float = 0;
 
+var innacuracy:float;
 var stop_pos:Vector2;
 var ammo_base:AmmoType;
 var _start_position:Vector2;
@@ -21,7 +22,10 @@ func _ready() -> void:
 
 func _physics_process(delta) -> void:
 	# Update velocity according to gravity
-	velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity") * delta * 0.001
+	velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity") * delta * 0.00025
+
+	# Update velocity according to innacuracy
+	velocity = velocity.rotated(randfn(0, innacuracy / 180 * PI / 10))
 
 	var updated_position: Vector2 = _get_new_frame_position(delta)
 	#detect if a bullet will hit an enemy when it moves

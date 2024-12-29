@@ -90,5 +90,6 @@ func _send_visual_pellet(angle: float, start_pos: Vector2, ammo_base:AmmoType):
 	visual.global_rotation = angle
 	visual.ammo_base = ammo_base
 	get_tree().root.add_child(visual)
+	return visual
 #endregion
 
