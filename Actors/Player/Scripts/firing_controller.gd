@@ -158,6 +158,7 @@ func _increment_overheat():
 	
 	if _overheat >= OVERHEAT_THRESHOLD:
 		_start_overheat()
+		_reload()
 
 
 func _overheat_timeout():
