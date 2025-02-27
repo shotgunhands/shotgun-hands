@@ -53,7 +53,6 @@ var max_velocity_x: float
 
 @onready var animated_sprite = player.find_child("AnimatedSprite")
 
-
 func _ready():
     default_hitbox_size = hitbox.shape.size.y
     default_hitbox_offset = hitbox.position.y
