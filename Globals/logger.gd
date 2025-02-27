@@ -11,4 +11,4 @@ func log(content):
 	if not logging_enabled:
 		return
 	print(content)
-	Console.cast_message(content)
+
