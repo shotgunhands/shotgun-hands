@@ -1,6 +1,11 @@
 extends Control
 
 @export var player_hold : CharacterBody2D
+
+# player_hold is a variable containing the player
+@export var player_hold : CharacterBody2D
+# health_bar, left_ammo, right_ammo and overheat_bar all contain the children of this node.
+
 @onready var health_bar : ProgressBar = $CanvasLayer/VBoxContainer/PlayerHealth
 @onready var left_ammo : RichTextLabel = $CanvasLayer/VBoxContainer/LeftHandAmmo
 @onready var right_ammo : RichTextLabel = $CanvasLayer/VBoxContainer/RightHandAmmo
@@ -12,7 +17,6 @@ var _over_tween : Tween
 var _waited : bool = true
 # _over_waited is a variable that checks if overheat was just initiated
 var _over_waited : bool = true
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -49,5 +53,4 @@ func _process(delta):
 				_over_tween.kill()
 				_waited = true
 			overheat_bar.value = float(player_hold.firing_controller._overheat)
-	
 

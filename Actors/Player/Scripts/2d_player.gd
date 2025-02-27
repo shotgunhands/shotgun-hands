@@ -10,3 +10,8 @@ func _process(_delta):
 
 func lose_control():
 	movement_controller.lose_control()
+
+
+func _on_destroy():
+	get_tree().quit()
+	

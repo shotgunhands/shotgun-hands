@@ -12,4 +12,3 @@ func log(content):
 		return
 	print(content)
 	Console.cast_message(content)
-

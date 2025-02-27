@@ -65,15 +65,15 @@ func _process(delta):
 			hype = 0
 		_:
 			rank = "C"
-	
+
 	rank_label.text = rank
 	hype_bar.value = hype
 
 
 # Increases the hype amount and increases the rank if it must
-# This funciton can be called globally using the scene manager
+# This function can be called globally using the scene manager
 # by typing `Scenemanager.hype_meter.increase_hype(amount)`
-func _increase_hype(amount : float):
+func _increase_hype(amount : float) -> void:
 	hype += amount
 	while hype > 100:
 		hype -= 100
@@ -91,7 +91,6 @@ func _increase_hype(amount : float):
 				rank = "B"
 			_:
 				rank = "C"
-
 
 
 # Feel free to remove this, it's just a temporary thing until actual hype increases are implemented.

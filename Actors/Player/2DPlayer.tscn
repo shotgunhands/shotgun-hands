@@ -1,14 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://d0m6asdiav5p7"]
+[gd_scene load_steps=21 format=3 uid="uid://d0m6asdiav5p7"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/2d_player.gd" id="1_oua8l"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/movement_controller.gd" id="2_e27d1"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/firing_controller.gd" id="3_u4ryj"]
 [ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="4_bblcg"]
 [ext_resource type="PackedScene" uid="uid://bgxridg8dd5ey" path="res://Ammunition/Slug/slug.tscn" id="5_6mrvq"]
+[ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="6_t44ou"]
 [ext_resource type="Texture2D" uid="uid://cwjjpbk6tyunw" path="res://Actors/Player/Sprites/spritesheet_sh_notext.png" id="6_xqhmg"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yk5ks"]
+size = Vector2(24, 49)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4vr"]
-size = Vector2(25, 50)
+size = Vector2(24, 49)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fcvkl"]
 size = Vector2(20, 44)
@@ -100,7 +104,6 @@ animations = [{
 }]
 
 [node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
-collision_layer = 16
 script = ExtResource("1_oua8l")
 
 [node name="MovementController" type="Node2D" parent="."]
@@ -113,11 +116,19 @@ jump_time_to_descent = 0.5
 [node name="LossOfControlTimer" type="Timer" parent="MovementController"]
 one_shot = true
 
+[node name="JumpBufferTimer" type="Timer" parent="MovementController"]
+wait_time = 0.2
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="MovementController"]
+wait_time = 0.2
+one_shot = true
+
 [node name="FiringController" type="Node2D" parent="." node_paths=PackedStringArray("_overheat_timer", "_placeholder_visual_box")]
 script = ExtResource("3_u4ryj")
 _default_ammo = Array[PackedScene]([ExtResource("4_bblcg"), ExtResource("5_6mrvq")])
-_melee_damage = 50.0
 _overheat_melee_damage = 150.0
+_melee_damage = 50.0
 _overheat_timer = NodePath("MeleeTimers/OverheatTimeout")
 _placeholder_visual_box = NodePath("../Placeholder")
 _default_color = Color(0, 0, 1, 1)
@@ -145,8 +156,16 @@ one_shot = true
 wait_time = 1.7
 one_shot = true
 
+[node name="HittableComponent" parent="." instance=ExtResource("6_t44ou")]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HittableComponent"]
+position = Vector2(0, -24.5)
+shape = SubResource("RectangleShape2D_yk5ks")
+
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -25)
+position = Vector2(0, -24.5)
 shape = SubResource("RectangleShape2D_vn4vr")
 
 [node name="Placeholder" type="Polygon2D" parent="."]
@@ -187,8 +206,10 @@ sprite_frames = SubResource("SpriteFrames_mpi1c")
 animation = &"run"
 frame_progress = 0.193913
 
+[connection signal="timeout" from="MovementController/CoyoteTimer" to="MovementController" method="coyote_timeout"]
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
 [connection signal="timeout" from="FiringController/ReloadTimer" to="FiringController" method="_reloaded"]
 [connection signal="timeout" from="FiringController/ShotgunJumpTimer" to="FiringController" method="_shotgun_jump_timeout"]
 [connection signal="timeout" from="FiringController/MeleeTimers/OverheatTimeout" to="FiringController" method="_overheat_timeout"]
+[connection signal="destroy" from="HittableComponent" to="." method="_on_destroy"]
 [connection signal="area_entered" from="ShotgunPivot/MeleeHurtbox" to="FiringController" method="_on_hurtbox_entered"]
