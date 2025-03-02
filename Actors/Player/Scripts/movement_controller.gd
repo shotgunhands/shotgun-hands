@@ -135,14 +135,14 @@ func _animate():
 
 	if player.is_on_floor():
 		if player.velocity.length() > 1:
-			if crouching:
+			if crouching or roof_probe.is_colliding():
 				if not animated_sprite.animation == "crouch":
 					animated_sprite.play("crouch")
 			else:
 				if not animated_sprite.animation == "run":
 					animated_sprite.play("run")
 		else:
-			if not crouching:
+			if not crouching and not roof_probe.is_colliding():
 				if not animated_sprite.animation == "idle":
 					animated_sprite.play("idle")
 			else:
@@ -180,8 +180,6 @@ func _move_horizontal():
 		if not crouching:
 			player.velocity.x = move_toward(player.velocity.x, 0, (momentum_retention * _control_degree))
 		elif direction and crouching and player.velocity.x == 0:
-			print(crouching)
-			print("What do you want from me???")
 			player.velocity.x = max_velocity_x*direction
 
 func lose_control():
