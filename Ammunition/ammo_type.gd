@@ -92,4 +92,3 @@ func _send_visual_pellet(angle: float, start_pos: Vector2, ammo_base:AmmoType):
 	get_tree().root.add_child(visual)
 	return visual
 #endregion
-

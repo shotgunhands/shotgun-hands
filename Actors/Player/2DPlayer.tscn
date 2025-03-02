@@ -104,6 +104,7 @@ animations = [{
 }]
 
 [node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
+floor_snap_length = 5.0
 script = ExtResource("1_oua8l")
 
 [node name="MovementController" type="Node2D" parent="."]
