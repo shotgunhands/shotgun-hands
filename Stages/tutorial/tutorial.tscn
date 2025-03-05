@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://20olw2qotc65"]
+[gd_scene load_steps=19 format=3 uid="uid://20olw2qotc65"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_q3qa0"]
+[ext_resource type="Script" path="res://Stages/tutorial/tutorial.gd" id="1_yaig1"]
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="2_e8c2w"]
 [ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="3_0a4l5"]
 [ext_resource type="Script" path="res://Stages/Shared/Scripts/Pause.gd" id="4_by7cx"]
@@ -9,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="7_necyn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylfrm"]
-size = Vector2(4002, 2)
+size = Vector2(4525, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iu7j0"]
 size = Vector2(40, 982)
@@ -30,11 +31,25 @@ size = Vector2(30, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8cwi"]
 size = Vector2(30, 28)
 
-[node name="Tutorial" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2cv5"]
+size = Vector2(46, 90)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_de32h"]
+size = Vector2(46, 98.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tsit7"]
+size = Vector2(433, 90)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gguda"]
+size = Vector2(434, 362.5)
+
+[node name="Tutorial" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("1_yaig1")
+player = NodePath("2DPlayer")
 
 [node name="Bg" type="Polygon2D" parent="."]
-position = Vector2(0.00012207, 0)
-scale = Vector2(1, 1)
+position = Vector2(131.033, -1.99802)
+scale = Vector2(1.13103, 0.998002)
 color = Color(0.384314, 0.384314, 0.384314, 1)
 polygon = PackedVector2Array(-1000, -1000, -1000, 1, 2999, 1, 2999, -1000)
 
@@ -106,7 +121,7 @@ polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 shape = SubResource("RectangleShape2D_ylfrm")
 
 [node name="Wall2" type="RigidBody2D" parent="."]
-position = Vector2(3000, -455)
+position = Vector2(3524, -455)
 rotation = 1.5708
 collision_layer = 3
 collision_mask = 0
@@ -125,13 +140,13 @@ collision_mask = 0
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Floor"]
-position = Vector2(1001, 0)
-scale = Vector2(2.001, 1)
+position = Vector2(1262.5, 0)
+scale = Vector2(2.2625, 1)
 color = Color(0.176471, 0.176471, 0.176471, 1)
 polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 
 [node name="Hitbox" type="CollisionShape2D" parent="Floor"]
-position = Vector2(1001, 0)
+position = Vector2(1262.5, 0)
 shape = SubResource("RectangleShape2D_ylfrm")
 
 [node name="Label" type="Label" parent="."]
@@ -195,7 +210,7 @@ script = SubResource("GDScript_3kkei")
 
 [node name="HittableComponent" parent="shotling" instance=ExtResource("7_necyn")]
 MAX_HEALTH = 1000.0
-INIT_HEALTH = 1000.0
+INIT_HEALTH = 510.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="shotling/HittableComponent"]
 shape = SubResource("RectangleShape2D_5ge7h")
@@ -221,5 +236,98 @@ offset_top = -166.0
 offset_right = 1044.0
 offset_bottom = -143.0
 text = "Shooting tutorial"
+
+[node name="hurdle2" type="RigidBody2D" parent="."]
+position = Vector2(1883, -46)
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="hurdle2"]
+scale = Vector2(0.0638889, 0.103687)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurdle2"]
+shape = SubResource("RectangleShape2D_k2cv5")
+
+[node name="hurdle" type="RigidBody2D" parent="."]
+position = Vector2(1686, -45)
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="hurdle"]
+scale = Vector2(0.0638889, 0.103687)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurdle"]
+shape = SubResource("RectangleShape2D_k2cv5")
+
+[node name="barrier" type="RigidBody2D" parent="."]
+position = Vector2(2594, -93)
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="barrier"]
+position = Vector2(0, 43)
+scale = Vector2(0.0638889, 0.112903)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="barrier"]
+position = Vector2(0, 43.25)
+shape = SubResource("RectangleShape2D_de32h")
+
+[node name="hurdle3" type="RigidBody2D" parent="."]
+position = Vector2(2046, -46)
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="hurdle3"]
+scale = Vector2(0.0638889, 0.103687)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurdle3"]
+shape = SubResource("RectangleShape2D_k2cv5")
+
+[node name="platform" type="RigidBody2D" parent="."]
+position = Vector2(2402, -144)
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="platform"]
+scale = Vector2(0.601389, 0.103687)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platform"]
+shape = SubResource("RectangleShape2D_tsit7")
+
+[node name="platformHigh" type="RigidBody2D" parent="."]
+position = Vector2(3062, -318)
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="platformHigh"]
+position = Vector2(0, 134.5)
+scale = Vector2(0.601389, 0.415899)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platformHigh"]
+position = Vector2(0, 134.25)
+shape = SubResource("RectangleShape2D_gguda")
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 1914.0
+offset_top = -368.0
+offset_right = 2085.0
+offset_bottom = -345.0
+text = "Shotgun Jump tutorial"
+
+[node name="Label" type="Label" parent="Label3"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 35.0
+offset_right = 589.0
+offset_bottom = 58.0
+text = "The part where you learn to reload"
+
+[node name="Label2" type="Label" parent="Label3"]
+layout_mode = 0
+offset_left = 749.0
+offset_top = 330.0
+offset_right = 902.0
+offset_bottom = 353.0
+text = "[insert hazard here]"
 
 [connection signal="destroy" from="shotling/HittableComponent" to="shotling" method="_on_hittable_component_destroy"]
