@@ -1,0 +1,225 @@
+[gd_scene load_steps=14 format=3 uid="uid://20olw2qotc65"]
+
+[ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_q3qa0"]
+[ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="2_e8c2w"]
+[ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="3_0a4l5"]
+[ext_resource type="Script" path="res://Stages/Shared/Scripts/Pause.gd" id="4_by7cx"]
+[ext_resource type="PackedScene" uid="uid://ydh7h6mcksme" path="res://UIs/Main/main_ui.tscn" id="5_bhj43"]
+[ext_resource type="Texture2D" uid="uid://ckd7lpi0ctvsu" path="res://Usable_Assets/Toff's-cat.jpg" id="6_owwam"]
+[ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="7_necyn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ylfrm"]
+size = Vector2(4002, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iu7j0"]
+size = Vector2(40, 982)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6u2fr"]
+size = Vector2(41.0001, 768)
+
+[sub_resource type="GDScript" id="GDScript_3kkei"]
+script/source = "extends RigidBody2D
+
+func _on_hittable_component_destroy() -> void:
+	queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ge7h"]
+size = Vector2(30, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r8cwi"]
+size = Vector2(30, 28)
+
+[node name="Tutorial" type="Node2D"]
+
+[node name="Bg" type="Polygon2D" parent="."]
+position = Vector2(0.00012207, 0)
+scale = Vector2(1, 1)
+color = Color(0.384314, 0.384314, 0.384314, 1)
+polygon = PackedVector2Array(-1000, -1000, -1000, 1, 2999, 1, 2999, -1000)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -97)
+zoom = Vector2(2, 2)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+script = ExtResource("1_q3qa0")
+
+[node name="2DPlayer" parent="." instance=ExtResource("2_e8c2w")]
+
+[node name="Enemy" parent="." instance=ExtResource("3_0a4l5")]
+position = Vector2(1066, -424)
+
+[node name="Control" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("4_by7cx")
+
+[node name="Center" type="CenterContainer" parent="Control"]
+process_mode = 2
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -49.0
+offset_right = 39.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBox" type="VBoxContainer" parent="Control/Center"]
+process_mode = 2
+layout_mode = 2
+
+[node name="Paused" type="Label" parent="Control/Center/VBox"]
+layout_mode = 2
+text = "Paused"
+
+[node name="Continue" type="Button" parent="Control/Center/VBox"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Quit" type="Button" parent="Control/Center/VBox"]
+layout_mode = 2
+text = "Quit"
+
+[node name="MainUI" parent="." node_paths=PackedStringArray("player_hold") instance=ExtResource("5_bhj43")]
+player_hold = NodePath("../2DPlayer")
+
+[node name="Wall" type="RigidBody2D" parent="."]
+position = Vector2(-1000, -455)
+rotation = 1.5708
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Wall"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("RectangleShape2D_ylfrm")
+
+[node name="Wall2" type="RigidBody2D" parent="."]
+position = Vector2(3000, -455)
+rotation = 1.5708
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Wall2"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Wall2"]
+shape = SubResource("RectangleShape2D_ylfrm")
+
+[node name="Floor" type="RigidBody2D" parent="."]
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Floor"]
+position = Vector2(1001, 0)
+scale = Vector2(2.001, 1)
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Floor"]
+position = Vector2(1001, 0)
+shape = SubResource("RectangleShape2D_ylfrm")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -87.0
+offset_top = -119.0
+offset_right = 87.0
+offset_bottom = -96.0
+text = "Press A and D to move"
+
+[node name="Screen" type="Sprite2D" parent="."]
+position = Vector2(0, -224)
+scale = Vector2(0.451389, 0.166931)
+texture = ExtResource("6_owwam")
+
+[node name="Label" type="Label" parent="Screen"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Malarkey btw"
+
+[node name="wall2" type="RigidBody2D" parent="."]
+position = Vector2(1358, -597)
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="wall2"]
+scale = Vector2(0.0555556, 1.13249)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
+shape = SubResource("RectangleShape2D_iu7j0")
+
+[node name="wall" type="RigidBody2D" parent="."]
+position = Vector2(553, -597)
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="wall"]
+scale = Vector2(0.0555556, 1.13249)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
+shape = SubResource("RectangleShape2D_iu7j0")
+
+[node name="roof" type="RigidBody2D" parent="."]
+position = Vector2(1022, -277)
+rotation = 1.5708
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="roof"]
+position = Vector2(0, 84.5)
+scale = Vector2(0.0555556, 0.937788)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="roof"]
+position = Vector2(0.499878, 63)
+shape = SubResource("RectangleShape2D_6u2fr")
+
+[node name="shotling" type="RigidBody2D" parent="."]
+position = Vector2(1256, -37)
+collision_mask = 0
+freeze = true
+script = SubResource("GDScript_3kkei")
+
+[node name="HittableComponent" parent="shotling" instance=ExtResource("7_necyn")]
+MAX_HEALTH = 1000.0
+INIT_HEALTH = 1000.0
+
+[node name="Hitbox" type="CollisionShape2D" parent="shotling/HittableComponent"]
+shape = SubResource("RectangleShape2D_5ge7h")
+
+[node name="Collider" type="CollisionShape2D" parent="shotling"]
+shape = SubResource("RectangleShape2D_r8cwi")
+
+[node name="Sprite2D" type="Sprite2D" parent="shotling"]
+position = Vector2(-0.375, 0.127972)
+scale = Vector2(0.0427083, 0.0342673)
+texture = ExtResource("6_owwam")
+
+[node name="Label" type="Label" parent="shotling"]
+offset_left = -63.0
+offset_top = -39.0
+offset_right = 89.0
+offset_bottom = -16.0
+text = "Shotling insert here"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 913.0
+offset_top = -166.0
+offset_right = 1044.0
+offset_bottom = -143.0
+text = "Shooting tutorial"
+
+[connection signal="destroy" from="shotling/HittableComponent" to="shotling" method="_on_hittable_component_destroy"]
