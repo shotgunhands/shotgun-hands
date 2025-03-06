@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://20olw2qotc65"]
+[gd_scene load_steps=21 format=3 uid="uid://20olw2qotc65"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_q3qa0"]
 [ext_resource type="Script" path="res://Stages/tutorial/tutorial.gd" id="1_yaig1"]
+[ext_resource type="Texture2D" uid="uid://cejcwksp2mblj" path="res://Usable_Assets/malarkey-labs-1.png" id="2_2se3v"]
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="2_e8c2w"]
 [ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="3_0a4l5"]
 [ext_resource type="Script" path="res://Stages/Shared/Scripts/Pause.gd" id="4_by7cx"]
@@ -43,6 +44,9 @@ size = Vector2(433, 90)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gguda"]
 size = Vector2(434, 362.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_coo6f"]
+size = Vector2(814, 656)
+
 [node name="Tutorial" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_yaig1")
 player = NodePath("2DPlayer")
@@ -52,6 +56,11 @@ position = Vector2(131.033, -1.99802)
 scale = Vector2(1.13103, 0.998002)
 color = Color(0.384314, 0.384314, 0.384314, 1)
 polygon = PackedVector2Array(-1000, -1000, -1000, 1, 2999, 1, 2999, -1000)
+
+[node name="Malarkey-labs-1" type="Sprite2D" parent="."]
+position = Vector2(-1, -67)
+scale = Vector2(0.222504, 0.222504)
+texture = ExtResource("2_2se3v")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -97)
@@ -64,7 +73,7 @@ script = ExtResource("1_q3qa0")
 [node name="2DPlayer" parent="." instance=ExtResource("2_e8c2w")]
 
 [node name="Enemy" parent="." instance=ExtResource("3_0a4l5")]
-position = Vector2(1066, -424)
+position = Vector2(704, -424)
 
 [node name="Control" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -156,18 +165,8 @@ offset_right = 87.0
 offset_bottom = -96.0
 text = "Press A and D to move"
 
-[node name="Screen" type="Sprite2D" parent="."]
-position = Vector2(0, -224)
-scale = Vector2(0.451389, 0.166931)
-texture = ExtResource("6_owwam")
-
-[node name="Label" type="Label" parent="Screen"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Malarkey btw"
-
 [node name="wall2" type="RigidBody2D" parent="."]
-position = Vector2(1358, -597)
+position = Vector2(996, -597)
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="wall2"]
@@ -178,7 +177,7 @@ texture = ExtResource("6_owwam")
 shape = SubResource("RectangleShape2D_iu7j0")
 
 [node name="wall" type="RigidBody2D" parent="."]
-position = Vector2(553, -597)
+position = Vector2(191, -597)
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="wall"]
@@ -189,7 +188,7 @@ texture = ExtResource("6_owwam")
 shape = SubResource("RectangleShape2D_iu7j0")
 
 [node name="roof" type="RigidBody2D" parent="."]
-position = Vector2(1022, -277)
+position = Vector2(660, -277)
 rotation = 1.5708
 freeze = true
 
@@ -203,7 +202,7 @@ position = Vector2(0.499878, 63)
 shape = SubResource("RectangleShape2D_6u2fr")
 
 [node name="shotling" type="RigidBody2D" parent="."]
-position = Vector2(1256, -37)
+position = Vector2(894, -37)
 collision_mask = 0
 freeze = true
 script = SubResource("GDScript_3kkei")
@@ -231,14 +230,14 @@ offset_bottom = -16.0
 text = "Shotling insert here"
 
 [node name="Label2" type="Label" parent="."]
-offset_left = 913.0
+offset_left = 551.0
 offset_top = -166.0
-offset_right = 1044.0
+offset_right = 682.0
 offset_bottom = -143.0
 text = "Shooting tutorial"
 
 [node name="hurdle2" type="RigidBody2D" parent="."]
-position = Vector2(1883, -46)
+position = Vector2(1521, -46)
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="hurdle2"]
@@ -249,7 +248,7 @@ texture = ExtResource("6_owwam")
 shape = SubResource("RectangleShape2D_k2cv5")
 
 [node name="hurdle" type="RigidBody2D" parent="."]
-position = Vector2(1686, -45)
+position = Vector2(1324, -45)
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="hurdle"]
@@ -260,7 +259,7 @@ texture = ExtResource("6_owwam")
 shape = SubResource("RectangleShape2D_k2cv5")
 
 [node name="barrier" type="RigidBody2D" parent="."]
-position = Vector2(2594, -93)
+position = Vector2(2232, -93)
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="barrier"]
@@ -273,7 +272,7 @@ position = Vector2(0, 43.25)
 shape = SubResource("RectangleShape2D_de32h")
 
 [node name="hurdle3" type="RigidBody2D" parent="."]
-position = Vector2(2046, -46)
+position = Vector2(1684, -46)
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="hurdle3"]
@@ -284,7 +283,7 @@ texture = ExtResource("6_owwam")
 shape = SubResource("RectangleShape2D_k2cv5")
 
 [node name="platform" type="RigidBody2D" parent="."]
-position = Vector2(2402, -144)
+position = Vector2(2040, -144)
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="platform"]
@@ -295,7 +294,7 @@ texture = ExtResource("6_owwam")
 shape = SubResource("RectangleShape2D_tsit7")
 
 [node name="platformHigh" type="RigidBody2D" parent="."]
-position = Vector2(3062, -318)
+position = Vector2(2700, -318)
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="platformHigh"]
@@ -308,9 +307,9 @@ position = Vector2(0, 134.25)
 shape = SubResource("RectangleShape2D_gguda")
 
 [node name="Label3" type="Label" parent="."]
-offset_left = 1914.0
+offset_left = 1552.0
 offset_top = -368.0
-offset_right = 2085.0
+offset_right = 1723.0
 offset_bottom = -345.0
 text = "Shotgun Jump tutorial"
 
@@ -329,5 +328,40 @@ offset_top = 330.0
 offset_right = 902.0
 offset_bottom = 353.0
 text = "[insert hazard here]"
+
+[node name="Label4" type="Label" parent="."]
+offset_left = -156.0
+offset_top = -188.0
+offset_right = 146.0
+offset_bottom = -165.0
+text = "We're gonna need a bigger background"
+
+[node name="roof2" type="RigidBody2D" parent="."]
+position = Vector2(3113, -532)
+rotation = -3.14159
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="roof2"]
+position = Vector2(-1.68222, 306.086)
+rotation = 3.14159
+scale = Vector2(1.13471, 0.751783)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="roof2"]
+position = Vector2(0.000488281, 309)
+shape = SubResource("RectangleShape2D_coo6f")
+
+[node name="Label5" type="Label" parent="."]
+offset_left = 3075.0
+offset_top = -168.0
+offset_right = 3354.0
+offset_bottom = -145.0
+text = "the part where he plays table tennis
+(we havn't implemenmted parrying yet)"
+
+[node name="tabletennis" type="Sprite2D" parent="."]
+position = Vector2(3216, -23.9999)
+scale = Vector2(0.215278, 0.0529954)
+texture = ExtResource("6_owwam")
 
 [connection signal="destroy" from="shotling/HittableComponent" to="shotling" method="_on_hittable_component_destroy"]
