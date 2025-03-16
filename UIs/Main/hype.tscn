@@ -25,6 +25,7 @@ fit_content = true
 layout_mode = 2
 
 [node name="temp_increase_hype_btn" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "more hype!!!"
 
