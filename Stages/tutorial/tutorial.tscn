@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://20olw2qotc65"]
+[gd_scene load_steps=24 format=3 uid="uid://20olw2qotc65"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_q3qa0"]
 [ext_resource type="Script" path="res://Stages/tutorial/tutorial.gd" id="1_yaig1"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="7_necyn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylfrm"]
-size = Vector2(4525, 2)
+size = Vector2(6078, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iu7j0"]
 size = Vector2(40, 982)
@@ -47,13 +47,22 @@ size = Vector2(434, 362.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coo6f"]
 size = Vector2(814, 656)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n2udp"]
+size = Vector2(30, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ya0m0"]
+size = Vector2(30, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxfgd"]
+size = Vector2(30, 68)
+
 [node name="Tutorial" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_yaig1")
 player = NodePath("2DPlayer")
 
 [node name="Bg" type="Polygon2D" parent="."]
-position = Vector2(131.033, -1.99802)
-scale = Vector2(1.13103, 0.998002)
+position = Vector2(519.882, -1.99795)
+scale = Vector2(1.51988, 0.998002)
 color = Color(0.384314, 0.384314, 0.384314, 1)
 polygon = PackedVector2Array(-1000, -1000, -1000, 1, 2999, 1, 2999, -1000)
 
@@ -130,7 +139,7 @@ polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 shape = SubResource("RectangleShape2D_ylfrm")
 
 [node name="Wall2" type="RigidBody2D" parent="."]
-position = Vector2(3524, -455)
+position = Vector2(5079, -455)
 rotation = 1.5708
 collision_layer = 3
 collision_mask = 0
@@ -149,13 +158,13 @@ collision_mask = 0
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Floor"]
-position = Vector2(1262.5, 0)
-scale = Vector2(2.2625, 1)
+position = Vector2(2039, 0)
+scale = Vector2(3.039, 1)
 color = Color(0.176471, 0.176471, 0.176471, 1)
 polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 
 [node name="Hitbox" type="CollisionShape2D" parent="Floor"]
-position = Vector2(1262.5, 0)
+position = Vector2(2039, 0)
 shape = SubResource("RectangleShape2D_ylfrm")
 
 [node name="Label" type="Label" parent="."]
@@ -364,4 +373,187 @@ position = Vector2(3216, -23.9999)
 scale = Vector2(0.215278, 0.0529954)
 texture = ExtResource("6_owwam")
 
+[node name="wall3" type="RigidBody2D" parent="."]
+position = Vector2(4345, -597)
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="wall3"]
+scale = Vector2(0.0555556, 1.13249)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall3"]
+shape = SubResource("RectangleShape2D_iu7j0")
+
+[node name="wall4" type="RigidBody2D" parent="."]
+position = Vector2(3540, -597)
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="wall4"]
+scale = Vector2(0.0555556, 1.13249)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall4"]
+shape = SubResource("RectangleShape2D_iu7j0")
+
+[node name="roof3" type="RigidBody2D" parent="."]
+position = Vector2(4009, -442)
+rotation = 1.5708
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="roof3"]
+position = Vector2(0, 84.5)
+scale = Vector2(0.0555556, 0.937788)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="roof3"]
+position = Vector2(0.499878, 63)
+shape = SubResource("RectangleShape2D_6u2fr")
+
+[node name="target" type="RigidBody2D" parent="."]
+position = Vector2(3656, -264)
+collision_mask = 0
+freeze = true
+
+[node name="Collider" type="CollisionShape2D" parent="target"]
+shape = SubResource("RectangleShape2D_n2udp")
+
+[node name="Vis" type="Polygon2D" parent="target"]
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="target2" type="RigidBody2D" parent="."]
+position = Vector2(3737, -265)
+collision_mask = 0
+freeze = true
+
+[node name="Collider" type="CollisionShape2D" parent="target2"]
+shape = SubResource("RectangleShape2D_n2udp")
+
+[node name="Vis" type="Polygon2D" parent="target2"]
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="target3" type="RigidBody2D" parent="."]
+position = Vector2(3830, -267)
+collision_mask = 0
+freeze = true
+
+[node name="Collider" type="CollisionShape2D" parent="target3"]
+shape = SubResource("RectangleShape2D_n2udp")
+
+[node name="Vis" type="Polygon2D" parent="target3"]
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="target4" type="RigidBody2D" parent="."]
+position = Vector2(3904, -264)
+collision_mask = 0
+freeze = true
+
+[node name="Collider" type="CollisionShape2D" parent="target4"]
+shape = SubResource("RectangleShape2D_n2udp")
+
+[node name="Vis" type="Polygon2D" parent="target4"]
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="target5" type="RigidBody2D" parent="."]
+position = Vector2(3990, -268)
+collision_mask = 0
+freeze = true
+
+[node name="Collider" type="CollisionShape2D" parent="target5"]
+shape = SubResource("RectangleShape2D_n2udp")
+
+[node name="Vis" type="Polygon2D" parent="target5"]
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="target6" type="RigidBody2D" parent="."]
+position = Vector2(4071, -269)
+collision_mask = 0
+freeze = true
+
+[node name="Collider" type="CollisionShape2D" parent="target6"]
+shape = SubResource("RectangleShape2D_n2udp")
+
+[node name="Vis" type="Polygon2D" parent="target6"]
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="target7" type="RigidBody2D" parent="."]
+position = Vector2(4164, -271)
+collision_mask = 0
+freeze = true
+
+[node name="Collider" type="CollisionShape2D" parent="target7"]
+shape = SubResource("RectangleShape2D_n2udp")
+
+[node name="Vis" type="Polygon2D" parent="target7"]
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="target8" type="RigidBody2D" parent="."]
+position = Vector2(4238, -268)
+collision_mask = 0
+freeze = true
+
+[node name="Collider" type="CollisionShape2D" parent="target8"]
+shape = SubResource("RectangleShape2D_n2udp")
+
+[node name="Vis" type="Polygon2D" parent="target8"]
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="dummy" type="RigidBody2D" parent="."]
+position = Vector2(3976, -39)
+collision_mask = 0
+freeze = true
+
+[node name="HittableComponent" parent="dummy" instance=ExtResource("7_necyn")]
+MAX_HEALTH = 20.0
+
+[node name="Hitbox" type="CollisionShape2D" parent="dummy/HittableComponent"]
+shape = SubResource("RectangleShape2D_ya0m0")
+
+[node name="Collider" type="CollisionShape2D" parent="dummy"]
+shape = SubResource("RectangleShape2D_gxfgd")
+
+[node name="Vis" type="Polygon2D" parent="dummy"]
+scale = Vector2(1, 2.26667)
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="Label6" type="Label" parent="."]
+offset_left = 3757.0
+offset_top = -354.0
+offset_right = 4208.0
+offset_bottom = -331.0
+text = "Overheat tutorial (imagine these are targets and a dummy"
+
+[node name="Label7" type="Label" parent="."]
+offset_left = 4559.0
+offset_top = -337.0
+offset_right = 5010.0
+offset_bottom = -314.0
+text = "The part where he threatens your family"
+
+[node name="roof4" type="RigidBody2D" parent="."]
+position = Vector2(4754, -442)
+rotation = 1.5708
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="roof4"]
+position = Vector2(0, 84.5)
+scale = Vector2(0.0555556, 0.937788)
+texture = ExtResource("6_owwam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="roof4"]
+position = Vector2(0.499878, 63)
+shape = SubResource("RectangleShape2D_6u2fr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4935, -103)
+scale = Vector2(0.191667, 0.191667)
+texture = ExtResource("6_owwam")
+
+[node name="Label" type="Label" parent="Sprite2D"]
+offset_left = -281.739
+offset_top = -161.739
+offset_right = 323.261
+offset_bottom = -138.739
+text = "I would never attach shotguns to your hands, I'm just an innocent little goober"
+
 [connection signal="destroy" from="shotling/HittableComponent" to="shotling" method="_on_hittable_component_destroy"]
+[connection signal="destroy" from="dummy/HittableComponent" to="dummy" method="_on_hittable_component_destroy"]
