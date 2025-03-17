@@ -442,6 +442,30 @@ theme_override_font_sizes/font_size = 25
 disabled = true
 text = "DOCTOR MALARKEY"
 
+[node name="Secret" type="RichTextLabel" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Aftermath"
+fit_content = true
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Gavel" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "THE GAVEL FORCES"
+
+[node name="Chime" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "THE MISTAKE"
+
 [node name="Return" type="Button" parent="LevelSel/VBoxContainer"]
 layout_mode = 2
 text = "Back"
