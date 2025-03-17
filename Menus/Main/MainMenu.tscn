@@ -36,6 +36,7 @@ layout_mode = 2
 text = "Quit"
 
 [node name="LevelSel" type="ScrollContainer" parent="."]
+visible = false
 offset_right = 1920.0
 offset_bottom = 1080.0
 
@@ -445,4 +446,38 @@ text = "DOCTOR MALARKEY"
 layout_mode = 2
 text = "Back"
 
+[node name="LevelStart" type="CenterContainer" parent="."]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="LevelStart" type="VBoxContainer" parent="LevelStart"]
+layout_mode = 2
+
+[node name="Selected" type="RichTextLabel" parent="LevelStart/LevelStart"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Level Selected: "
+fit_content = true
+autowrap_mode = 0
+
+[node name="Start" type="Button" parent="LevelStart/LevelStart"]
+layout_mode = 2
+text = "Start Level"
+
+[node name="Shop" type="Button" parent="LevelStart/LevelStart"]
+layout_mode = 2
+text = "Han's shop"
+
+[node name="Detriments" type="Button" parent="LevelStart/LevelStart"]
+layout_mode = 2
+text = "Detriment Shop"
+
+[node name="Back" type="Button" parent="LevelStart/LevelStart"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="LevelSel/VBoxContainer/LabLevels/Tutorial" to="." method="_on_level_selected" binds= ["stage_01", "Tutorial"]]
 [connection signal="pressed" from="LevelSel/VBoxContainer/Return" to="." method="_on_return"]
+[connection signal="pressed" from="LevelStart/LevelStart/Start" to="." method="_start_level"]
+[connection signal="pressed" from="LevelStart/LevelStart/Back" to="." method="_on_return"]

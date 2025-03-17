@@ -5,6 +5,7 @@ class_name MainMenu extends Node
 
 @onready var start_menu : CenterContainer = $Center
 @onready var level_select_menu : ScrollContainer = $LevelSel
+@onready var level_start_menu : CenterContainer = $LevelStart
 
 var selected_level = "stage_01"
 
@@ -31,8 +32,17 @@ func _on_return():
 	if level_select_menu.visible:
 		start_menu.show()
 		level_select_menu.hide()
+	elif level_start_menu.visible:
+		level_select_menu.show()
+		level_start_menu.hide()
 
 
-func _on_level_selected(level: String) -> void:
+func _on_level_selected(level: String, level_name : String) -> void:
 	selected_level = level
 	level_select_menu.hide()
+	level_start_menu.show()
+	$LevelStart/LevelStart/Selected.text = "Level Selected: " + level_name
+
+
+func _start_level() -> void:
+	Scenemanager.change_scene(selected_level)
