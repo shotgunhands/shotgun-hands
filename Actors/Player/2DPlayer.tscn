@@ -150,7 +150,7 @@ wait_time = 0.05
 one_shot = true
 
 [node name="MeleeCooldown" type="Timer" parent="FiringController/MeleeTimers"]
-wait_time = 0.5
+wait_time = 0.4
 one_shot = true
 
 [node name="OverheatTimeout" type="Timer" parent="FiringController/MeleeTimers"]

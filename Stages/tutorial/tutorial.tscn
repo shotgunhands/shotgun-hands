@@ -236,7 +236,7 @@ offset_left = 551.0
 offset_top = -166.0
 offset_right = 682.0
 offset_bottom = -143.0
-text = "Press LMB and RMB to shoot"
+text = "Now both guns at once"
 
 [node name="hurdle2" type="RigidBody2D" parent="."]
 position = Vector2(1521, -46)
@@ -537,15 +537,16 @@ offset_left = 3781.0
 offset_top = -229.0
 offset_right = 4178.0
 offset_bottom = -206.0
-text = "Shoot each of these targets once to enter overheat."
+text = "Shoot each of these targets once to enter overheat
+(or shoot 8 times in general)"
 
 [node name="Label9" type="Label" parent="."]
 visible = false
-offset_left = 3675.0
-offset_top = -204.0
-offset_right = 4256.0
-offset_bottom = -181.0
-text = "Overheat: Increased melee damage in exchange for no firing rate. Try it out"
+offset_left = 3648.0
+offset_top = -176.0
+offset_right = 4304.0
+offset_bottom = -153.0
+text = "Overheat: Increased melee damage and speed in exchange for no shooting. Try it out"
 
 [node name="Label10" type="Label" parent="."]
 offset_left = 3815.0
