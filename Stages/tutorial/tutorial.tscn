@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://20olw2qotc65"]
+[gd_scene load_steps=28 format=3 uid="uid://20olw2qotc65"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_q3qa0"]
 [ext_resource type="Script" path="res://Stages/tutorial/tutorial.gd" id="1_yaig1"]
@@ -62,6 +62,9 @@ size = Vector2(30, 68)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ey3c"]
 size = Vector2(20, 255.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uy3r5"]
+size = Vector2(227, 98)
 
 [node name="Tutorial" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_yaig1")
@@ -312,26 +315,26 @@ position = Vector2(0, 134.25)
 shape = SubResource("RectangleShape2D_gguda")
 
 [node name="Label3" type="Label" parent="."]
-offset_left = 1552.0
-offset_top = -368.0
-offset_right = 1723.0
-offset_bottom = -345.0
-text = "Shotgun Jump tutorial"
+visible = false
+offset_left = 1862.0
+offset_top = -366.0
+offset_right = 2215.0
+offset_bottom = -343.0
+text = "Shoot both guns downwards to shotgun jump"
 
-[node name="Label" type="Label" parent="Label3"]
-layout_mode = 0
-offset_left = 320.0
-offset_top = 35.0
-offset_right = 589.0
-offset_bottom = 58.0
-text = "The part where you learn to reload"
+[node name="Label2" type="Label" parent="."]
+visible = false
+offset_left = 1753.0
+offset_top = -337.0
+offset_right = 2338.0
+offset_bottom = -314.0
+text = "You should probably reload your guns before you do that. Press R to reload."
 
-[node name="Label2" type="Label" parent="Label3"]
-layout_mode = 0
-offset_left = 749.0
-offset_top = 330.0
-offset_right = 902.0
-offset_bottom = 353.0
+[node name="Label8" type="Label" parent="."]
+offset_left = 2301.0
+offset_top = -38.0
+offset_right = 2454.0
+offset_bottom = -15.0
 text = "[insert hazard here]"
 
 [node name="Label4" type="Label" parent="."]
@@ -371,7 +374,7 @@ scale = Vector2(0.215278, 0.0529954)
 texture = ExtResource("6_owwam")
 
 [node name="wall3" type="RigidBody2D" parent="."]
-position = Vector2(4345, -597)
+position = Vector2(4345, -492)
 collision_layer = 3
 freeze = true
 
@@ -410,7 +413,7 @@ position = Vector2(0.499878, 63)
 shape = SubResource("RectangleShape2D_6u2fr")
 
 [node name="target" type="RigidBody2D" parent="."]
-position = Vector2(3656, -264)
+position = Vector2(3656, -233)
 collision_layer = 3
 collision_mask = 0
 freeze = true
@@ -422,7 +425,7 @@ shape = SubResource("RectangleShape2D_n2udp")
 polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
 
 [node name="target2" type="RigidBody2D" parent="."]
-position = Vector2(3737, -265)
+position = Vector2(3737, -233)
 collision_layer = 3
 collision_mask = 0
 freeze = true
@@ -434,7 +437,7 @@ shape = SubResource("RectangleShape2D_n2udp")
 polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
 
 [node name="target3" type="RigidBody2D" parent="."]
-position = Vector2(3830, -267)
+position = Vector2(3830, -233)
 collision_layer = 3
 collision_mask = 0
 freeze = true
@@ -446,7 +449,7 @@ shape = SubResource("RectangleShape2D_n2udp")
 polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
 
 [node name="target4" type="RigidBody2D" parent="."]
-position = Vector2(3904, -264)
+position = Vector2(3904, -233)
 collision_layer = 3
 collision_mask = 0
 freeze = true
@@ -458,7 +461,7 @@ shape = SubResource("RectangleShape2D_n2udp")
 polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
 
 [node name="target5" type="RigidBody2D" parent="."]
-position = Vector2(3990, -268)
+position = Vector2(3990, -233)
 collision_layer = 3
 collision_mask = 0
 freeze = true
@@ -470,7 +473,7 @@ shape = SubResource("RectangleShape2D_n2udp")
 polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
 
 [node name="target6" type="RigidBody2D" parent="."]
-position = Vector2(4071, -269)
+position = Vector2(4071, -233)
 collision_layer = 3
 collision_mask = 0
 freeze = true
@@ -482,7 +485,7 @@ shape = SubResource("RectangleShape2D_n2udp")
 polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
 
 [node name="target7" type="RigidBody2D" parent="."]
-position = Vector2(4164, -271)
+position = Vector2(4164, -233)
 collision_layer = 3
 collision_mask = 0
 freeze = true
@@ -494,7 +497,7 @@ shape = SubResource("RectangleShape2D_n2udp")
 polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
 
 [node name="target8" type="RigidBody2D" parent="."]
-position = Vector2(4238, -268)
+position = Vector2(4238, -233)
 collision_layer = 3
 collision_mask = 0
 freeze = true
@@ -529,11 +532,27 @@ scale = Vector2(1, 2.26667)
 polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
 
 [node name="Label6" type="Label" parent="."]
-offset_left = 3757.0
-offset_top = -354.0
-offset_right = 4208.0
-offset_bottom = -331.0
-text = "Overheat tutorial (imagine these are targets and a dummy"
+visible = false
+offset_left = 3781.0
+offset_top = -229.0
+offset_right = 4178.0
+offset_bottom = -206.0
+text = "Shoot each of these targets once to enter overheat."
+
+[node name="Label9" type="Label" parent="."]
+visible = false
+offset_left = 3675.0
+offset_top = -204.0
+offset_right = 4256.0
+offset_bottom = -181.0
+text = "Overheat: Increased melee damage in exchange for no firing rate. Try it out"
+
+[node name="Label10" type="Label" parent="."]
+offset_left = 3815.0
+offset_top = -135.0
+offset_right = 4135.0
+offset_bottom = -112.0
+text = "Try killing the dummy with only your fists"
 
 [node name="Label7" type="Label" parent="."]
 offset_left = 4559.0
@@ -563,10 +582,11 @@ scale = Vector2(0.191667, 0.191667)
 texture = ExtResource("6_owwam")
 
 [node name="Label" type="Label" parent="Sprite2D"]
-offset_left = -281.739
-offset_top = -161.739
-offset_right = 323.261
-offset_bottom = -138.739
+offset_left = -584.348
+offset_top = 453.913
+offset_right = 20.6522
+offset_bottom = 476.913
+scale = Vector2(2, 2)
 text = "I would never attach shotguns to your hands, I'm just an innocent little goober"
 
 [node name="shootTrigger" type="Area2D" parent="."]
@@ -581,6 +601,15 @@ collision_layer = 17
 collision_mask = 17
 damage = 10
 
+[node name="sjumpTrigger" type="Area2D" parent="."]
+position = Vector2(2143, -238)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sjumpTrigger"]
+shape = SubResource("RectangleShape2D_uy3r5")
+
 [connection signal="destroy" from="shotling/HittableComponent" to="shotling" method="_on_hittable_component_destroy"]
+[connection signal="destroy" from="dummy/HittableComponent" to="." method="_on_dummy_destroy"]
 [connection signal="destroy" from="dummy/HittableComponent" to="dummy" method="_on_hittable_component_destroy"]
 [connection signal="body_entered" from="shootTrigger" to="." method="_on_shoot_trigger_body_entered"]
+[connection signal="area_entered" from="EnviroHazard" to="." method="_on_enviro_hazard_area_entered"]
+[connection signal="body_entered" from="sjumpTrigger" to="." method="_on_sjump_trigger_body_entered"]

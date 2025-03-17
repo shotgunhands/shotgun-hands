@@ -12,12 +12,17 @@ var velocity:Vector2;
 @warning_ignore("unassigned_variable")
 var unset_vec2 :Vector2;
 
+#Detects the previous velocity of the bullet two and one moves ago 
+var _two_moves_ago : float = 0
+var _one_move_ago : float = 0
+
 
 func _ready() -> void:
 	#make sure the position of the bullet have actually been set by the pellet creator
 	assert(global_position != unset_vec2)
 	_start_position = global_position;
 	velocity = Vector2.RIGHT.rotated(rotation)
+	
 
 
 func _physics_process(delta) -> void:
@@ -27,11 +32,12 @@ func _physics_process(delta) -> void:
 	# Update velocity according to innacuracy
 	velocity = velocity.rotated(randfn(0, innacuracy / 180 * PI / 10))
 	
-	$Polygon2D.polygon[0].x = 0
-	$Polygon2D.polygon[3].x = 0
-	$Polygon2D.polygon[2].x = velocity.x * _pellet_speed * delta
-	$Polygon2D.polygon[1].x = velocity.x * _pellet_speed * delta
-
+	
+	$Polygon2D.polygon[0].x = -(_two_moves_ago + _one_move_ago) * _pellet_speed * delta
+	$Polygon2D.polygon[3].x = -(_two_moves_ago + _one_move_ago) * _pellet_speed * delta
+	$Polygon2D.polygon[2].x = velocity.length() * _pellet_speed * delta
+	$Polygon2D.polygon[1].x = velocity.length() * _pellet_speed * delta
+	
 	var updated_position: Vector2 = _get_new_frame_position(delta)
 	#detect if a bullet will hit an enemy when it moves
 	var r_info := _cast_enemy_ray(global_position, updated_position)
@@ -57,6 +63,9 @@ func _physics_process(delta) -> void:
 		pass
 	#move to new position
 	global_position = updated_position
+	
+	_two_moves_ago = _one_move_ago
+	_one_move_ago = velocity.length()
 
 
 func destroy():

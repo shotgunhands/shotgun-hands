@@ -67,7 +67,6 @@ func _ready():
 
 
 func _physics_process(delta):
-	print(player.velocity.y)
 	_evaluate_control_degree()
 
 	# --- gravity
