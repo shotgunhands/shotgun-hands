@@ -26,6 +26,11 @@ func _physics_process(delta) -> void:
 
 	# Update velocity according to innacuracy
 	velocity = velocity.rotated(randfn(0, innacuracy / 180 * PI / 10))
+	
+	$Polygon2D.polygon[0].x = 0
+	$Polygon2D.polygon[3].x = 0
+	$Polygon2D.polygon[2].x = velocity.x * _pellet_speed * delta
+	$Polygon2D.polygon[1].x = velocity.x * _pellet_speed * delta
 
 	var updated_position: Vector2 = _get_new_frame_position(delta)
 	#detect if a bullet will hit an enemy when it moves

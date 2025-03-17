@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://20olw2qotc65"]
+[gd_scene load_steps=27 format=3 uid="uid://20olw2qotc65"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_q3qa0"]
 [ext_resource type="Script" path="res://Stages/tutorial/tutorial.gd" id="1_yaig1"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ckd7lpi0ctvsu" path="res://Usable_Assets/Toff's-cat.jpg" id="6_owwam"]
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="7_necyn"]
 [ext_resource type="Script" path="res://Stages/tutorial/dummy.gd" id="9_kochw"]
+[ext_resource type="PackedScene" uid="uid://dr5glltomjv3c" path="res://Stages/tutorial/enviro_hazard.tscn" id="10_6foj7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylfrm"]
 size = Vector2(6078, 2)
@@ -190,7 +191,7 @@ script = SubResource("GDScript_3kkei")
 
 [node name="HittableComponent" parent="shotling" instance=ExtResource("7_necyn")]
 MAX_HEALTH = 1000.0
-INIT_HEALTH = 510.0
+INIT_HEALTH = 1000.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="shotling/HittableComponent"]
 shape = SubResource("RectangleShape2D_5ge7h")
@@ -573,6 +574,12 @@ position = Vector2(624, -128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shootTrigger"]
 shape = SubResource("RectangleShape2D_1ey3c")
+
+[node name="EnviroHazard" parent="." instance=ExtResource("10_6foj7")]
+position = Vector2(2369, -14)
+collision_layer = 17
+collision_mask = 17
+damage = 10
 
 [connection signal="destroy" from="shotling/HittableComponent" to="shotling" method="_on_hittable_component_destroy"]
 [connection signal="destroy" from="dummy/HittableComponent" to="dummy" method="_on_hittable_component_destroy"]
