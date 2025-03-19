@@ -54,140 +54,141 @@ var max_velocity_x: float
 @onready var animated_sprite = player.find_child("AnimatedSprite")
 
 func _ready():
-    default_hitbox_size = hitbox.shape.size.y
-    default_hitbox_offset = hitbox.position.y
-    speed *= SCALE
-    jump_vel *= SCALE
-    jump_gravity *= SCALE
-    fall_gravity *= SCALE
-    momentum_retention *= SCALE
-    momentum_retention_slide *= SCALE
+	default_hitbox_size = hitbox.shape.size.y
+	default_hitbox_offset = hitbox.position.y
+	speed *= SCALE
+	jump_vel *= SCALE
+	jump_gravity *= SCALE
+	fall_gravity *= SCALE
+	momentum_retention *= SCALE
+	momentum_retention_slide *= SCALE
 
-    max_velocity_x = speed
+	max_velocity_x = speed
 
 
 func _physics_process(delta):
-    _evaluate_control_degree()
+	_evaluate_control_degree()
 
-    # --- gravity
-    if not player.is_on_floor():
-        player.velocity.y += (jump_gravity if player.velocity.y < 0.0 else fall_gravity) * delta
+	# --- gravity
+	if not player.is_on_floor():
+		player.velocity.y += (jump_gravity if player.velocity.y < 0.0 else fall_gravity) * delta
 
-    # --- jump, courtesy of PSK
-    if !player.is_on_floor() and _coyote_timer.is_stopped():
-        _coyote_timer.start()
-    elif player.is_on_floor():
-        jumping = false
+	# --- jump, courtesy of PSK
+	if !player.is_on_floor() and _coyote_timer.is_stopped():
+		_coyote_timer.start()
+	elif player.is_on_floor():
+		jumping = false
 
-    if !_jump_buffer_timer.is_stopped() and (player.is_on_floor() or (!_coyote_timer.is_stopped() and not jumping)):
-        jumping = true
-        player.velocity.y = jump_vel
-        _jump_buffer_timer.stop()
+	if !_jump_buffer_timer.is_stopped() and (player.is_on_floor() or (!_coyote_timer.is_stopped() and not jumping)):
+		jumping = true
+		player.velocity.y = jump_vel
+		_jump_buffer_timer.stop()
 
-    if Input.is_action_just_pressed("move_jump"):
-        if player.is_on_floor() or (!_coyote_timer.is_stopped() and not jumping):
-            jumping = true
-            player.velocity.y = jump_vel
-        else:
-            _jump_buffer_timer.start()
-        
+	if Input.is_action_just_pressed("move_jump"):
+		if player.is_on_floor() or (!_coyote_timer.is_stopped() and not jumping):
+			jumping = true
+			player.velocity.y = jump_vel
+		else:
+			_jump_buffer_timer.start()
+		
 
-    # --- crouch/slide
-    if Input.is_action_just_pressed("move_crouch") and player.is_on_floor():
-        crouching = true
-        max_velocity_x = speed * 1.25
+	# --- crouch/slide
+	if Input.is_action_just_pressed("move_crouch") and player.is_on_floor():
+		crouching = true
+		max_velocity_x = speed * 1.25
 
-    if Input.is_action_just_released("move_crouch") or !player.is_on_floor():
-        crouching = false
-        max_velocity_x = speed
+	if Input.is_action_just_released("move_crouch") or !player.is_on_floor():
+		crouching = false
+		max_velocity_x = speed
 
-    _crouch_hitbox()
+	_crouch_hitbox()
 
 
-    _animate()
+	_animate()
 
-    _evaluate_max_velocity()
-    _move_horizontal()
+	_evaluate_max_velocity()
+	_move_horizontal()
 
-    player.move_and_slide()
+	player.move_and_slide()
 
 func _crouch_hitbox():
-    if crouching:
-            hitbox.shape.size.y = default_hitbox_size / 2
-            hitbox.position.y = default_hitbox_offset / 2
-            placeholder_sprite.polygon = crouched_placeholder_polygon
-    else:
-        if not roof_probe.is_colliding():
-            hitbox.shape.size.y = default_hitbox_size
-            hitbox.position.y = default_hitbox_offset
-            placeholder_sprite.polygon = default_placeholder_polygon
-            use_crouch_speed = false
+	if crouching:
+			hitbox.shape.size.y = default_hitbox_size / 2
+			hitbox.position.y = default_hitbox_offset / 2
+			placeholder_sprite.polygon = crouched_placeholder_polygon
+	else:
+		if not roof_probe.is_colliding():
+			hitbox.shape.size.y = default_hitbox_size
+			hitbox.position.y = default_hitbox_offset
+			placeholder_sprite.polygon = default_placeholder_polygon
+			use_crouch_speed = false
 
 func _animate():
-    if player.velocity.x < 0:
-        facing_right = false
-    elif player.velocity.x > 0:
-        facing_right = true
-    else:
-        facing_right = facing_right
+	if player.velocity.x < 0:
+		facing_right = false
+	elif player.velocity.x > 0:
+		facing_right = true
+	else:
+		facing_right = facing_right
 
-    animated_sprite.flip_h = !facing_right
+	animated_sprite.flip_h = !facing_right
 
-    if player.is_on_floor():
-        if player.velocity.length() > 1:
-            if crouching:
-                if not animated_sprite.animation == "crouch":
-                    animated_sprite.play("crouch")
-            else:
-                if not animated_sprite.animation == "run":
-                    animated_sprite.play("run")
-        else:
-            if not crouching:
-                if not animated_sprite.animation == "idle":
-                    animated_sprite.play("idle")
-            else:
-                if not animated_sprite.animation == "crouch":
-                    animated_sprite.play("crouch")
-    else:
-        if not animated_sprite.animation == "jump":
-            animated_sprite.play("jump")
+	if player.is_on_floor():
+		if player.velocity.length() > 1:
+			if crouching or roof_probe.is_colliding():
+				if not animated_sprite.animation == "crouch":
+					animated_sprite.play("crouch")
+			else:
+				if not animated_sprite.animation == "run":
+					animated_sprite.play("run")
+		else:
+			if not crouching and not roof_probe.is_colliding():
+				if not animated_sprite.animation == "idle":
+					animated_sprite.play("idle")
+			else:
+				if not animated_sprite.animation == "crouch":
+					animated_sprite.play("crouch")
+	else:
+		if not animated_sprite.animation == "jump":
+			animated_sprite.play("jump")
 
 func _evaluate_control_degree():
-    if _control_degree != 1:
-        _control_degree = (_loss_of_control_timer.wait_time - _loss_of_control_timer.time_left) / (_loss_of_control_timer.wait_time)
-        _control_degree = pow(_control_degree, 3)
-        _control_degree = clampf(_control_degree, 0, 1)
+	if _control_degree != 1:
+		_control_degree = (_loss_of_control_timer.wait_time - _loss_of_control_timer.time_left) / (_loss_of_control_timer.wait_time)
+		_control_degree = pow(_control_degree, 3)
+		_control_degree = clampf(_control_degree, 0, 1)
 
 # checks state, modifies the value of max_velocity
 func _evaluate_max_velocity():
-    if max_velocity_x != speed or abs(player.velocity.x) < max_velocity_x:
-        max_velocity_x = abs(player.velocity.x)
-        max_velocity_x = max(speed, abs(player.velocity.x))
-    if max_velocity_x > speed and (player.is_on_floor() and not crouching):
-        max_velocity_x -= (max_velocity_x - speed) * _control_degree
-        max_velocity_x = max(speed, max_velocity_x)
+	if max_velocity_x != speed or abs(player.velocity.x) < max_velocity_x:
+		max_velocity_x = abs(player.velocity.x)
+		max_velocity_x = max(speed, abs(player.velocity.x))
+	if max_velocity_x > speed and (player.is_on_floor() and not crouching):
+		max_velocity_x -= (max_velocity_x - speed) * _control_degree
+		max_velocity_x = max(speed, max_velocity_x)
 
 func _move_horizontal():
-    var direction = Input.get_axis("move_left", "move_right")
-    if direction and not crouching:
-        player.velocity.x += direction * speed * _control_degree
-        player.velocity.x = clampf(player.velocity.x, -max_velocity_x, max_velocity_x)
-        if player.is_on_floor() and max_velocity_x == speed:
-            # other stuff potentially
-            if use_crouch_speed:
-                player.velocity.x *= crouch_speed_modifier
-    else:
-        if not crouching:
-            player.velocity.x = move_toward(player.velocity.x, 0, (momentum_retention * _control_degree))
+	var direction = Input.get_axis("move_left", "move_right")
+	if direction and not crouching:
+		player.velocity.x += direction * speed * _control_degree
+		player.velocity.x = clampf(player.velocity.x, -max_velocity_x, max_velocity_x)
+		if player.is_on_floor() and max_velocity_x == speed:
+			# other stuff potentially
+			if use_crouch_speed:
+				player.velocity.x *= crouch_speed_modifier
+	else:
+		if not crouching:
+			player.velocity.x = move_toward(player.velocity.x, 0, (momentum_retention * _control_degree))
+		elif direction and crouching and player.velocity.x == 0:
+			player.velocity.x = max_velocity_x*direction
 
 func lose_control():
-    _control_degree = 0
-    _loss_of_control_timer.start()
-    max_velocity_x = abs(player.velocity.x)
+	_control_degree = 0
+	_loss_of_control_timer.start()
+	max_velocity_x = abs(player.velocity.x)
 
 func coyote_timeout():
-    jumping = true
+	jumping = true
 
 func destroy():
-    Scenemanager.change_scene("main_menu")
-
+	Scenemanager.change_scene("main_menu")

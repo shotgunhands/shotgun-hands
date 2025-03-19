@@ -24,6 +24,8 @@ func _process(_delta):
 	# Update text for left and right gun ammo
 	left_ammo.text = "Left gun ammo: " + str(player_hold.firing_controller._ammo_types[0].ammo)
 	right_ammo.text = "Right gun ammo: " + str(player_hold.firing_controller._ammo_types[1].ammo)
+	health_bar.value = player_hold.hittable_component.health
+	health_bar.max_value = player_hold.hittable_component.MAX_HEALTH
 	# Overheat bar updating
 	if player_hold.firing_controller._is_overheated and _over_waited:
 		# Scenario one: Just entered overheat, creates tween to take the overheat bar back to zero

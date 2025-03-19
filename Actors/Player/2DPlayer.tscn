@@ -104,6 +104,7 @@ animations = [{
 }]
 
 [node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
+floor_snap_length = 5.0
 script = ExtResource("1_oua8l")
 
 [node name="MovementController" type="Node2D" parent="."]
@@ -149,7 +150,7 @@ wait_time = 0.05
 one_shot = true
 
 [node name="MeleeCooldown" type="Timer" parent="FiringController/MeleeTimers"]
-wait_time = 0.5
+wait_time = 0.4
 one_shot = true
 
 [node name="OverheatTimeout" type="Timer" parent="FiringController/MeleeTimers"]

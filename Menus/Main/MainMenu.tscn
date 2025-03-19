@@ -34,3 +34,474 @@ text = "Play"
 [node name="Quit" type="Button" parent="Center/VBox"]
 layout_mode = 2
 text = "Quit"
+
+[node name="LevelSel" type="ScrollContainer" parent="."]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="MalarkeyLabs" type="RichTextLabel" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Malarkey Labs"
+fit_content = true
+
+[node name="LabLevels" type="HBoxContainer" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Tutorial" type="Button" parent="LevelSel/VBoxContainer/LabLevels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Tutorial"
+
+[node name="Gangleader" type="Button" parent="LevelSel/VBoxContainer/LabLevels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "JOHN GANGLEADER"
+
+[node name="Streets" type="RichTextLabel" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Streets Of Nogoode"
+fit_content = true
+
+[node name="StreetLevels" type="HBoxContainer" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSel/VBoxContainer/StreetLevels"]
+layout_mode = 2
+
+[node name="Main" type="Button" parent="LevelSel/VBoxContainer/StreetLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Main Street"
+
+[node name="Arson" type="Button" parent="LevelSel/VBoxContainer/StreetLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Arson Alley"
+
+[node name="Rooftops" type="Button" parent="LevelSel/VBoxContainer/StreetLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Rooftops"
+
+[node name="Revolver" type="Button" parent="LevelSel/VBoxContainer/StreetLevels"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "REVOLVER LEGS"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="LevelSel/VBoxContainer/StreetLevels"]
+layout_mode = 2
+
+[node name="Construction" type="Button" parent="LevelSel/VBoxContainer/StreetLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Construction Site"
+
+[node name="Library" type="Button" parent="LevelSel/VBoxContainer/StreetLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Library"
+
+[node name="Warehouse" type="Button" parent="LevelSel/VBoxContainer/StreetLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Warehouse"
+
+[node name="Howitzer" type="Button" parent="LevelSel/VBoxContainer/StreetLevels"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "HEAD HOWITZER"
+
+[node name="Scrapyard" type="RichTextLabel" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]The Scrapyard"
+fit_content = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Landfill" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Landfill"
+
+[node name="Sewers" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Polluted Sewers"
+
+[node name="TBD" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "[UNNAMED]"
+
+[node name="Iaintspellingthat" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "GARBOSTANKUS"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="LevelSel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Waste" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Waste Management"
+
+[node name="Disassembly" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Disassembly Line"
+
+[node name="Furnace" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Furnace"
+
+[node name="Greaser" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "THE GRAND GREASER"
+
+[node name="Uni" type="RichTextLabel" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Nogoode University"
+fit_content = true
+
+[node name="UniLevels" type="HBoxContainer" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSel/VBoxContainer/UniLevels"]
+layout_mode = 2
+
+[node name="Park" type="Button" parent="LevelSel/VBoxContainer/UniLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Campus Park"
+
+[node name="Sport" type="Button" parent="LevelSel/VBoxContainer/UniLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Sport Teams"
+
+[node name="Stage" type="Button" parent="LevelSel/VBoxContainer/UniLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Stage Drama"
+
+[node name="Robo" type="Button" parent="LevelSel/VBoxContainer/UniLevels"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "ROBOTICIST"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="LevelSel/VBoxContainer/UniLevels"]
+layout_mode = 2
+
+[node name="Chess" type="Button" parent="LevelSel/VBoxContainer/UniLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Chess Club"
+
+[node name="Cheer" type="Button" parent="LevelSel/VBoxContainer/UniLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Cheer Squads"
+
+[node name="Band" type="Button" parent="LevelSel/VBoxContainer/UniLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Band Clique"
+
+[node name="Pyro" type="Button" parent="LevelSel/VBoxContainer/UniLevels"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "PYRODANCER :3"
+
+[node name="Graveyard" type="RichTextLabel" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Grave District"
+fit_content = true
+
+[node name="GraveLevels" type="HBoxContainer" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSel/VBoxContainer/GraveLevels"]
+layout_mode = 2
+
+[node name="Gate" type="Button" parent="LevelSel/VBoxContainer/GraveLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Front Gate"
+
+[node name="Fences" type="Button" parent="LevelSel/VBoxContainer/GraveLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Back Fences"
+
+[node name="Tunnels" type="Button" parent="LevelSel/VBoxContainer/GraveLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Underground Tunnels"
+
+[node name="John" type="Button" parent="LevelSel/VBoxContainer/GraveLevels"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "JOHN REANIMATED"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="LevelSel/VBoxContainer/GraveLevels"]
+layout_mode = 2
+
+[node name="Morgue" type="Button" parent="LevelSel/VBoxContainer/GraveLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Morgue Horde"
+
+[node name="Grove" type="Button" parent="LevelSel/VBoxContainer/GraveLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Grove of the Damned"
+
+[node name="Church" type="Button" parent="LevelSel/VBoxContainer/GraveLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Church Tower"
+
+[node name="Muerte" type="Button" parent="LevelSel/VBoxContainer/GraveLevels"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "EL MUERTE"
+
+[node name="Outer" type="RichTextLabel" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Outer Borders"
+fit_content = true
+
+[node name="OuterLevels" type="HBoxContainer" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSel/VBoxContainer/OuterLevels"]
+layout_mode = 2
+
+[node name="East" type="Button" parent="LevelSel/VBoxContainer/OuterLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "East Flank"
+
+[node name="Front" type="Button" parent="LevelSel/VBoxContainer/OuterLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Front Lines"
+
+[node name="West" type="Button" parent="LevelSel/VBoxContainer/OuterLevels/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "West Flank"
+
+[node name="Scopehead" type="Button" parent="LevelSel/VBoxContainer/OuterLevels"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "SCOPEHEAD MK. 1"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="LevelSel/VBoxContainer/OuterLevels"]
+layout_mode = 2
+
+[node name="Bunker" type="Button" parent="LevelSel/VBoxContainer/OuterLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Bunker"
+
+[node name="Barracks" type="Button" parent="LevelSel/VBoxContainer/OuterLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Barracks"
+
+[node name="Missile" type="Button" parent="LevelSel/VBoxContainer/OuterLevels/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Missile Silo"
+
+[node name="Forca" type="Button" parent="LevelSel/VBoxContainer/OuterLevels"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "GENERAL FORÇA"
+
+[node name="Labs2" type="RichTextLabel" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Malarkey Labs Returned"
+fit_content = true
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSel/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+
+[node name="Antimony" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer7/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "ANTIMONY"
+
+[node name="Clone" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer7/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "SHOTGUN HANDS CLONE"
+
+[node name="Disunion" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer7/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "FAMILY DISUNION"
+
+[node name="Doctor" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "DOCTOR MALARKEY"
+
+[node name="Secret" type="RichTextLabel" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Aftermath"
+fit_content = true
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Gavel" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "THE GAVEL FORCES"
+
+[node name="Chime" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "THE MISTAKE"
+
+[node name="Return" type="Button" parent="LevelSel/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="LevelStart" type="CenterContainer" parent="."]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="LevelStart" type="VBoxContainer" parent="LevelStart"]
+layout_mode = 2
+
+[node name="Selected" type="RichTextLabel" parent="LevelStart/LevelStart"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Level Selected: "
+fit_content = true
+autowrap_mode = 0
+
+[node name="Start" type="Button" parent="LevelStart/LevelStart"]
+layout_mode = 2
+text = "Start Level"
+
+[node name="Shop" type="Button" parent="LevelStart/LevelStart"]
+layout_mode = 2
+text = "Han's shop"
+
+[node name="Detriments" type="Button" parent="LevelStart/LevelStart"]
+layout_mode = 2
+text = "Detriment Shop"
+
+[node name="Back" type="Button" parent="LevelStart/LevelStart"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="LevelSel/VBoxContainer/LabLevels/Tutorial" to="." method="_on_level_selected" binds= ["stage_01", "Tutorial"]]
+[connection signal="pressed" from="LevelSel/VBoxContainer/Return" to="." method="_on_return"]
+[connection signal="pressed" from="LevelStart/LevelStart/Start" to="." method="_start_level"]
+[connection signal="pressed" from="LevelStart/LevelStart/Back" to="." method="_on_return"]
