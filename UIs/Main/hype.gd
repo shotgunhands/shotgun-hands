@@ -92,6 +92,34 @@ func _increase_hype(amount : float) -> void:
 			_:
 				rank = "C"
 
+# Increases the hype amount and increases the rank if it must
+# This function can be called globally using the scene manager
+# by typing `Scenemanager.hype_meter.decrease_hype(amount)`'
+# Returns false if it cannot decrease by the amount specified
+func _decrease_hype(amount : float) -> bool:
+	var startHype = hype
+	var startRank = rank
+	hype -= amount
+	while hype < 0:
+		hype += 100
+		match rank:
+			"P":
+				rank = "S"
+			"S":
+				rank = "A"
+			"A":
+				rank = "B"
+			"B":
+				rank = "C"
+			"C":
+				if hype < 0:
+					hype = startHype
+					rank = startRank
+					return false
+			_:
+				rank = "C"
+	return true
+
 
 # Feel free to remove this, it's just a temporary thing until actual hype increases are implemented.
 func _on_temp_increase_hype_btn_pressed():

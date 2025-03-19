@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://20olw2qotc65"]
+[gd_scene load_steps=30 format=3 uid="uid://20olw2qotc65"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_q3qa0"]
 [ext_resource type="Script" path="res://Stages/tutorial/tutorial.gd" id="1_yaig1"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ckd7lpi0ctvsu" path="res://Usable_Assets/Toff's-cat.jpg" id="6_owwam"]
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="7_necyn"]
 [ext_resource type="Script" path="res://Stages/tutorial/dummy.gd" id="9_kochw"]
+[ext_resource type="Texture2D" uid="uid://chm3pmgkw3r0" path="res://Usable_Assets/orelse.jpg" id="9_v6php"]
 [ext_resource type="PackedScene" uid="uid://dr5glltomjv3c" path="res://Stages/tutorial/enviro_hazard.tscn" id="10_6foj7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylfrm"]
@@ -62,6 +63,9 @@ size = Vector2(30, 68)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ey3c"]
 size = Vector2(20, 255.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivdjh"]
+size = Vector2(228, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uy3r5"]
 size = Vector2(227, 98)
@@ -306,9 +310,9 @@ collision_layer = 3
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="platformHigh"]
-position = Vector2(0, 134.5)
-scale = Vector2(0.601389, 0.415899)
-texture = ExtResource("6_owwam")
+position = Vector2(0.500058, 134.5)
+scale = Vector2(0.792349, 0.799559)
+texture = ExtResource("9_v6php")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="platformHigh"]
 position = Vector2(0, 134.25)
@@ -351,10 +355,10 @@ collision_layer = 3
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="roof2"]
-position = Vector2(-1.68222, 306.086)
+position = Vector2(0.500744, 310)
 rotation = 3.14159
-scale = Vector2(1.13471, 0.751783)
-texture = ExtResource("6_owwam")
+scale = Vector2(1.48087, 1.44493)
+texture = ExtResource("9_v6php")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="roof2"]
 position = Vector2(0.000488281, 309)
@@ -601,6 +605,9 @@ position = Vector2(2369, -14)
 collision_layer = 17
 collision_mask = 17
 damage = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnviroHazard"]
+shape = SubResource("RectangleShape2D_ivdjh")
 
 [node name="sjumpTrigger" type="Area2D" parent="."]
 position = Vector2(2143, -238)

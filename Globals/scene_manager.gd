@@ -4,7 +4,7 @@ var scene_library := {
 	"main_menu":"res://Menus/Main/MainMenu.tscn",
 	"playground":"res://Stages/Playground/playground.tscn",
 	"stage_01":"res://Stages/tutorial/tutorial.tscn",
-	"stage_02":"",
+	"stage_02":"res://Stages/tutorial/gangleader.tscn",
 	"stage_03":"",
 	"stage_04":"",
 	"stage_05":"",

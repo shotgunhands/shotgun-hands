@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://do0vlhtc3qda1"]
+
+[ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_8pdey"]
+[ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="2_ergbl"]
+[ext_resource type="PackedScene" uid="uid://casaakva45vt0" path="res://UIs/Main/pause.tscn" id="3_dovr8"]
+[ext_resource type="PackedScene" uid="uid://ydh7h6mcksme" path="res://UIs/Main/main_ui.tscn" id="4_4l6ir"]
+[ext_resource type="Texture2D" uid="uid://ckd7lpi0ctvsu" path="res://Usable_Assets/Toff's-cat.jpg" id="5_eodco"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77e8s"]
+size = Vector2(6078, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgj8r"]
+size = Vector2(486, 30)
+
+[node name="Gangleader" type="Node2D"]
+
+[node name="Bg" type="Polygon2D" parent="."]
+position = Vector2(519.882, -1.99795)
+scale = Vector2(1.51988, 0.998002)
+color = Color(0.384314, 0.384314, 0.384314, 1)
+polygon = PackedVector2Array(-1000, -1000, -1000, 1, 2999, 1, 2999, -1000)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-894, -97)
+zoom = Vector2(2, 2)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+script = ExtResource("1_8pdey")
+
+[node name="2DPlayer" parent="." instance=ExtResource("2_ergbl")]
+position = Vector2(-894, 0)
+
+[node name="pause" parent="." instance=ExtResource("3_dovr8")]
+
+[node name="MainUI" parent="." node_paths=PackedStringArray("player_hold") instance=ExtResource("4_4l6ir")]
+player_hold = NodePath("../2DPlayer")
+
+[node name="Wall" type="RigidBody2D" parent="."]
+position = Vector2(-1000, -455)
+rotation = 1.5708
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Wall"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("RectangleShape2D_77e8s")
+
+[node name="Wall2" type="RigidBody2D" parent="."]
+position = Vector2(5079, -455)
+rotation = 1.5708
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Wall2"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Wall2"]
+shape = SubResource("RectangleShape2D_77e8s")
+
+[node name="Floor" type="RigidBody2D" parent="."]
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Floor"]
+position = Vector2(2039, 0)
+scale = Vector2(3.039, 1)
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Floor"]
+position = Vector2(2039, 0)
+shape = SubResource("RectangleShape2D_77e8s")
+
+[node name="roof" type="RigidBody2D" parent="."]
+position = Vector2(-486, -114)
+collision_layer = 3
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="roof"]
+scale = Vector2(0.675, 0.0345622)
+texture = ExtResource("5_eodco")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="roof"]
+shape = SubResource("RectangleShape2D_vgj8r")
+one_way_collision = true

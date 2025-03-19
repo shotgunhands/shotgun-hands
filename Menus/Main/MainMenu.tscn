@@ -65,7 +65,6 @@ text = "Tutorial"
 [node name="Gangleader" type="Button" parent="LevelSel/VBoxContainer/LabLevels"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
-disabled = true
 text = "JOHN GANGLEADER"
 
 [node name="Streets" type="RichTextLabel" parent="LevelSel/VBoxContainer"]
@@ -161,11 +160,11 @@ theme_override_font_sizes/font_size = 25
 disabled = true
 text = "Polluted Sewers"
 
-[node name="TBD" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="Recycling" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 disabled = true
-text = "[UNNAMED]"
+text = "Recycling Center"
 
 [node name="Iaintspellingthat" type="Button" parent="LevelSel/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
@@ -471,7 +470,6 @@ layout_mode = 2
 text = "Back"
 
 [node name="LevelStart" type="CenterContainer" parent="."]
-visible = false
 offset_right = 1920.0
 offset_bottom = 1080.0
 
@@ -497,11 +495,16 @@ text = "Han's shop"
 layout_mode = 2
 text = "Detriment Shop"
 
+[node name="Pit" type="Button" parent="LevelStart/LevelStart"]
+layout_mode = 2
+text = "The Pit"
+
 [node name="Back" type="Button" parent="LevelStart/LevelStart"]
 layout_mode = 2
 text = "Back"
 
 [connection signal="pressed" from="LevelSel/VBoxContainer/LabLevels/Tutorial" to="." method="_on_level_selected" binds= ["stage_01", "Tutorial"]]
+[connection signal="pressed" from="LevelSel/VBoxContainer/LabLevels/Gangleader" to="." method="_on_level_selected" binds= ["stage_02", "JOHN GANGLEADER"]]
 [connection signal="pressed" from="LevelSel/VBoxContainer/Return" to="." method="_on_return"]
 [connection signal="pressed" from="LevelStart/LevelStart/Start" to="." method="_start_level"]
 [connection signal="pressed" from="LevelStart/LevelStart/Back" to="." method="_on_return"]

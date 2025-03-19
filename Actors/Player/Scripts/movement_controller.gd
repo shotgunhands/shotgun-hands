@@ -91,11 +91,14 @@ func _physics_process(delta):
 		else:
 			_jump_buffer_timer.start()
 		
-
+	
 	# --- crouch/slide
 	if Input.is_action_just_pressed("move_crouch") and player.is_on_floor():
 		crouching = true
 		max_velocity_x = speed * 1.25
+		print(player.position)
+		player.position.y += 1
+		print(player.position)
 
 	if Input.is_action_just_released("move_crouch") or !player.is_on_floor():
 		crouching = false
