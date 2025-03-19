@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://Stages/tutorial/enviro_hazard.gd" id="1_m8u6i"]
 
 [node name="EnviroHazard" type="Area2D"]
+collision_layer = 17
+collision_mask = 17
 script = ExtResource("1_m8u6i")
 damage = 50
 launch_vel = 700
