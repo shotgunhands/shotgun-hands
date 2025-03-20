@@ -18,13 +18,13 @@ size = Vector2(2000, 2)
 size = Vector2(2948, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pdbf1"]
-size = Vector2(1724, 2)
+size = Vector2(2184, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2xde"]
-size = Vector2(862, 2)
+size = Vector2(456.4, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0nuq4"]
-size = Vector2(1410, 2)
+size = Vector2(1872, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vgj8r"]
 size = Vector2(486, 30)
@@ -56,7 +56,7 @@ size = Vector2(434, 728)
 position = Vector2(519.882, -1.99795)
 scale = Vector2(1.51988, 0.998002)
 color = Color(0.384314, 0.384314, 0.384314, 1)
-polygon = PackedVector2Array(-1000, -1000, -1000, 1, 1267.94, 0.999945, 1062.66, 1283.56, 2999, 1283.56, 2999, 1, 2999, -1000)
+polygon = PackedVector2Array(-1000, -1000, -1000, 1, 1267.94, 0.999945, 1174.51, 584.165, 2999, 584.165, 2999, 345.689, 1767.98, 345.689, 1570.6, 0.999945, 2999, 1, 2999, -1000)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-894, -97)
@@ -97,6 +97,8 @@ collision_mask = 0
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Wall2"]
+position = Vector2(-0.00219727, 0)
+scale = Vector2(1.7235, 1)
 color = Color(0.176471, 0.176471, 0.176471, 1)
 polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 
@@ -134,7 +136,7 @@ position = Vector2(723.5, 0)
 shape = SubResource("RectangleShape2D_77e8s")
 
 [node name="Floor2" type="RigidBody2D" parent="."]
-position = Vector2(3606, 1280)
+position = Vector2(3606, 582)
 collision_layer = 3
 collision_mask = 0
 freeze = true
@@ -155,23 +157,24 @@ collision_mask = 0
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Floor3"]
-position = Vector2(-8.70824e-05, 0)
-scale = Vector2(0.862, 1)
+position = Vector2(-230, 0)
+scale = Vector2(1.092, 1)
 color = Color(0.176471, 0.176471, 0.176471, 1)
 polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 
 [node name="Hitbox" type="CollisionShape2D" parent="Floor3"]
+position = Vector2(-230, 0)
 shape = SubResource("RectangleShape2D_pdbf1")
 
 [node name="Ceil1" type="RigidBody2D" parent="."]
-position = Vector2(3518, 403)
-rotation = 1.21126
+position = Vector2(3057, 171)
+rotation = 0.851721
 collision_layer = 3
 collision_mask = 0
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Ceil1"]
-scale = Vector2(0.431, 1)
+scale = Vector2(0.228198, 1)
 color = Color(0.176471, 0.176471, 0.176471, 1)
 polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 
@@ -179,13 +182,14 @@ polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 shape = SubResource("RectangleShape2D_w2xde")
 
 [node name="Ceil2" type="RigidBody2D" parent="."]
-position = Vector2(4373, 806)
+position = Vector2(4142, 342)
 collision_layer = 3
 collision_mask = 0
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Ceil2"]
-scale = Vector2(0.705, 1)
+position = Vector2(4.73559e-05, 0)
+scale = Vector2(0.936, 1)
 color = Color(0.176471, 0.176471, 0.176471, 1)
 polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 
@@ -320,12 +324,14 @@ offset_top = -10.0
 offset_right = 432.0
 offset_bottom = 9.0
 color = Color(1, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="fire/ColorRect"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Wow such fire"
+metadata/_edit_use_anchors_ = true
 
 [node name="fire2" parent="." instance=ExtResource("7_mvvrv")]
 position = Vector2(1354, -243)
@@ -359,3 +365,38 @@ texture = ExtResource("6_7ga82")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="largebuilding"]
 position = Vector2(0, -108)
 shape = SubResource("RectangleShape2D_ckfhw")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -515.0
+offset_top = -307.0
+offset_right = -383.0
+offset_bottom = -284.0
+text = "Enemy goes here"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -256.0
+offset_top = -521.0
+offset_right = -124.0
+offset_bottom = -498.0
+text = "Enemy goes here (hidden)"
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 2686.0
+offset_top = 491.0
+offset_right = 2886.0
+offset_bottom = 514.0
+text = "Big-ass enemy ambush (you fell down a hole what did you expect)"
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 2915.0
+offset_top = -28.0
+offset_right = 3105.0
+offset_bottom = -5.0
+text = "Another enemy sits here"
+
+[node name="Label5" type="Label" parent="."]
+offset_left = 4724.0
+offset_top = 544.0
+offset_right = 5061.0
+offset_bottom = 567.0
+text = "Entrance to Gangleader bossfight goes here"
