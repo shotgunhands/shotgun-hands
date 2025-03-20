@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://do0vlhtc3qda1"]
+[gd_scene load_steps=22 format=3 uid="uid://do0vlhtc3qda1"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_8pdey"]
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="2_ergbl"]
@@ -9,7 +9,22 @@
 [ext_resource type="PackedScene" uid="uid://dr5glltomjv3c" path="res://Stages/tutorial/enviro_hazard.tscn" id="7_mvvrv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_77e8s"]
-size = Vector2(6078, 2)
+size = Vector2(3447, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6x73"]
+size = Vector2(2000, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3i04"]
+size = Vector2(2948, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pdbf1"]
+size = Vector2(1724, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2xde"]
+size = Vector2(862, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0nuq4"]
+size = Vector2(1410, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vgj8r"]
 size = Vector2(486, 30)
@@ -41,7 +56,7 @@ size = Vector2(434, 728)
 position = Vector2(519.882, -1.99795)
 scale = Vector2(1.51988, 0.998002)
 color = Color(0.384314, 0.384314, 0.384314, 1)
-polygon = PackedVector2Array(-1000, -1000, -1000, 1, 2999, 1, 2999, -1000)
+polygon = PackedVector2Array(-1000, -1000, -1000, 1, 1267.94, 0.999945, 1062.66, 1283.56, 2999, 1283.56, 2999, 1, 2999, -1000)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-894, -97)
@@ -88,20 +103,94 @@ polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 [node name="Hitbox" type="CollisionShape2D" parent="Wall2"]
 shape = SubResource("RectangleShape2D_77e8s")
 
+[node name="Wall3" type="RigidBody2D" parent="."]
+position = Vector2(2209, 971)
+rotation = 1.80991
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Wall3"]
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Wall3"]
+position = Vector2(0, -0.000976563)
+shape = SubResource("RectangleShape2D_q6x73")
+
 [node name="Floor" type="RigidBody2D" parent="."]
 collision_layer = 3
 collision_mask = 0
 freeze = true
 
 [node name="Vis" type="Polygon2D" parent="Floor"]
-position = Vector2(2039, 0)
-scale = Vector2(3.039, 1)
+position = Vector2(723.5, 0)
+scale = Vector2(1.7235, 1)
 color = Color(0.176471, 0.176471, 0.176471, 1)
 polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
 
 [node name="Hitbox" type="CollisionShape2D" parent="Floor"]
-position = Vector2(2039, 0)
+position = Vector2(723.5, 0)
 shape = SubResource("RectangleShape2D_77e8s")
+
+[node name="Floor2" type="RigidBody2D" parent="."]
+position = Vector2(3606, 1280)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Floor2"]
+position = Vector2(7.93785e-05, 0)
+scale = Vector2(1.474, 1)
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Floor2"]
+shape = SubResource("RectangleShape2D_b3i04")
+
+[node name="Floor3" type="RigidBody2D" parent="."]
+position = Vector2(4229, 0)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Floor3"]
+position = Vector2(-8.70824e-05, 0)
+scale = Vector2(0.862, 1)
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Floor3"]
+shape = SubResource("RectangleShape2D_pdbf1")
+
+[node name="Ceil1" type="RigidBody2D" parent="."]
+position = Vector2(3518, 403)
+rotation = 1.21126
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Ceil1"]
+scale = Vector2(0.431, 1)
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Ceil1"]
+shape = SubResource("RectangleShape2D_w2xde")
+
+[node name="Ceil2" type="RigidBody2D" parent="."]
+position = Vector2(4373, 806)
+collision_layer = 3
+collision_mask = 0
+freeze = true
+
+[node name="Vis" type="Polygon2D" parent="Ceil2"]
+scale = Vector2(0.705, 1)
+color = Color(0.176471, 0.176471, 0.176471, 1)
+polygon = PackedVector2Array(-1000, -1, -1000, 1, 1000, 1, 1000, -1)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Ceil2"]
+shape = SubResource("RectangleShape2D_0nuq4")
 
 [node name="roof" type="RigidBody2D" parent="."]
 position = Vector2(-584, -264)
