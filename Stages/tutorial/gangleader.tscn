@@ -105,7 +105,6 @@ shape = SubResource("RectangleShape2D_77e8s")
 
 [node name="roof" type="RigidBody2D" parent="."]
 position = Vector2(-584, -264)
-collision_layer = 3
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="roof"]
@@ -119,7 +118,6 @@ one_way_collision = true
 
 [node name="roof2" type="RigidBody2D" parent="."]
 position = Vector2(-98, -477)
-collision_layer = 3
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="roof2"]
@@ -155,7 +153,6 @@ texture = ExtResource("5_eodco")
 
 [node name="roof3" type="RigidBody2D" parent="."]
 position = Vector2(1354, -130)
-collision_layer = 3
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="roof3"]
@@ -170,7 +167,6 @@ one_way_collision = true
 
 [node name="roof6" type="RigidBody2D" parent="."]
 position = Vector2(1786, -291)
-collision_layer = 3
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="roof6"]
@@ -185,7 +181,6 @@ one_way_collision = true
 
 [node name="roof4" type="RigidBody2D" parent="."]
 position = Vector2(1138, -386)
-collision_layer = 3
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="roof4"]
@@ -199,7 +194,6 @@ one_way_collision = true
 
 [node name="roof7" type="RigidBody2D" parent="."]
 position = Vector2(1936, -232)
-collision_layer = 3
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="roof7"]
@@ -213,7 +207,6 @@ one_way_collision = true
 
 [node name="roof5" type="RigidBody2D" parent="."]
 position = Vector2(1570, -493)
-collision_layer = 3
 freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="roof5"]
@@ -268,6 +261,7 @@ text = "Wow such fire"
 
 [node name="largebuilding" type="StaticBody2D" parent="."]
 position = Vector2(2229, -473)
+collision_layer = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="largebuilding"]
 scale = Vector2(0.791439, 2.0815)
