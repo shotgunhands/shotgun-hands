@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://20olw2qotc65"]
+[gd_scene load_steps=36 format=3 uid="uid://20olw2qotc65"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_q3qa0"]
 [ext_resource type="Script" path="res://Stages/tutorial/tutorial.gd" id="1_yaig1"]
+[ext_resource type="PackedScene" uid="uid://cms14hacq1lpd" path="res://UIs/Cutscenes/cutscene_player.tscn" id="2_1kqn3"]
 [ext_resource type="Texture2D" uid="uid://cejcwksp2mblj" path="res://Usable_Assets/malarkey-labs-1.png" id="2_2se3v"]
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="2_e8c2w"]
 [ext_resource type="PackedScene" uid="uid://ydh7h6mcksme" path="res://UIs/Main/main_ui.tscn" id="5_bhj43"]
@@ -11,6 +12,68 @@
 [ext_resource type="Script" path="res://Stages/tutorial/dummy.gd" id="9_kochw"]
 [ext_resource type="Texture2D" uid="uid://chm3pmgkw3r0" path="res://Usable_Assets/orelse.jpg" id="9_v6php"]
 [ext_resource type="PackedScene" uid="uid://dr5glltomjv3c" path="res://Stages/tutorial/enviro_hazard.tscn" id="10_6foj7"]
+[ext_resource type="PackedScene" uid="uid://hpn1uvm71qs0" path="res://UIs/Cutscenes/cutscene_trigger.tscn" id="13_5ftit"]
+
+[sub_resource type="Animation" id="Animation_bi1d7"]
+resource_name = "intro_cutscene"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("2DPlayer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667, 3),
+"transitions": PackedFloat32Array(1, 1, 0.189465, 6.68241),
+"update": 0,
+"values": [Vector2(15, -38), Vector2(15, -38), Vector2(4, -80), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("2DPlayer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.63188, -1.63188, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wtm7x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("2DPlayer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("2DPlayer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ctond"]
+_data = {
+"RESET": SubResource("Animation_wtm7x"),
+"intro_cutscene": SubResource("Animation_bi1d7")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylfrm"]
 size = Vector2(6078, 2)
@@ -70,9 +133,18 @@ size = Vector2(228, 26)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uy3r5"]
 size = Vector2(227, 98)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_votcw"]
+
 [node name="Tutorial" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_yaig1")
 player = NodePath("2DPlayer")
+
+[node name="CutscenePlayer" parent="." instance=ExtResource("2_1kqn3")]
+libraries = {
+"": SubResource("AnimationLibrary_ctond")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CutscenePlayer"]
 
 [node name="Bg" type="Polygon2D" parent="."]
 position = Vector2(519.882, -1.99795)
@@ -612,6 +684,13 @@ position = Vector2(2143, -238)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sjumpTrigger"]
 shape = SubResource("RectangleShape2D_uy3r5")
+
+[node name="CutsceneTrigger" parent="." node_paths=PackedStringArray("controller") instance=ExtResource("13_5ftit")]
+controller = NodePath("../CutscenePlayer")
+animation_name = "intro_cutscene"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CutsceneTrigger"]
+shape = SubResource("RectangleShape2D_votcw")
 
 [connection signal="destroy" from="shotling/HittableComponent" to="shotling" method="_on_hittable_component_destroy"]
 [connection signal="destroy" from="dummy/HittableComponent" to="." method="_on_dummy_destroy"]

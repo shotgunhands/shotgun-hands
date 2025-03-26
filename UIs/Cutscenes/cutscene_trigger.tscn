@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://hpn1uvm71qs0"]
+
+[ext_resource type="Script" path="res://UIs/Cutscenes/cutscene_trigger.gd" id="1_j043k"]
+
+[node name="CutsceneTrigger" type="Area2D"]
+script = ExtResource("1_j043k")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

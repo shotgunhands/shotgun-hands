@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cms14hacq1lpd"]
+
+[ext_resource type="Script" path="res://cutscene_controller.gd" id="1_ldjsy"]
+
+[node name="CutscenePlayer" type="AnimationPlayer"]
+process_mode = 3
+script = ExtResource("1_ldjsy")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
