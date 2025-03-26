@@ -41,6 +41,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [-1.63188, -1.63188, 0.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CutscenePlayer/CanvasLayer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_wtm7x"]
 length = 0.001
@@ -68,11 +80,76 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CutscenePlayer/CanvasLayer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -97)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Camera2D:position_smoothing_enabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_hg1v6"]
+resource_name = "shootorial"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(624, -97), Vector2(894, -97), Vector2(624, -97)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position_smoothing_enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ctond"]
 _data = {
 "RESET": SubResource("Animation_wtm7x"),
-"intro_cutscene": SubResource("Animation_bi1d7")
+"intro_cutscene": SubResource("Animation_bi1d7"),
+"shootorial": SubResource("Animation_hg1v6")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylfrm"]
@@ -124,9 +201,6 @@ size = Vector2(30, 68)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gxfgd"]
 size = Vector2(30, 68)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ey3c"]
-size = Vector2(20, 255.75)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivdjh"]
 size = Vector2(228, 26)
 
@@ -134,6 +208,7 @@ size = Vector2(228, 26)
 size = Vector2(227, 98)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_votcw"]
+size = Vector2(20, 256)
 
 [node name="Tutorial" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_yaig1")
@@ -145,6 +220,18 @@ libraries = {
 }
 
 [node name="CanvasLayer" type="CanvasLayer" parent="CutscenePlayer"]
+visible = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CutscenePlayer/CanvasLayer"]
+offset_left = 697.0
+offset_top = 142.0
+offset_right = 1286.0
+offset_bottom = 337.0
+bbcode_enabled = true
+text = "
+
+[rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0][font_size=50][wave amp=200][center]Now with cutscenes"
+fit_content = true
 
 [node name="Bg" type="Polygon2D" parent="."]
 position = Vector2(519.882, -1.99795)
@@ -666,12 +753,6 @@ offset_bottom = 476.913
 scale = Vector2(2, 2)
 text = "I would never attach shotguns to your hands, I'm just an innocent little goober"
 
-[node name="shootTrigger" type="Area2D" parent="."]
-position = Vector2(624, -128)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="shootTrigger"]
-shape = SubResource("RectangleShape2D_1ey3c")
-
 [node name="EnviroHazard" parent="." instance=ExtResource("10_6foj7")]
 position = Vector2(2369, -14)
 damage = 10
@@ -692,9 +773,17 @@ animation_name = "intro_cutscene"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CutsceneTrigger"]
 shape = SubResource("RectangleShape2D_votcw")
 
+[node name="shootTrigger" parent="." node_paths=PackedStringArray("controller") instance=ExtResource("13_5ftit")]
+position = Vector2(624, -128)
+controller = NodePath("../CutscenePlayer")
+animation_name = "shootorial"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shootTrigger"]
+shape = SubResource("RectangleShape2D_votcw")
+
 [connection signal="destroy" from="shotling/HittableComponent" to="shotling" method="_on_hittable_component_destroy"]
 [connection signal="destroy" from="dummy/HittableComponent" to="." method="_on_dummy_destroy"]
 [connection signal="destroy" from="dummy/HittableComponent" to="dummy" method="_on_hittable_component_destroy"]
-[connection signal="body_entered" from="shootTrigger" to="." method="_on_shoot_trigger_body_entered"]
 [connection signal="area_entered" from="EnviroHazard" to="." method="_on_enviro_hazard_area_entered"]
 [connection signal="body_entered" from="sjumpTrigger" to="." method="_on_sjump_trigger_body_entered"]
+[connection signal="body_entered" from="shootTrigger" to="." method="_on_shoot_trigger_body_entered"]
