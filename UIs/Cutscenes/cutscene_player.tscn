@@ -6,4 +6,7 @@
 process_mode = 3
 script = ExtResource("1_ldjsy")
 
+[node name="CutsceneCam" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
