@@ -201,6 +201,7 @@ position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_fcvkl")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+process_mode = 3
 position = Vector2(0, -26)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_mpi1c")
