@@ -20,3 +20,4 @@ README.md
 # Project-specific ignores (SHOTGUN HANDS)
 *.tmp
 .vscode/
+.vs
