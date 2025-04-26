@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Actors",
+    "\\Actors\\Player",
+    "\\Actors\\Player\\Scripts"
+  ],
+  "SelectedNode": "\\Actors\\Player\\Scripts\\movement_controller.gd",
+  "PreviewInSolutionExplorer": false
+}

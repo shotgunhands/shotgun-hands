@@ -238,6 +238,10 @@ offset_right = 682.0
 offset_bottom = -143.0
 text = "Now both guns at once"
 
+[node name="shootorial_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="hurdle2" type="RigidBody2D" parent="."]
 position = Vector2(1521, -46)
 collision_layer = 3

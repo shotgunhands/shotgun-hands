@@ -53,6 +53,9 @@ var max_velocity_x: float
 
 @onready var animated_sprite = player.find_child("AnimatedSprite")
 
+#@export var player_hold : CharacterBody2D
+var _overheat_buff = 1.0
+
 func _ready():
 	default_hitbox_size = hitbox.shape.size.y
 	default_hitbox_offset = hitbox.position.y
@@ -68,7 +71,14 @@ func _ready():
 
 func _physics_process(delta):
 	_evaluate_control_degree()
-
+	
+	if player.firing_controller._is_overheated:
+		_overheat_buff = 25.0
+		max_velocity_x += 500
+	else:
+		_overheat_buff = 1.0
+		max_velocity_x -= 500
+	
 	# --- gravity
 	if not player.is_on_floor():
 		player.velocity.y += (jump_gravity if player.velocity.y < 0.0 else fall_gravity) * delta
@@ -160,6 +170,9 @@ func _evaluate_control_degree():
 
 # checks state, modifies the value of max_velocity
 func _evaluate_max_velocity():
+	if player.firing_controller._is_overheated:
+		max_velocity_x = 520
+		return
 	if max_velocity_x != speed or abs(player.velocity.x) < max_velocity_x:
 		max_velocity_x = abs(player.velocity.x)
 		max_velocity_x = max(speed, abs(player.velocity.x))
@@ -170,7 +183,7 @@ func _evaluate_max_velocity():
 func _move_horizontal():
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction and not crouching:
-		player.velocity.x += direction * speed * _control_degree
+		player.velocity.x += direction * speed * _control_degree * _overheat_buff
 		player.velocity.x = clampf(player.velocity.x, -max_velocity_x, max_velocity_x)
 		if player.is_on_floor() and max_velocity_x == speed:
 			# other stuff potentially
