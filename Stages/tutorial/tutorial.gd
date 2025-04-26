@@ -10,6 +10,11 @@ var can_shoot : int = 0
 
 var shot_jump : int = 0
 
+var _dummy_door_open = false
+var _shootorial_door_open = false
+var _shots_fired = [0, 0]
+@onready var _shootorial_timer: Timer = $shootorial_timer
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player.firing_controller._ammo_types[0].ammo = 0
@@ -34,7 +39,7 @@ func _process(delta: float) -> void:
 	elif can_shoot == 2:
 		if Input.is_action_just_pressed("fire_right"):
 			player.firing_controller._ammo_types[0].ammo = 1
-			player.firing_controller._ammo_types[1].ammo = 1
+			player.firing_controller._ammo_types[1].ammo = 2
 			$shootorial2.hide()
 			$shootorial3.show()
 			var tween = get_tree().create_tween()
@@ -42,13 +47,21 @@ func _process(delta: float) -> void:
 			can_shoot = 3
 	elif can_shoot == 3 or can_shoot == 4:
 		if Input.is_action_just_pressed("fire_right"):
-			can_shoot += 1
+			_shots_fired[0] = 1
+			if _shootorial_timer.is_stopped() and _shots_fired[1] == 0:
+				_shootorial_timer.start()
 		if Input.is_action_just_pressed("fire_left"):
-			can_shoot += 1
-		if can_shoot >= 5:
+			_shots_fired[1] = 1
+			if _shootorial_timer.is_stopped() and _shots_fired[0] == 0:
+				_shootorial_timer.start()
+		if _shootorial_timer.is_stopped() and _shots_fired[0] == 1:
+			_shots_fired[0] = 0
+			_shots_fired[1] = 0
+		if _shots_fired[0] == 1 && _shots_fired[1] == 1 && not _shootorial_door_open:
 			$shootorial3.hide()
 			var tween = get_tree().create_tween()
-			tween.tween_property($wall2, "position", $wall2.position + Vector2(0, -100), 0.5)
+			tween.tween_property($wall2, "position", $wall2.position + Vector2(0, -200), 0.5)
+			_shootorial_door_open = true
 	if player.firing_controller._is_overheated and not $Label9.visible and $Label6.visible:
 		$Label9.show()
 		var tween = get_tree().create_tween()
@@ -88,9 +101,10 @@ func _on_enviro_hazard_area_entered(area: Area2D) -> void:
 
 
 func _on_dummy_destroy() -> void:
-	if player.firing_controller._is_overheated:
+	if player.firing_controller._is_overheated and not _dummy_door_open:
 		var tween = get_tree().create_tween()
-		tween.tween_property($wall3, "position", $wall3.position + Vector2(0, -100), 0.5)
+		tween.tween_property($wall3, "position", $wall3.position + Vector2(0, -200), 0.5)
+		_dummy_door_open = true
 	else:
 		if not $Label6.visible:
 			$Label10.hide()
