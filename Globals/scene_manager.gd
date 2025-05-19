@@ -3,7 +3,7 @@ extends Node
 var scene_library := {
 	"main_menu":"res://Menus/Main/MainMenu.tscn",
 	"playground":"res://Stages/Playground/playground.tscn",
-	"stage_01":"",
+	"stage_01":"res://Stages/tutorial/tutorial.tscn",
 	"stage_02":"",
 	"stage_03":"",
 	"stage_04":"",
@@ -20,7 +20,7 @@ func _ready():
 # load scene by name
 func change_scene(scenename :String):
 	var loaded_new_scene:PackedScene = load(scene_library[scenename])
-	var new_scene:Node2D = loaded_new_scene.instantiate()
+	var new_scene:Node = loaded_new_scene.instantiate()
 	$"/root".add_child(new_scene)
 	$"/root".remove_child(active_scene)
 	active_scene.queue_free()

@@ -11,68 +11,67 @@ var rank : String = "C"
 
 # Variables containing the time in seconds that each rank will take to fully drain
 # C is not included since it doesn't drain
-var _p_drain : float = 2
-var _s_drain : float = 4
-var _a_drain : float = 5
-var _b_drain : float = 6
+var P_drain : float = 2
+var S_drain : float = 4
+var A_drain : float = 5
+var B_drain : float = 6
 
 # Variables containing the amount that must be removed from the hype every second
-var _p_time : float
-var _s_time : float
-var _a_time : float
-var _b_time : float
-var _c_time : float
+var P_time : float
+var S_time : float
+var A_time : float
+var B_time : float
+var C_time : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Sets the amount each rank should drain in a second.
-	_p_time = 100/_p_drain
-	_s_time = 100/_s_drain
-	_a_time = 100/_a_drain
-	_b_time = 100/_b_drain
-	_c_time = 0
+	P_time = 100/P_drain
+	S_time = 100/S_drain
+	A_time = 100/A_drain
+	B_time = 100/B_drain
+	C_time = 0
 	Scenemanager.hype_meter = self
 
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	# Using the switch statement, determine how fast the hype should be draining
 	match rank:
 		"P":
-			hype -= _p_time*delta
+			hype -= P_time*delta
 			if hype < 0:
 				hype = 100
 				rank = "S"
 		"S":
-			hype -= _s_time*delta
+			hype -= S_time*delta
 			if hype < 0:
 				hype = 100
 				rank = "A"
 		"A":
-			hype -= _a_time*delta
+			hype -= A_time*delta
 			if hype < 0:
 				hype = 100
 				rank = "B"
 		"B":
-			hype -= _b_time*delta
+			hype -= B_time*delta
 			if hype < 0:
 				hype = 100
 				rank = "C"
 		# Note: C is still included in case it is given a drain time of its own later on.
 		"C":
-			hype -= _c_time*delta
+			hype -= C_time*delta
 			if hype < 0:
 				hype = 0
 		"F":
 			hype = 0
 		_:
 			rank = "C"
-	
+
 	rank_label.text = rank
 	hype_bar.value = hype
 
 
 # Increases the hype amount and increases the rank if it must
-# This funciton can be called globally using the scene manager
+# This function can be called globally using the scene manager
 # by typing `Scenemanager.hype_meter.increase_hype(amount)`
 func _increase_hype(amount : float) -> void:
 	hype += amount
@@ -92,7 +91,6 @@ func _increase_hype(amount : float) -> void:
 				rank = "B"
 			_:
 				rank = "C"
-
 
 
 # Feel free to remove this, it's just a temporary thing until actual hype increases are implemented.

@@ -1,10 +1,11 @@
 [gd_scene load_steps=15 format=3 uid="uid://c32res81juhqg"]
 
+
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="1_ms6ri"]
 [ext_resource type="PackedScene" uid="uid://d0m6asdiav5p7" path="res://Actors/Player/2DPlayer.tscn" id="1_qs7i5"]
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="2_yljtj"]
 [ext_resource type="PackedScene" uid="uid://buyv076dqph8u" path="res://Actors/Enemies/TestEnemy/testenemy.tscn" id="4_qtr78"]
-[ext_resource type="Script" path="res://Stages/Shared/Scripts/Pause.gd" id="5_lblk1"]
+[ext_resource type="PackedScene" uid="uid://casaakva45vt0" path="res://UIs/Main/pause.tscn" id="5_7cbnd"]
 [ext_resource type="PackedScene" uid="uid://ydh7h6mcksme" path="res://UIs/Main/main_ui.tscn" id="6_ha557"]
 [ext_resource type="PackedScene" uid="uid://kjo3f1k7t2ng" path="res://Actors/Enemies/ShootTestEnemy/shoottestenemy.tscn" id="7_jev61"]
 
@@ -283,8 +284,10 @@ text = "Continue"
 layout_mode = 2
 text = "Quit"
 
+
 [node name="MainUI" parent="." node_paths=PackedStringArray("player_hold") instance=ExtResource("6_ha557")]
 player_hold = NodePath("../2DPlayer")
+
 
 [node name="Shooter" type="Node2D" parent="."]
 position = Vector2(731, -47)
@@ -303,5 +306,3 @@ shape = SubResource("RectangleShape2D_np1uq")
 
 [node name="Sprite" type="Sprite2D" parent="Shooter/ShootHider"]
 texture = SubResource("PlaceholderTexture2D_wxg5a")
-
-[connection signal="destroy" from="Destructible/HittableComponent" to="Destructible" method="_on_hittable_component_destroy"]

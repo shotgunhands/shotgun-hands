@@ -104,6 +104,7 @@ animations = [{
 }]
 
 [node name="2DPlayer" type="CharacterBody2D" groups=["Player"]]
+floor_snap_length = 5.0
 script = ExtResource("1_oua8l")
 
 [node name="MovementController" type="Node2D" parent="."]
@@ -117,12 +118,23 @@ jump_time_to_descent = 0.5
 one_shot = true
 
 [node name="FiringController" type="Node2D" parent="." node_paths=PackedStringArray("primary_cooldown_timer", "secondary_cooldown_timer", "_overheat_timer", "_placeholder_visual_box")]
+=======
+[node name="JumpBufferTimer" type="Timer" parent="MovementController"]
+wait_time = 0.2
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="MovementController"]
+wait_time = 0.2
+one_shot = true
+
+[node name="FiringController" type="Node2D" parent="." node_paths=PackedStringArray("_overheat_timer", "_placeholder_visual_box")]
+
 script = ExtResource("3_u4ryj")
 primary_cooldown_timer = NodePath("PrimaryCooldownTimer")
 secondary_cooldown_timer = NodePath("SecondaryCooldownTimer")
 _default_ammo = Array[PackedScene]([ExtResource("4_bblcg"), ExtResource("5_6mrvq")])
-_melee_damage = 50.0
 _overheat_melee_damage = 150.0
+_melee_damage = 50.0
 _overheat_timer = NodePath("MeleeTimers/OverheatTimeout")
 _placeholder_visual_box = NodePath("../Placeholder")
 _default_color = Color(0, 0, 1, 1)
@@ -151,11 +163,11 @@ wait_time = 0.05
 one_shot = true
 
 [node name="MeleeCooldown" type="Timer" parent="FiringController/MeleeTimers"]
-wait_time = 0.5
+wait_time = 0.4
 one_shot = true
 
 [node name="OverheatTimeout" type="Timer" parent="FiringController/MeleeTimers"]
-wait_time = 0.5
+wait_time = 1.7
 one_shot = true
 
 [node name="HittableComponent" parent="." instance=ExtResource("6_t44ou")]
@@ -207,6 +219,7 @@ scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_mpi1c")
 animation = &"idle"
 
+[connection signal="timeout" from="MovementController/CoyoteTimer" to="MovementController" method="coyote_timeout"]
 [connection signal="midair_shot" from="FiringController" to="." method="lose_control"]
 [connection signal="timeout" from="FiringController/PrimaryCooldownTimer" to="FiringController" method="_on_primary_timeout"]
 [connection signal="timeout" from="FiringController/SecondaryCooldownTimer" to="FiringController" method="_on_secondary_timeout"]

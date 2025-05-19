@@ -4,7 +4,7 @@
 
 [node name="DebugPellet" type="Node2D"]
 script = ExtResource("1_ihujv")
-_pellet_speed = 900.0
+_pellet_speed = 1200.0
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(1, 1, 0, 1)

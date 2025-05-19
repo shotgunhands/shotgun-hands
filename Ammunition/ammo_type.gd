@@ -56,6 +56,7 @@ func fire(shoot_angle:float, shoot_position: Vector2, damage_mask: int):
 	#var shoot_angle :=pivot.global_rotation
 	#var shoot_position :Vector2= pivot.find_child("Reticle").global_position
 	for offset in angle_offsets:
+
 		var angle := shoot_angle + offset
 		var stop_pos:Vector2
 		var r_info := cast_ray(shoot_position, shoot_position + Vector2.RIGHT.rotated(angle) * 6000.0, 0b00_0000_0010)
@@ -63,6 +64,7 @@ func fire(shoot_angle:float, shoot_position: Vector2, damage_mask: int):
 			#hit_info.add_collider(r_info["collider"], reticle.global_position.distance_to(r_info["position"]))
 			stop_pos = Vector2(r_info["position"]["x"],r_info["position"]["y"])
 		_send_visual_pellet(angle, shoot_position, stop_pos, damage_mask,self)
+
 	#hit_info.apply_damage(self)
 
 
@@ -76,13 +78,12 @@ func cast_ray(start: Vector2, target: Vector2, layer_mask:int) -> Dictionary:
 
 ## create pellet, set varables then start script running
 func _send_visual_pellet(angle: float, start_pos: Vector2,stop_pos:Vector2, damage_mask: int, ammo_base:AmmoType):
-	var visual = _pellet.instantiate()
-	visual.global_position = start_pos
-	visual.global_rotation = angle
-	visual.stop_pos = stop_pos
-	visual.ammo_base = ammo_base
-	visual.damage_mask = damage_mask
-	get_tree().root.add_child(visual)
-	#make sure not to set any varibles for the pallet after this point
-#endregion
+=======
+## empty for now. may be useful as an interface for different ammo types
+func _send_visual_pellet(angle: float, start_pos: Vector2, ammo_base:AmmoType):
 
+
+	#make sure not to set any varibles for the pallet after this point
+=======
+	return visual
+#endregion
