@@ -75,6 +75,7 @@ func cast_ray(start: Vector2, target: Vector2, layer_mask:int) -> Dictionary:
 
 
 ## create pellet, set varables then start script running
+#TODO: implement stop_pos or altenratively remove it
 func _send_visual_pellet(angle: float, start_pos: Vector2,stop_pos:Vector2, damage_mask: int, ammo_base:AmmoType):
 	var visual = _pellet.instantiate()
 	visual.global_position = start_pos

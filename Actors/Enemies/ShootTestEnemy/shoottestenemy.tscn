@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Actors/Enemies/ShootTestEnemy/shoot_test_enemy.gd" id="1_yfgev"]
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="2_fyy0q"]
 [ext_resource type="PackedScene" uid="uid://dtnmdk7yppyf2" path="res://Ammunition/Buckshot/buckshot.tscn" id="2_p22bd"]
-[ext_resource type="Texture2D" uid="uid://c6ilwe71su38a" path="res://Actors/Enemies/TestEnemy/scernshoot.png" id="3_yxjcf"]
+[ext_resource type="Texture2D" uid="uid://ckd7lpi0ctvsu" path="res://Usable_Assets/Toff's-cat.jpg" id="4_nb4mf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ftuqn"]
 size = Vector2(27, 51)
@@ -28,15 +28,14 @@ shape = SubResource("RectangleShape2D_ftuqn")
 position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_ic78v")
 
+[node name="Sprite2D" type="Sprite2D" parent="PhysicsCollisionShape"]
+scale = Vector2(0.0369565, 0.0587558)
+texture = ExtResource("4_nb4mf")
+
 [node name="Placeholder" type="Polygon2D" parent="."]
 visible = false
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-12, -49, 12, -49, 12, 0, -12, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-0.499985, -25.5)
-scale = Vector2(0.0489131, 0.356643)
-texture = ExtResource("3_yxjcf")
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 2.0

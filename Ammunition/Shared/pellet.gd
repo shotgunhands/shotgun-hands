@@ -10,8 +10,11 @@ var velocity:Vector2;
 
 var damage_mask:int;
 #used to check if a uninitialised value has been used
+#TODO: find better way to do this
 @warning_ignore("unassigned_variable")
 var _unset_vec2:Vector2;
+@warning_ignore("unassigned_variable")
+var _unset_int:int;
 
 #Detects the previous velocity of the bullet two and one moves ago 
 var _two_moves_ago : float = 0
@@ -21,9 +24,7 @@ var _one_move_ago : float = 0
 func _ready() -> void:
 	#make sure the position and damage of the bullet have actually been set
 	assert(global_position != _unset_vec2)
-	@warning_ignore("unassigned_variable")
-	var unset_int:int;
-	assert(damage_mask != unset_int)
+	assert(damage_mask != _unset_int)
 	_start_position = global_position;
 	velocity = Vector2.RIGHT.rotated(rotation)
 	
