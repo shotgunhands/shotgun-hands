@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://buyv076dqph8u"]
 
-[ext_resource type="Script" path="res://Actors/Enemies/TestEnemy/melee_test_enemy.gd" id="1_scsdo"]
+[ext_resource type="Script" path="res://Actors/Enemies/TestEnemy/melee_test_enemy.gd" id="1_3ri18"]
 [ext_resource type="Texture2D" uid="uid://c6ilwe71su38a" path="res://Actors/Enemies/TestEnemy/scernshoot.png" id="2_a02r7"]
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="3_l8dgy"]
 
