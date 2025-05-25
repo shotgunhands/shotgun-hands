@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://20olw2qotc65"]
+[gd_scene load_steps=29 format=3 uid="uid://20olw2qotc65"]
 
 [ext_resource type="Script" path="res://Actors/Player/Scripts/camera_follow.gd" id="1_q3qa0"]
 [ext_resource type="Script" path="res://Stages/tutorial/tutorial.gd" id="1_yaig1"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ckd7lpi0ctvsu" path="res://Usable_Assets/Toff's-cat.jpg" id="6_owwam"]
 [ext_resource type="PackedScene" uid="uid://7vyirkeofdrx" path="res://Actors/shared/HittableComponent.tscn" id="7_necyn"]
 [ext_resource type="Script" path="res://Stages/tutorial/dummy.gd" id="9_kochw"]
+[ext_resource type="PackedScene" uid="uid://kjo3f1k7t2ng" path="res://Actors/Enemies/ShootTestEnemy/shoottestenemy.tscn" id="9_vl5a1"]
 [ext_resource type="PackedScene" uid="uid://dr5glltomjv3c" path="res://Stages/tutorial/enviro_hazard.tscn" id="10_6foj7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylfrm"]
@@ -74,7 +75,7 @@ player = NodePath("2DPlayer")
 position = Vector2(519.882, -1.99795)
 scale = Vector2(1.51988, 0.998002)
 color = Color(0.384314, 0.384314, 0.384314, 1)
-polygon = PackedVector2Array(-1000, -1000, -1000, 1, 2999, 1, 2999, -1000)
+polygon = PackedVector2Array(-1000, -1000, -1000, 1, -34.2487, 1, 2999, 1, 2999, -1000)
 
 [node name="Malarkey-labs-1" type="Sprite2D" parent="."]
 position = Vector2(-1, -67)
@@ -279,6 +280,19 @@ texture = ExtResource("6_owwam")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="barrier"]
 position = Vector2(0, 43.25)
 shape = SubResource("RectangleShape2D_de32h")
+
+[node name="shooter" type="Node2D" parent="."]
+position = Vector2(2153, -63)
+
+[node name="ShootEnemy" parent="shooter" instance=ExtResource("9_vl5a1")]
+position = Vector2(-3, 58)
+
+[node name="ShootLabel" type="Label" parent="shooter"]
+offset_left = -632.0
+offset_top = -90.0
+offset_right = -480.0
+offset_bottom = -58.0
+text = "Dodge (and optionally kill) the enemy"
 
 [node name="hurdle3" type="RigidBody2D" parent="."]
 position = Vector2(1684, -46)

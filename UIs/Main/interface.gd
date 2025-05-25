@@ -19,9 +19,9 @@ var _over_waited : bool = true
 func _ready():
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
+# Set the text of each ammo to their gun, set the overheat bar value.
 func _process(_delta):
-	# Update text for left and right gun ammo
 	left_ammo.text = "Left gun ammo: " + str(player_hold.firing_controller._ammo_types[0].ammo)
 	right_ammo.text = "Right gun ammo: " + str(player_hold.firing_controller._ammo_types[1].ammo)
 	health_bar.value = player_hold.hittable_component.health

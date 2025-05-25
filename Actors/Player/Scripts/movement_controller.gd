@@ -68,6 +68,8 @@ func _ready():
 
 	max_velocity_x = speed
 
+func _process(_delta):
+	pass
 
 func _physics_process(delta):
 	_evaluate_control_degree()
@@ -89,6 +91,7 @@ func _physics_process(delta):
 	elif player.is_on_floor():
 		jumping = false
 
+	# Handle jump buffering.
 	if !_jump_buffer_timer.is_stopped() and (player.is_on_floor() or (!_coyote_timer.is_stopped() and not jumping)):
 		jumping = true
 		player.velocity.y = jump_vel

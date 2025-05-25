@@ -15,15 +15,29 @@ var state = "NEUTRAL"
 # ---
 @onready var _reload_timer: Timer = $ReloadTimer
 
+#desturctables and enemies
+const DAMAGE_MASK: int = 0b11_0000_0000;
+
+@export var primary_cooldown_timer: Timer
+@export var secondary_cooldown_timer: Timer
+#NOTE: switch to structs when godot eventually decides to add them
+#stores data about a gun
+class AmmoStore:
+	var type: AmmoType
+	var max_ammo: int
+	var ammo: int
+	var can_fire: bool
+	var cooldown_timer: Timer
+
 @export var _default_ammo: Array[PackedScene]
-@onready var _ammo_types: Array[AmmoType] = []
+@onready var _ammo_types: Array[AmmoStore] = []
 
 # ---
 @onready var _shotgun_jump_timer: Timer = $ShotgunJumpTimer
 @export var _shotgun_jump_blast_force: float = 5
+var _can_shotgun_jump := true
 
-var _can_shotgun_jump = false
-var _touched_ground = 0
+var _touched_ground: int = 0
 
 # ---
 @onready var _melee_duration_timer: Timer = $"MeleeTimers/MeleeDuration"
@@ -55,10 +69,33 @@ signal midair_shot
 
 
 func _ready():
-	_ammo_types.append(_default_ammo[0].instantiate())
-	_ammo_types.append(_default_ammo[1].instantiate())
-	add_child(_ammo_types[0]); add_child(_ammo_types[1])
+	#initialise ammo store
+	var t0 := AmmoStore.new()
+	t0.type = _default_ammo[0].instantiate()
+	t0.max_ammo = 5
+	t0.ammo = t0.max_ammo
+	t0.can_fire = true
+	t0.cooldown_timer = primary_cooldown_timer
+	_ammo_types.append(t0)
+	
+	var t1 := AmmoStore.new()
+	t1.type = _default_ammo[1].instantiate()
+	t1.max_ammo = 5
+	t1.ammo = t1.max_ammo
+	t1.can_fire = true
+	t1.cooldown_timer = secondary_cooldown_timer
+	_ammo_types.append(t1)
+	
+	add_child(_ammo_types[0].type); add_child(_ammo_types[1].type)
 	_melee_cooldown_timer.wait_time = _melee_cooldown_duration
+
+
+func _on_primary_timeout() -> void:
+	_ammo_types[0].can_fire = true
+
+
+func _on_secondary_timeout() -> void:
+	_ammo_types[1].can_fire = true
 
 
 # the structure here should *really* be changed, though right now im electing
@@ -73,10 +110,8 @@ func _process(_delta):
 		_fire(0)
 	if Input.is_action_just_pressed("fire_right"):
 		_fire(1)
-	
 	if Input.is_action_just_pressed("fire_reload"):
 		_reload()
-	
 	if Input.is_action_just_pressed("fire_melee"):
 		_melee()
 
@@ -98,8 +133,8 @@ func _fire(mouse: int):
 		return
 	
 	#check if the center of the reticle is inside part of the Environment
-	var r_pars = PhysicsPointQueryParameters2D.new()
-	r_pars.collision_mask = 0b00_0000_0010
+	var r_pars := PhysicsPointQueryParameters2D.new()
+	r_pars.collision_mask = 0b00_0000_0010 #environment
 	r_pars.collide_with_areas = true
 	r_pars.position = _pivot.find_child("Reticle").global_position
 	if get_viewport().world_2d.direct_space_state.intersect_point(r_pars, 1):
@@ -117,7 +152,8 @@ func _fire(mouse: int):
 	if not _is_overheated:
 		_increment_overheat()
 	
-	_ammo_types[mouse].fire(_pivot)
+	_ammo_types[mouse].type.fire(_pivot.global_rotation, _pivot.find_child("Reticle").global_position, DAMAGE_MASK)
+	_ammo_types[mouse].ammo -= 1; _ammo_types[mouse].can_fire = false;_ammo_types[mouse].cooldown_timer.start()
 	
 	if not _can_shotgun_jump and _touched_ground < 2:
 		_can_shotgun_jump = true
@@ -159,7 +195,6 @@ func _on_hurtbox_entered(area: HittableComponent):
 func _reloaded():
 	_ammo_types[0].ammo = _ammo_types[0].max_ammo
 	_ammo_types[1].ammo = _ammo_types[1].max_ammo
-
 
 func _shotgun_jump_timeout():
 	_can_shotgun_jump = false
