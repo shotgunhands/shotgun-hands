@@ -16,8 +16,54 @@ size = Vector2(27, 51)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ic78v"]
 size = Vector2(27, 51)
 
-[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
-script = ExtResource("1_scsdo")
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("_hurtbox", "_debug_visual_hurtbox", "_debug_visual_enemy") groups=["Enemy"]]
+script = ExtResource("1_3ri18")
+_run_speed = 50.0
+_hurtbox = NodePath("Hurtbox")
+_debug_visual_hurtbox = NodePath("Hurtbox/Polygon2D")
+_debug_visual_enemy = NodePath("Placeholder")
+_idle_color = Color(0.337255, 0.752941, 0.337255, 1)
+_chase_color = Color(0.713726, 0.431373, 0.188235, 1)
+_attack_color = Color(0.839216, 0.188235, 0.172549, 1)
+_hit_damage = 25.0
+
+[node name="AttackTimers" type="Node" parent="."]
+
+[node name="WindupTimer" type="Timer" parent="AttackTimers"]
+wait_time = 0.3
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="AttackTimers"]
+wait_time = 0.05
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="AttackTimers"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(27, -29)
+shape = SubResource("RectangleShape2D_3361k")
+
+[node name="Polygon2D" type="Polygon2D" parent="Hurtbox"]
+visible = false
+color = Color(0.984314, 0, 0.215686, 1)
+polygon = PackedVector2Array(15, -44, 39, -44, 39, -14, 15, -14)
+
+[node name="DetectionBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionBox"]
+position = Vector2(27, -29)
+shape = SubResource("RectangleShape2D_srbpc")
 
 [node name="HittableComponent" parent="." instance=ExtResource("3_l8dgy")]
 collision_layer = 256
