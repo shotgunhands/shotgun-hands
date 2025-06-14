@@ -1,6 +1,21 @@
 extends Node
 
 const SAVE_PATH = "user://save_game.dat"
+const DEFAULT_SAVE : Dictionary = {
+	"money_dollars" : 0,
+	"levels" : {
+		# Any level is set to true after it is completed.
+		1 : false,
+		2 : false
+	},
+	# Upgrades items and detriments
+	"upgrades" : {},
+	"detriments" : {},
+	"side_quests" : {}
+	
+}
+
+
 
 # delete the old savegame and write the game data to a new save file
 func save_game(dict: Dictionary):
@@ -20,3 +35,7 @@ func load_game():
 	var dict = JSON.parse_string(file_c)
 	file.close()
 	return dict
+
+# Creates a new game file dictionary and saves it.
+func new_save_file():
+	pass
